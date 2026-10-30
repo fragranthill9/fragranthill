@@ -153,6 +153,54 @@ Goal: the body, not the technology. These are the clips that travel. Pick the dr
 5. **What are you.** "Do you think of yourself as a gamer, a pilot, or a robot trainer?" 你觉得自己是玩家、飞行员，还是机器人训练师？ Why: the answer names the new job this creates.
 6. **The car question.** "You have driven the race car too. Which is harder, and why?" 你也开过赛车。哪个更难，为什么？ Why: the bridge again, said by a practitioner.
 
+## Trending-topic questions: memory chips, AI compute and the hooks of the moment
+
+Memory chips (存储芯片: DRAM, HBM, NAND) are the hottest business story in the world this year, and they are a detour for this company unless each question lands back on their car, their cockpit or their data. So use these as bridges, not as a segment: at most three per sit-down, the memory questions to the CTO and the founder, the rest wherever they fit. A Western viewer who knows nothing about remote racing knows about the RAM shortage and about Nvidia; these questions let them in.
+
+**The facts behind the questions, as reported in October 2026; verify on the day.** SK Hynix posted a first-quarter operating margin near 72% and said high-end memory stays tight for about three more years ([Korea JoongAng Daily](https://www.koreajoongangdaily.com/business/sk-hynix-forecasts-prolonged-chip-supercycle-with-supply-constraints-to-persist-3-more-years/12556961)). Samsung has reportedly raised memory prices by up to 60% since September as AI data centres absorb supply ([Tom's Hardware](https://www.tomshardware.com/tech-industry/samsung-raises-memory-chip-prices-by-up-to-60-percent-since-september-according-to-reports-ai-data-center-build-out-strangles-supply)). Consumer DDR5 and NAND prices have roughly doubled, and HBM, DRAM and NAND are described as sold out for 2026 ([PC Gamer](https://www.pcgamer.com/hardware/memory/were-facing-what-has-never-happened-before-hdd-dram-hbm-nand-all-in-severe-shortage-in-2026-says-silicon-motions-ceo-as-memory-prices-continue-to-soar)). CXMT (长鑫) raised about 57.9 billion yuan in its Shanghai listing in July 2026, closed its first day up 466%, and named no HBM project in its prospectus ([Tom's Hardware](https://www.tomshardware.com/tech-industry/cxmt-closes-up-466-percent-in-shanghai-debut-with-no-hbm-project-in-its-ipo-prospectus)). YMTC (长江存储) is reported at about 13% of global NAND and preparing its own IPO ([Korea Times](https://www.koreatimes.co.kr/business/companies/20260606/chinese-memory-firms-edge-closer-to-challenging-koreas-chip-giants)).
+
+**Memory chips, to the CTO.**
+
+1. **The bill of materials.** "Samsung has reportedly raised memory prices by up to 60% since September, and DRAM is sold out for the year. Your cockpits, your edge servers and your Ro-boxes all carry memory. What has the AI boom done to the cost of building one car and one cockpit?"
+    三星据报道自 9 月以来把存储价格提高了最多 60%，DRAM 今年已经全部售罄。你们的座舱、边缘服务器、Ro-box 都用存储。AI 热潮让造一辆车加一个座舱的成本变了多少？
+    Why: puts the world's hottest topic on their factory floor. A Western audience understands a bill of materials.
+2. **The queue.** "When SK Hynix and Samsung are selling every chip to Nvidia's customers, where does a Shanghai sports-technology company stand in the queue? Do you buy Chinese memory, CXMT or YMTC, and does it work?"
+    当 SK 海力士和三星把每一颗芯片都卖给英伟达的客户时，一家上海的科技体育公司在队伍里排在哪？你们买国产存储吗，长鑫或长江？好用吗？
+    Why: China's chip self-sufficiency told from a buyer's seat, which is the version nobody films. CXMT's 466% debut makes it current.
+3. **The data business meets the storage bill.** "Every race produces synchronised video, control inputs and car state. Storage is exactly the thing that got expensive this year. Is your data a product, or a cost?"
+    每场比赛都产生同步的视频、控制输入和车辆状态。今年变贵的恰恰是存储。你们的数据是产品，还是成本？
+    Why: ties the embodied-AI data story to the shortage and forces a real answer on unit economics.
+
+**Memory chips, to the founder.**
+
+4. **The three-year squeeze.** "The memory makers say supply stays tight for three more years. If hardware gets dearer every quarter, do you end up owning more cars or fewer, and do drivers start bringing their own cockpits?"
+    存储厂商说供应还要紧三年。如果硬件每个季度都更贵，你们最后是持有更多车还是更少车？车手会不会开始自带座舱？
+    Why: a strategy question with a visible consequence. The answer reveals whether they go asset-light or asset-heavy.
+
+**AI compute and physical AI, to either.**
+
+5. **Nvidia's story.** "Nvidia calls this the decade of physical AI, and Jensen Huang says the next wave is robots. Are you a customer of that story or a competitor to it, since your robots have a human inside?"
+    英伟达把这十年叫作“物理 AI”，黄仁勋说下一波是机器人。你们是这个故事的客户，还是它的竞争者？毕竟你们的机器人里有一个人。
+    Why: a name every Western viewer knows, and it positions them against the autonomy narrative in one answer.
+6. **The DeepSeek move.** "DeepSeek proved China can do more with fewer chips. Is there a DeepSeek move in teleoperation: more with less bandwidth, cheaper hardware, smaller models?"
+    DeepSeek 证明了中国能用更少的芯片做更多的事。遥操作里有没有一个 DeepSeek 式的做法：更少带宽、更便宜的硬件、更小的模型？
+    Why: the most recognisable China-AI reference in the West; it invites the frugal-engineering story Chinese founders tell well.
+7. **Humanoid season.** "Unitree is listed, and Beijing ran 666 teams of humanoids in August. Which humanoid will be on your track first, and will it be driven from another country?"
+    宇树上市了，北京 8 月办了 666 支队伍的人形机器人运动会。哪家的人形机器人会先出现在你们的赛道上？会从另一个国家操控吗？
+    Why: dated and concrete. Confirm Unitree's listing status on the day; it was widely reported as in process in 2026.
+8. **The box and the border.** "Chips are the front line of the US-China contest. Is there anything in your box you could not buy tomorrow if the rules changed, and what would you do?"
+    芯片是中美竞争的前线。你们盒子里有没有哪个东西明天规则一变就买不到？那你们怎么办？
+    Why: the geopolitical question asked as an engineering question, which keeps it answerable and keeps them comfortable.
+9. **What 5G was for.** "China Mobile is selling 5G-A now. Do you need it, or is this the first use case that makes an ordinary person feel why 5G existed?"
+    中国移动在推 5G-A。你们需要它吗？还是说这是第一个让普通人感受到 5G 为什么存在的应用？
+    Why: the telecom hook, and the line an Ericsson engineer will quote.
+
+**Rapid-fire additions.**
+
+- Nvidia or Huawei: whose chips are in the box? 英伟达还是华为：盒子里是谁的芯片？
+- If DRAM doubles again, what do you cut first? 如果 DRAM 再涨一倍，你先砍什么？
+- The memory shortage, in one word. 用一个词形容存储短缺。
+
 ## Rapid-fire, closers, and the lines you must get
 
 **Rapid-fire, for every interviewee, at the end, fast.** The Circuit closes its long episodes this way. Say "short answers, first thing that comes to mind" and keep the camera rolling.
