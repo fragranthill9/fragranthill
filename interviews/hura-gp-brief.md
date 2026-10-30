@@ -26,7 +26,7 @@ The story is not "a racing game with real cars". The story is that a Chinese com
 
 Everything the company does is one closed loop with two legs. Control goes out: the driver turns a wheel, the input becomes packets, the packets cross a network and a box on the car turns them into steering and throttle. Video comes back: a camera on the car captures a frame, a chip compresses it, it crosses the same network and appears on the driver's screen. The race is decided by how fast that loop closes, measured in milliseconds, and by how the system behaves when the network misbehaves.
 
-*(Block diagram: cockpit → control encoder → network → RoBOX → car, with the video leg back and a broadcast branch. Live version with the drawing: https://claude.ai/artifact/5GQLEK8BK9FEy8YdzMyNrd)*
+![Teleoperation loop: control leg, video leg, broadcast branch](assets/hura-gp-teleoperation-loop.png)
 
 Read it left to right for control and right to left for video. The driver only ever sees the video leg, so every millisecond on the right-to-left path is a millisecond the car has already moved.
 
