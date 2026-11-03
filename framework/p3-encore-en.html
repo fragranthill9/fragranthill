@@ -2,144 +2,220 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
 <style>
-:root{
-  --bg:#FFFFFF; --surface:#F8F9FA; --ink:#202124; --ink-2:#3C4043; --muted:#5F6368; --line:#DADCE0; --line-2:#E8EAED;
-  --accent:#1A73E8;
-  --p1:#EA4335; --p2:#4285F4; --p3:#34A853; --p4:#FBBC04; --p5:#A142F4;
-  --p1-soft:#FCE8E6; --p2-soft:#E8F0FE; --p3-soft:#E6F4EA; --p4-soft:#FEF7E0; --p5-soft:#F3E8FD;
-  --p4-ink:#202124;
-  --font:"Roboto","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
-  color-scheme:light;
-}
+:root{--bg:#FFFFFF;--surface:#F8F9FA;--ink:#202124;--ink-2:#3C4043;--muted:#5F6368;--line:#DADCE0;--accent:#1A73E8;
+--font:"Roboto","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;color-scheme:light}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.45;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
+padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
 .sheet{max-width:1240px;margin:0 auto}
-header{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;justify-content:space-between;padding:18px 0 12px;border-bottom:1px solid var(--line)}
+header{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;justify-content:space-between;padding:16px 0 12px;border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:12px}
-.seal{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff;background:linear-gradient(135deg,var(--p2) 0 25%,var(--p1) 25% 50%,var(--p4) 50% 75%,var(--p3) 75% 100%)}
-.brand b{font-weight:700;font-size:14px;letter-spacing:.04em;display:block}
-.brand span{color:var(--muted);font-size:12px}
-.docline{display:flex;align-items:center;gap:14px;font-size:12px;color:var(--muted)}
-.docline b{color:var(--ink);display:block;font-size:13px}
-.pages{display:flex;gap:6px}
-.pages span{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;border:1px solid var(--line);color:var(--muted)}
+.seal{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff;background:conic-gradient(#4285F4 0 25%,#EA4335 25% 50%,#FBBC04 50% 75%,#34A853 75% 100%)}
+.brand b{font-weight:700;font-size:14px;display:block}.brand span{color:var(--muted);font-size:12px}
+.docline{display:flex;align-items:center;gap:14px;font-size:12px;color:var(--muted)}.docline b{color:var(--ink);display:block;font-size:13px}
+.pages{display:flex;gap:6px}.pages span{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;border:1px solid var(--line);color:var(--muted)}
 .pages span.on{background:var(--accent);border-color:var(--accent);color:#fff}
 .lang{font-size:12px;font-weight:500;color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:16px;padding:4px 12px}
+.hero{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:20px;align-items:center;padding:18px 0 6px}
+h1{font-size:clamp(26px,3.4vw,40px);font-weight:700;line-height:1.1;letter-spacing:-.01em;margin:0 0 8px;text-wrap:balance}
+.hero p{margin:0;color:var(--ink-2);font-size:15px;max-width:60ch}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.kpi{background:var(--surface);border-radius:12px;padding:12px 14px}
+.kpi .n{font-size:26px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;line-height:1.1}
+.kpi .l{font-size:11.5px;color:var(--ink-2);margin-top:4px;line-height:1.3}.kpi .l i{display:block;font-style:normal;color:var(--muted);font-size:10px;margin-top:2px}
 .grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px;margin-top:14px}
-.c12{grid-column:span 12}.c8{grid-column:span 8}.c7{grid-column:span 7}.c6{grid-column:span 6}.c5{grid-column:span 5}.c4{grid-column:span 4}.c3{grid-column:span 3}
-.blk{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:16px 18px;min-width:0}
-.blk h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 10px;font-weight:700}
-.title{grid-column:span 8;padding:6px 0 0}
-.title h1{font-size:clamp(26px,3.4vw,38px);font-weight:700;line-height:1.1;letter-spacing:-.01em;margin:0 0 8px;text-wrap:balance}
-.title p{margin:0;color:var(--ink-2);font-size:15px;max-width:64ch}
-.facts{grid-column:span 4;display:grid;gap:8px;align-content:start}
-.fact{background:var(--surface);border-radius:10px;padding:10px 14px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center}
-.fact .n{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--accent);min-width:70px}
-.fact .l{font-size:12px;color:var(--ink-2);line-height:1.3}
-.fact .l i{display:block;font-style:normal;color:var(--muted);font-size:10.5px;margin-top:2px}
-.pillars{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
-.pc{border-radius:10px;border:1px solid var(--line);overflow:hidden;background:var(--bg);display:flex;flex-direction:column}
-.pc .hd{padding:10px 12px;color:#fff;font-weight:700;font-size:14px;line-height:1.2}
-.pc .hd small{display:block;font-weight:500;font-size:11px;opacity:.9;margin-top:2px}
-.pc .bd{padding:10px 12px;font-size:12.5px;color:var(--ink-2);display:grid;gap:8px;flex:1}
-.pc .k{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px;font-weight:700}
-.pc ul{margin:0;padding-left:16px}
-.pc li{margin:1px 0}
-.pc .chip{align-self:start;margin-top:auto}
-.chip{display:inline-block;padding:2px 9px;border-radius:12px;font-size:10.5px;font-weight:700;letter-spacing:.03em}
-.ups{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;text-align:center;color:var(--muted);font-size:16px;line-height:1;margin:6px 0}
-.band{border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-.band.core{background:var(--p2-soft);border:1px solid #AECBFA}
-.band.inputs{background:var(--surface);border:1px solid var(--line)}
-.band .lbl{grid-column:1/-1;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--accent);margin-bottom:-4px}
-.band.inputs .lbl{color:var(--muted)}
-.band b{display:block;font-size:13px;margin-bottom:2px}
-.band p{margin:0;font-size:12px;color:var(--ink-2)}
-figure{margin:0;overflow-x:auto}
-figure svg{display:block;width:100%;height:auto}
-figcaption{font-size:11.5px;color:var(--muted);margin-top:8px}
-.list{display:grid;gap:10px}
-.list div{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;font-size:13px;color:var(--ink-2)}
-.list b{color:var(--ink)}
-.num{width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700;flex:none}
-.phases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.ph{border-radius:10px;padding:12px 14px;border:1px solid var(--line)}
-.ph b{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
-.ph .who{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px}
-.ph p{margin:0;font-size:12.5px;color:var(--ink-2)}
-.ph .gate{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--ink-2)}
-.ph .gate b{display:inline;font-size:10px;color:var(--muted);margin-right:4px}
-.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:0}
-table{width:100%;border-collapse:collapse;font-size:12.5px}
-th{text-align:left;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:6px 8px;border-bottom:2px solid var(--line)}
-td{padding:8px;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
-td:first-child{color:var(--ink);font-weight:700}
-.mx th{text-align:center}.mx th:first-child{text-align:left}.mx td{text-align:center}.mx td:first-child{text-align:left;white-space:nowrap}
-.d{display:inline-block;width:14px;height:14px;border-radius:50%}
-.d.h{opacity:.3}
-.streams{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.st{border-radius:10px;border:1px solid var(--line);padding:12px 14px;background:var(--surface)}
-.st b{display:block;font-size:14px;margin-bottom:4px}
-.st p{margin:0 0 6px;font-size:12.5px;color:var(--ink-2)}
-.st .meta{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-.money{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
-.mc{border-radius:10px;border-top:4px solid var(--line);background:var(--surface);padding:10px 12px;font-size:12.5px;color:var(--ink-2)}
-.mc b{display:block;font-size:13px;color:var(--ink);margin-bottom:4px}
-.mc i{display:block;font-style:normal;font-size:11.5px;color:var(--muted);margin-top:6px;padding-top:6px;border-top:1px dashed var(--line)}
-.cols3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.cols4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-.cell{border-radius:10px;background:var(--surface);padding:12px 14px;font-size:12.5px;color:var(--ink-2)}
-.cell b{display:block;font-size:13px;color:var(--ink);margin-bottom:4px}
-.cell ul{margin:0;padding-left:16px}
-.offer{grid-column:span 4;background:var(--p4-soft);border:1px solid #FDE293;border-radius:12px;padding:14px 16px}
-.offer h2{color:var(--ink);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 8px;font-weight:700}
-.offer dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:12.5px}
-.offer dt{color:var(--muted);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;font-weight:700}
-.offer dd{margin:0;color:var(--ink)}
-.tier{border-radius:10px;border:1px solid var(--line);padding:12px 14px;background:var(--bg)}
-.tier b{display:block;font-size:14px}
-.tier small{display:block;color:var(--muted);font-size:11px;margin-bottom:6px}
-.tier ul{margin:0;padding-left:16px;font-size:12.5px;color:var(--ink-2)}
-.risk{border-left:4px solid var(--p1);padding:4px 12px;font-size:12.5px;color:var(--ink-2);background:var(--surface);border-radius:0 8px 8px 0}
-.risk b{color:var(--ink)}
+.c12{grid-column:span 12}.c8{grid-column:span 8}.c7{grid-column:span 7}.c6{grid-column:span 6}.c5{grid-column:span 5}.c4{grid-column:span 4}
+.fig{border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0;background:var(--bg)}
+.fig h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 8px;font-weight:700}
+figure{margin:0;overflow-x:auto}figure svg{display:block;width:100%;height:auto}
+figcaption{font-size:11.5px;color:var(--muted);margin-top:8px;line-height:1.4}
 .foot{margin-top:14px;font-size:11.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:space-between}
-@media (max-width:1000px){.pillars,.money{grid-template-columns:repeat(2,minmax(0,1fr))}.streams{grid-template-columns:repeat(3,minmax(0,1fr)) !important}.ups{display:none}.band{grid-template-columns:1fr 1fr}}
-@media (max-width:860px){.c8,.c7,.c6,.c5,.c4,.c3,.title,.facts,.offer{grid-column:span 12}.phases,.cols3,.cols4{grid-template-columns:1fr}.streams{grid-template-columns:1fr 1fr !important}.pillars,.money,.band{grid-template-columns:1fr}}
+@media (max-width:900px){.hero{grid-template-columns:1fr}.c8,.c7,.c6,.c5,.c4{grid-column:span 12}.kpis{grid-template-columns:1fr 1fr}}
 </style>
-<div class="sheet" lang="en">
-<header>
-  <div class="brand"><div class="seal">香山</div><div><b>Fragrant Hill Studio</b><span>Editorial house · Stockholm · Europe ↔ China</span></div></div>
-  <div class="docline"><div><b>Page 3 of 3 · The project · Encore</b>Confidential · prepared for partner and investor discussion</div><div class="pages"><span class="">1</span><span class="">2</span><span class="on">3</span></div><a class="lang" href="https://claude.ai/artifact/Urzf9UocbrByvERDNagf7M">中文版 →</a></div>
-</header>
+<div class="sheet" lang="en"><header><div class="brand"><div class="seal">香山</div><div><b>Fragrant Hill Studio</b><span>Editorial house · Stockholm · Europe ↔ China</span></div></div>
+<div class="docline"><div><b>Page 3 of 3 · The project · Encore</b>Confidential · for partner and investor discussion</div><div class="pages"><span class="">1</span><span class="">2</span><span class="on">3</span></div><a class="lang" href="https://claude.ai/artifact/Urzf9UocbrByvERDNagf7M">中文版 →</a></div></header>
+<div class="hero"><div><div style="font-size:11.5px;letter-spacing:.06em;color:#B06000;font-weight:700;margin-bottom:6px">ENCORE · SPONSORSHIP PROGRAMME FOR A WORLD-CLASS PIANIST&#x27;S EUROPEAN TOUR</div><h1>Sell the room, not the reach.</h1><p>A celebrity concert tour packaged as sponsorship, hospitality and content for automotive, robotics and technology brands moving between Europe and China. Fragrant Hill holds the stage. The partner holds the doors.</p></div><div class="kpis"><div class="kpi"><div class="n">5,000</div><div class="l">Royal Albert Hall tickets sold in 48 hours for one recital<i>Classic FM, 2013</i></div></div><div class="kpi"><div class="n">0</div><div class="l">whole-tour presenting partners ever announced for this artist<i>research notes 3</i></div></div><div class="kpi"><div class="n">62%</div><div class="l">of European brands want to sponsor culture; 61% do not yet<i>ESA arts survey</i></div></div></div></div>
 <div class="grid">
-  <div class="title"><div style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#B06000;font-weight:700;margin-bottom:6px">Encore · sponsorship programme for a world-class pianist&#x27;s European tour</div><h1>Sell the room, not the reach.</h1><p>Encore packages a celebrity concert tour as a sponsorship, hospitality and content property for automotive, robotics and technology brands moving between Europe and China. Fragrant Hill holds the stage and the artist relationship. The partner holds the doors.</p></div>
-  <div class="offer"><h2>The offer in one block</h2><dl><dt>Property</dt><dd>A European tour leg by a pianist who sells out the largest halls; Nordic cities plus one of Hamburg, Paris, London</dd><dt>Buyers</dt><dd>Brands launching or scaling in Europe: EV and premium automotive, robotics, semiconductors, consumer tech</dd><dt>Structure</dt><dd>1 presenting partner · 3 category-exclusive official partners · up to 6 hospitality partners</dd><dt>Payment</dt><dd>Deposit on signature, balance before the first show</dd><dt>Our revenue</dt><dd>Agency commission on rights fees (industry average 20%) plus production and hospitality fees</dd><dt>Repeats as</dt><dd>Annual tour · executive salons on the same stages · sponsor dinners</dd></dl></div>
-  <div class="blk c4"><h2>The property · reported</h2><div class="facts" style="grid-column:auto"><div class="fact"><div class="n">5,000</div><div class="l">Royal Albert Hall tickets sold in 48 hours for one recital<i>Classic FM, 2013</i></div></div><div class="fact"><div class="n">16–20M</div><div class="l">social followers claimed across platforms<i>Slipped Disc 2025; claimed, not verified per platform</i></div></div><div class="fact"><div class="n">13</div><div class="l">European cities on the autumn 2026 run; 2027 dates listed in London, Hamburg, Bonn<i>Deutsche Grammophon tour page; listings</i></div></div><div class="fact"><div class="n">0</div><div class="l">whole-tour presenting partners ever announced for this artist<i>Research notes 3</i></div></div></div></div>
-  <div class="blk c4"><h2>The market · reported</h2><div class="facts" style="grid-column:auto"><div class="fact"><div class="n">€34.5bn</div><div class="l">European sponsorship spend 2025, up 4.7%<i>ESA / Nielsen Sports 2026</i></div></div><div class="fact"><div class="n">€9.7bn</div><div class="l">of it is non-sport: arts, culture, entertainment (28%)<i>ESA / Nielsen Sports 2026</i></div></div><div class="fact"><div class="n">62%</div><div class="l">of brands want to sponsor culture; 61% do not yet<i>ESA arts and culture survey</i></div></div><div class="fact"><div class="n">0</div><div class="l">Chinese EV, robotics or consumer-tech brands found sponsoring classical music in Europe<i>Finding of absence, research notes 3</i></div></div></div></div>
-  <div class="blk c4"><h2>Precedents · automotive and tech in classical music</h2><table><thead><tr><th>Brand</th><th>Property</th><th>Since</th></tr></thead><tbody><tr><td>Audi</td><td>Salzburg Festival main sponsor, extended to 2027</td><td>1995</td></tr><tr><td>Porsche</td><td>Gewandhaus Leipzig, incl. international tours</td><td>2011</td></tr><tr><td>BMW</td><td>Opera for All, Munich and Berlin, to 2030</td><td>1997</td></tr><tr><td>Volvo</td><td>Gothenburg Symphony principal sponsor</td><td>long-running</td></tr><tr><td>VW Group</td><td>Artist cultural ambassador; presented a China tour</td><td>2012</td></tr><tr><td>Siemens</td><td>Bayreuth Festival, about $1.4M a year</td><td>to 2011</td></tr></tbody></table><figcaption>Fees undisclosed except Siemens. A thirty-year playbook for European brands, unused by Chinese brands in Europe.</figcaption></div>
-  <div class="blk c7"><h2>How the money flows</h2><figure><svg viewBox="0 0 760 300" role="img" aria-label="Sponsors pay rights and hospitality fees into the Encore programme; money goes out to the tour producer, Fragrant Hill and the partner; value returns to sponsors as hospitality, association, content and reach." xmlns="http://www.w3.org/2000/svg">
-<defs><marker id="mf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5F6368"/></marker><marker id="mfy" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#F29900"/></marker></defs>
-<rect x="10" y="80" width="180" height="130" rx="10" fill="#F8F9FA" stroke="#DADCE0"/>
-<text x="24" y="106" font-size="13" font-weight="700" fill="#202124">SPONSORS</text>
-<text x="24" y="130" font-size="12" fill="#3C4043">1 presenting partner</text><text x="24" y="150" font-size="12" fill="#3C4043">3 official partners</text><text x="24" y="170" font-size="12" fill="#3C4043">up to 6 hospitality partners</text>
-<path d="M190 118 H276" stroke="#F29900" stroke-width="2" marker-end="url(#mfy)"/><text x="233" y="110" font-size="11" text-anchor="middle" fill="#202124" font-weight="700">rights fees</text>
-<path d="M190 172 H276" stroke="#F29900" stroke-width="2" marker-end="url(#mfy)"/><text x="233" y="190" font-size="11" text-anchor="middle" fill="#202124" font-weight="700">hospitality fees</text>
-<rect x="280" y="70" width="200" height="150" rx="10" fill="#FEF7E0" stroke="#FBBC04" stroke-width="1.6"/>
-<text x="294" y="98" font-size="13" font-weight="700" fill="#202124">ENCORE PROGRAMME</text>
-<text x="294" y="124" font-size="12" fill="#3C4043">contracts · category exclusivity</text><text x="294" y="144" font-size="12" fill="#3C4043">deposit on signature</text>
-<g stroke="#5F6368" stroke-width="1.4" fill="none" marker-end="url(#mf)"><path d="M480 100 H576"/><path d="M480 145 H576"/><path d="M480 190 H576"/></g>
-<rect x="580" y="80" width="170" height="40" rx="8" fill="#FFFFFF" stroke="#DADCE0"/><text x="592" y="97" font-size="12" font-weight="700" fill="#202124">Tour producer</text><text x="592" y="112" font-size="10.5" fill="#5F6368">artist · venues · production</text>
-<rect x="580" y="125" width="170" height="40" rx="8" fill="#E8F0FE" stroke="#4285F4" stroke-width="1.4"/><text x="592" y="142" font-size="12" font-weight="700" fill="#1A73E8">Fragrant Hill</text><text x="592" y="157" font-size="10.5" fill="#3C4043">commission · production fees</text>
-<rect x="580" y="170" width="170" height="40" rx="8" fill="#FFFFFF" stroke="#DADCE0"/><text x="592" y="187" font-size="12" font-weight="700" fill="#202124">Partner</text><text x="592" y="202" font-size="10.5" fill="#5F6368">share on introduced sponsors</text>
-<path d="M380 220 V256 H100 V214" fill="none" stroke="#5F6368" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#mf)"/>
-<text x="240" y="276" font-size="11" text-anchor="middle" fill="#3C4043">value back: hospitality · association · content · reach</text>
-</svg></figure><figcaption>Hospitality is what B2B sponsors measure: dealer and client evenings in a concert hall. Reach is the last argument, not the first.</figcaption></div>
-  <div class="blk c5"><h2>Package tiers</h2><div class="cols3" style="grid-template-columns:1fr"><div class="tier" style="border-top:4px solid var(--p4)"><b>Presenting partner</b><small>one · &quot;presented by&quot;</small><ul><li>Naming across the tour; category exclusivity</li><li>VIP tables per city; private recital for clients</li><li>12-month content rights; first refusal on the next edition</li></ul></div><div class="tier" style="border-top:4px solid var(--p4)"><b>Official partner</b><small>three · one per category</small><ul><li>Category exclusivity: automotive · robotics and tech · finance or luxury</li><li>Programme and screen branding; VIP table per city</li><li>Shared content pack</li></ul></div><div class="tier" style="border-top:4px solid var(--line)"><b>Hospitality partner</b><small>up to six</small><ul><li>Premium seat blocks in two cities</li><li>Lounge access and branding; photo and social assets</li></ul></div></div><figcaption>Fees are set per market against the precedents below and confirmed in the first pitches.</figcaption></div>
-  <div class="blk c12"><h2>How it proceeds</h2><div class="cols4"><div class="cell"><b><span class="num" style="display:inline-grid;margin-right:8px;vertical-align:middle">1</span>Secure</b>Rights, dates, venues and open sponsor categories confirmed in writing<div style="margin-top:6px;font-size:11px;color:var(--muted)">Fragrant Hill</div></div><div class="cell"><b><span class="num" style="display:inline-grid;margin-right:8px;vertical-align:middle">2</span>Sell</b>Three tiers, warm introductions, term sheets, contracts with deposits<div style="margin-top:6px;font-size:11px;color:var(--muted)">Fragrant Hill + partner</div></div><div class="cell"><b><span class="num" style="display:inline-grid;margin-right:8px;vertical-align:middle">3</span>Deliver</b>Production, hospitality, client evenings, tour film and content<div style="margin-top:6px;font-size:11px;color:var(--muted)">Fragrant Hill + contractors</div></div><div class="cell"><b><span class="num" style="display:inline-grid;margin-right:8px;vertical-align:middle">4</span>Renew</b>First refusal on the next edition; salon series on the same stages<div style="margin-top:6px;font-size:11px;color:var(--muted)">Fragrant Hill</div></div></div></div>
-  <div class="blk c6"><h2>Who does what</h2><div class="cols3"><div class="cell"><b>Fragrant Hill</b><ul><li>Artist and venue relationship, rights</li><li>Packages, pitch, contracts, collections</li><li>Production, hospitality, content</li></ul></div><div class="cell"><b>Partner</b><ul><li>Warm introductions in automotive, robotics, tech</li><li>Sponsor-side champion</li><li>Invoicing in China where needed</li></ul></div><div class="cell"><b>Sponsor</b><ul><li>Rights and hospitality fees; activation budget</li><li>Guest lists: dealers, clients, officials, press</li><li>Brand assets and approvals</li></ul></div></div></div>
-  <div class="blk c6"><h2>Risks and controls</h2><div class="list" style="gap:8px"><div class="risk"><b>Category conflict.</b> The artist has had automotive partners. Open categories are confirmed in writing before any brand is pitched; if automotive is closed, the presenting tier goes to robotics and consumer tech.</div><div class="risk"><b>Sales cycle.</b> Six-figure sponsorships normally take 9–18 months. We pitch only through warm introductions and start from a base of three signatures.</div><div class="risk"><b>Artist, venue, payment.</b> Cancellation insurance; venues on option; non-refundable deposits; exclusivity written in so one exit does not unwind the others.</div></div></div>
-  <div class="blk c12"><h2>Why it repeats</h2><div class="cols3"><div class="cell"><b>Annual tour edition</b>Same package ladder; sponsors get first refusal. The roster can widen to other performers we can host.</div><div class="cell"><b>Executive salons</b>Salons on the same stages, two to three sponsors each. Feeds the Community pillar.</div><div class="cell"><b>Content and network</b>Every concert yields a tour film, interview material and a guest list that the other pillars reuse.</div></div></div>
-</div>
-<div class="foot"><span>Sources: framework/research/ · figures are reported unless marked as estimates</span><span>Fragrant Hill Studio</span></div>
-</div>
+<div class="fig c7"><h2>How the money flows</h2><figure><svg viewBox="0 0 760 290" role="img" aria-label="Money flow from sponsors into the Encore programme and out to the tour producer, Fragrant Hill and the partner; value returns to sponsors." xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5F6368"/></marker><marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1A73E8"/></marker><marker id="ary" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#F29900"/></marker></defs>
+<rect x="10" y="70" width="180" height="140" rx="12" fill="#F8F9FA" stroke="#DADCE0"/>
+<g transform="translate(24,84) scale(1.3)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18"/><path d="M8 7h3M13 7h3M8 11h3M13 11h3M8 15h3M13 15h3M10 21v-3h4v3"/></g>
+<text x="64" y="104" font-size="14" font-weight="700" fill="#202124" text-anchor="start" >SPONSORS</text>
+<circle cx="34" cy="134" r="10" fill="#FBBC04"/>
+<text x="34" y="138" font-size="11" font-weight="700" fill="#202124" text-anchor="middle" >1</text>
+<circle cx="34" cy="158" r="10" fill="#FBBC04"/>
+<text x="34" y="162" font-size="11" font-weight="700" fill="#202124" text-anchor="middle" >3</text>
+<circle cx="34" cy="182" r="10" fill="#FBBC04"/>
+<text x="34" y="186" font-size="11" font-weight="700" fill="#202124" text-anchor="middle" >6</text>
+<text x="52" y="138" font-size="12" font-weight="500" fill="#3C4043" text-anchor="start" >presenting</text>
+<text x="52" y="162" font-size="12" font-weight="500" fill="#3C4043" text-anchor="start" >official</text>
+<text x="52" y="186" font-size="12" font-weight="500" fill="#3C4043" text-anchor="start" >hospitality</text>
+<path d="M190 112 H276" stroke="#F29900" stroke-width="2.4" marker-end="url(#ary)"/>
+<text x="233" y="104" font-size="11" font-weight="700" fill="#202124" text-anchor="middle" >rights fees</text>
+<path d="M190 168 H276" stroke="#F29900" stroke-width="2.4" marker-end="url(#ary)"/>
+<text x="233" y="186" font-size="11" font-weight="700" fill="#202124" text-anchor="middle" >hospitality fees</text>
+<rect x="280" y="62" width="200" height="156" rx="12" fill="#FEF7E0" stroke="#FBBC04" stroke-width="1.8"/>
+<g transform="translate(294,76) scale(1.3)" fill="none" stroke="#B06000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="1"/><path d="M6 5v8M10 5v8M14 5v8M18 5v8"/></g>
+<text x="334" y="96" font-size="14" font-weight="700" fill="#202124" text-anchor="start" >ENCORE</text>
+<text x="294" y="130" font-size="12" font-weight="500" fill="#3C4043" text-anchor="start" >contracts · exclusivity</text>
+<text x="294" y="150" font-size="12" font-weight="500" fill="#3C4043" text-anchor="start" >deposit on signature</text>
+<g transform="translate(294,164) scale(1.1)" fill="none" stroke="#F29900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></g>
+<g transform="translate(330,164) scale(1.1)" fill="none" stroke="#F29900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M3 15h18M8 4v16M16 4v16"/></g>
+<g transform="translate(366,164) scale(1.1)" fill="none" stroke="#F29900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v5"/><rect x="3" y="11" width="18" height="6" rx="2"/><path d="M5 17v3M19 17v3"/></g>
+<path d="M480 92 H576" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="580" y="72" width="170" height="42" rx="10" fill="#fff" stroke="#DADCE0" stroke-width="1"/>
+<g transform="translate(590,81) scale(1.0)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="1"/><path d="M6 5v8M10 5v8M14 5v8M18 5v8"/></g>
+<text x="622" y="90" font-size="12.5" font-weight="700" fill="#202124" text-anchor="start" >Tour producer</text>
+<text x="622" y="106" font-size="10.5" font-weight="400" fill="#3C4043" text-anchor="start" >artist · venues · production</text>
+<path d="M480 142 H576" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="580" y="122" width="170" height="42" rx="10" fill="#E8F0FE" stroke="#4285F4" stroke-width="1.6"/>
+<g transform="translate(590,131) scale(1.0)" fill="none" stroke="#1A73E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7 7 .6-5.3 4.6L18.5 21 12 17l-6.5 4 1.8-6.8L2 9.6 9 9z"/></g>
+<text x="622" y="140" font-size="12.5" font-weight="700" fill="#1A73E8" text-anchor="start" >Fragrant Hill</text>
+<text x="622" y="156" font-size="10.5" font-weight="400" fill="#3C4043" text-anchor="start" >commission · fees</text>
+<path d="M480 192 H576" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="580" y="172" width="170" height="42" rx="10" fill="#fff" stroke="#DADCE0" stroke-width="1"/>
+<g transform="translate(590,181) scale(1.0)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l4-4h5l3 3-3 3 4 4 3-3M22 9l-4-4h-3M8 13l3 3M11 16l2 2M14 18l2 2"/></g>
+<text x="622" y="190" font-size="12.5" font-weight="700" fill="#202124" text-anchor="start" >Partner</text>
+<text x="622" y="206" font-size="10.5" font-weight="400" fill="#3C4043" text-anchor="start" >share on introduced sponsors</text>
+<path d="M380 218 V252 H100 V214" fill="none" stroke="#5F6368" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#ar)"/>
+<text x="240" y="272" font-size="11" font-weight="500" fill="#3C4043" text-anchor="middle" >value back: hospitality · association · content · reach</text>
+</svg></figure><figcaption>Hospitality is what B2B sponsors measure: dealer and client evenings in a concert hall. Reach is the last argument.</figcaption></div>
+<div class="fig c5"><h2>The package ladder · what each tier buys</h2><figure><svg viewBox="0 0 620 300" role="img" aria-label="Pyramid of three sponsor tiers with what each tier receives." xmlns="http://www.w3.org/2000/svg">
+<path d="M190 20 H430 L450 100 H170 Z" fill="#FBBC04" stroke="#F29900" stroke-width="1.2"/>
+<text x="310.0" y="50" font-size="14" font-weight="700" fill="#202124" text-anchor="middle" >1 Presenting partner</text>
+<text x="310.0" y="72" font-size="10.5" font-weight="500" fill="#202124" text-anchor="middle" >naming across the tour · category exclusivity</text>
+<text x="310.0" y="88" font-size="10.5" font-weight="500" fill="#202124" text-anchor="middle" >VIP tables · private recital · 12-month content rights</text>
+<path d="M140 110 H480 L500 190 H120 Z" fill="#FDD663" stroke="#F29900" stroke-width="1.2"/>
+<text x="310.0" y="140" font-size="14" font-weight="700" fill="#202124" text-anchor="middle" >3 Official partners</text>
+<text x="310.0" y="162" font-size="10.5" font-weight="500" fill="#202124" text-anchor="middle" >one per category · programme and screen branding</text>
+<text x="310.0" y="178" font-size="10.5" font-weight="500" fill="#202124" text-anchor="middle" >VIP table per city · content pack</text>
+<path d="M90 200 H530 L550 280 H70 Z" fill="#FEF7E0" stroke="#F29900" stroke-width="1.2"/>
+<text x="310.0" y="230" font-size="14" font-weight="700" fill="#202124" text-anchor="middle" >6 Hospitality partners</text>
+<text x="310.0" y="252" font-size="10.5" font-weight="500" fill="#202124" text-anchor="middle" >premium seat blocks · lounge access and branding</text>
+<text x="310.0" y="268" font-size="10.5" font-weight="500" fill="#202124" text-anchor="middle" >photo and social assets</text>
+</svg></figure><figcaption>Fees are set per market against the precedents and confirmed in the first pitches. Deposit on signature, balance before the first show.</figcaption></div>
+<div class="fig c6"><h2>Automotive and finance brands in classical music · years of partnership</h2><figure><svg viewBox="0 0 620 250" role="img" aria-label="Timeline bars of long-running brand partnerships in classical music." xmlns="http://www.w3.org/2000/svg">
+<line x1="255" y1="14" x2="255" y2="214" stroke="#E8EAED"/>
+<text x="254.5531914893617" y="232" font-size="10.5" font-weight="400" fill="#5F6368" text-anchor="middle" >1990</text>
+<line x1="340" y1="14" x2="340" y2="214" stroke="#E8EAED"/>
+<text x="339.6595744680851" y="232" font-size="10.5" font-weight="400" fill="#5F6368" text-anchor="middle" >2000</text>
+<line x1="425" y1="14" x2="425" y2="214" stroke="#E8EAED"/>
+<text x="424.7659574468085" y="232" font-size="10.5" font-weight="400" fill="#5F6368" text-anchor="middle" >2010</text>
+<line x1="510" y1="14" x2="510" y2="214" stroke="#E8EAED"/>
+<text x="509.8723404255319" y="232" font-size="10.5" font-weight="400" fill="#5F6368" text-anchor="middle" >2020</text>
+<line x1="595" y1="14" x2="595" y2="214" stroke="#E8EAED"/>
+<text x="594.9787234042553" y="232" font-size="10.5" font-weight="400" fill="#5F6368" text-anchor="middle" >2030</text>
+<text x="204" y="36" font-size="11.5" font-weight="500" fill="#202124" text-anchor="end" >Deutsche Bank · Berlin Phil</text>
+<rect x="246" y="24" width="349" height="16" rx="4" fill="#4285F4"/>
+<text x="252.04255319148936" y="36" font-size="10" font-weight="700" fill="#fff" text-anchor="start" >1989</text>
+<text x="204" y="68" font-size="11.5" font-weight="500" fill="#202124" text-anchor="end" >Audi · Salzburg Festival</text>
+<rect x="297" y="56" width="272" height="16" rx="4" fill="#4285F4"/>
+<text x="303.1063829787234" y="68" font-size="10" font-weight="700" fill="#fff" text-anchor="start" >1995</text>
+<text x="204" y="100" font-size="11.5" font-weight="500" fill="#202124" text-anchor="end" >BMW · Opera for All</text>
+<rect x="314" y="88" width="281" height="16" rx="4" fill="#4285F4"/>
+<text x="320.1276595744681" y="100" font-size="10" font-weight="700" fill="#fff" text-anchor="start" >1997</text>
+<text x="204" y="132" font-size="11.5" font-weight="500" fill="#202124" text-anchor="end" >Rolex · Vienna Philharmonic</text>
+<rect x="408" y="120" width="153" height="16" rx="4" fill="#4285F4"/>
+<text x="413.74468085106383" y="132" font-size="10" font-weight="700" fill="#fff" text-anchor="start" >2008</text>
+<text x="204" y="164" font-size="11.5" font-weight="500" fill="#202124" text-anchor="end" >Porsche · Gewandhaus Leipzig</text>
+<rect x="433" y="152" width="128" height="16" rx="4" fill="#4285F4"/>
+<text x="439.27659574468083" y="164" font-size="10" font-weight="700" fill="#fff" text-anchor="start" >2011</text>
+<text x="204" y="196" font-size="11.5" font-weight="500" fill="#202124" text-anchor="end" >VW Group · artist ambassador</text>
+<rect x="442" y="184" width="119" height="16" rx="4" fill="#4285F4"/>
+<text x="447.7872340425532" y="196" font-size="10" font-weight="700" fill="#fff" text-anchor="start" >2012</text>
+<line x1="561" y1="14" x2="561" y2="214" stroke="#EA4335" stroke-dasharray="3 3"/>
+<text x="564.936170212766" y="24" font-size="10" font-weight="700" fill="#EA4335" text-anchor="start" >2026</text>
+</svg></figure><figcaption>Bars run from start year to the latest confirmed year. A thirty-year playbook for European brands, unused so far by Chinese brands in Europe.</figcaption></div>
+<div class="fig c6"><h2>European sponsorship 2025 · € billion</h2><figure><svg viewBox="0 0 620 252" role="img" aria-label="Stacked bar of European sponsorship split between sport and non-sport, and bars for the five largest country markets." xmlns="http://www.w3.org/2000/svg">
+<rect x="0" y="16" width="429" height="34" rx="4" fill="#4285F4"/>
+<text x="10" y="38" font-size="12" font-weight="700" fill="#fff" text-anchor="start" >Sport · €24.8bn · 72%</text>
+<rect x="431" y="16" width="167" height="34" rx="4" fill="#FBBC04"/>
+<text x="598.0" y="68" font-size="12" font-weight="700" fill="#202124" text-anchor="end" >Arts, culture, entertainment · €9.7bn · 28%</text>
+<text x="0" y="104" font-size="12" font-weight="500" fill="#202124" text-anchor="start" >Germany</text>
+<rect x="90" y="92" width="376" height="16" rx="4" fill="#4285F4"/>
+<text x="473.59999999999997" y="104" font-size="11.5" font-weight="700" fill="#202124" text-anchor="start" >€6.26bn</text>
+<text x="0" y="134" font-size="12" font-weight="500" fill="#202124" text-anchor="start" >UK</text>
+<rect x="90" y="122" width="369" height="16" rx="4" fill="#4285F4"/>
+<text x="467.0" y="134" font-size="11.5" font-weight="700" fill="#202124" text-anchor="start" >€6.15bn</text>
+<text x="0" y="164" font-size="12" font-weight="500" fill="#202124" text-anchor="start" >Spain</text>
+<rect x="90" y="152" width="131" height="16" rx="4" fill="#4285F4"/>
+<text x="228.8" y="164" font-size="11.5" font-weight="700" fill="#202124" text-anchor="start" >€2.18bn</text>
+<text x="0" y="194" font-size="12" font-weight="500" fill="#202124" text-anchor="start" >Italy</text>
+<rect x="90" y="182" width="121" height="16" rx="4" fill="#4285F4"/>
+<text x="218.6" y="194" font-size="11.5" font-weight="700" fill="#202124" text-anchor="start" >€2.01bn</text>
+<text x="0" y="224" font-size="12" font-weight="500" fill="#202124" text-anchor="start" >France</text>
+<rect x="90" y="212" width="111" height="16" rx="4" fill="#4285F4"/>
+<text x="209.0" y="224" font-size="11.5" font-weight="700" fill="#202124" text-anchor="start" >€1.85bn</text>
+</svg></figure><figcaption>ESA / Nielsen Sports 2026. Total €34.5bn, up 4.7%. Non-sport is 28% of the market.</figcaption></div>
+<div class="fig c12"><h2>How it proceeds</h2><figure><svg viewBox="0 0 1240 130" role="img" aria-label="Four chevrons: secure, sell, deliver, renew, with owners." xmlns="http://www.w3.org/2000/svg">
+<path d="M12 10 H290 L312 50 L290 90 H12 L12 50 Z" fill="#FEF7E0"/>
+<g transform="translate(42,32) scale(1.4)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="14" r="5"/><path d="M12 11l9-9M17 6l3 3M14 9l2 2"/></g>
+<text x="84" y="44" font-size="15" font-weight="700" fill="#202124" text-anchor="start" >1 · Secure</text>
+<text x="84" y="66" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >rights · dates · open categories</text>
+<text x="42" y="118" font-size="11" font-weight="700" fill="#1A73E8" text-anchor="start" >Fragrant Hill</text>
+<path d="M318 10 H596 L618 50 L596 90 H318 L340 50 Z" fill="#E8F0FE"/>
+<g transform="translate(348,32) scale(1.4)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l4-4h5l3 3-3 3 4 4 3-3M22 9l-4-4h-3M8 13l3 3M11 16l2 2M14 18l2 2"/></g>
+<text x="390" y="44" font-size="15" font-weight="700" fill="#202124" text-anchor="start" >2 · Sell</text>
+<text x="390" y="66" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >three tiers · warm introductions · deposits</text>
+<text x="348" y="118" font-size="11" font-weight="700" fill="#1A73E8" text-anchor="start" >Fragrant Hill + partner</text>
+<path d="M624 10 H902 L924 50 L902 90 H624 L646 50 Z" fill="#FEF7E0"/>
+<g transform="translate(654,32) scale(1.4)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M3 15h18M8 4v16M16 4v16"/></g>
+<text x="696" y="44" font-size="15" font-weight="700" fill="#202124" text-anchor="start" >3 · Deliver</text>
+<text x="696" y="66" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >production · hospitality · content</text>
+<text x="654" y="118" font-size="11" font-weight="700" fill="#1A73E8" text-anchor="start" >Fragrant Hill + contractors</text>
+<path d="M930 10 H1208 L1230 50 L1208 90 H930 L952 50 Z" fill="#E8F0FE"/>
+<g transform="translate(960,32) scale(1.4)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></g>
+<text x="1002" y="44" font-size="15" font-weight="700" fill="#202124" text-anchor="start" >4 · Renew</text>
+<text x="1002" y="66" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >first refusal · salon series</text>
+<text x="960" y="118" font-size="11" font-weight="700" fill="#1A73E8" text-anchor="start" >Fragrant Hill</text>
+</svg></figure><figcaption></figcaption></div>
+<div class="fig c6"><h2>Three parties, one exchange</h2><figure><svg viewBox="0 0 620 300" role="img" aria-label="Triangle of Fragrant Hill, partner and sponsor with labelled exchanges." xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5F6368"/></marker><marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1A73E8"/></marker><marker id="ary" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#F29900"/></marker></defs>
+<path d="M330 92 L488 206" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<text x="430" y="136" font-size="11" font-weight="500" fill="#3C4043" text-anchor="start" >stage · packages · hospitality · content</text>
+<path d="M466 232 L352 98" stroke="#F29900" stroke-width="2.2" marker-end="url(#ary)"/>
+<text x="606" y="196" font-size="11" font-weight="700" fill="#F29900" text-anchor="end" >rights fees · guest lists</text>
+<path d="M150 206 L280 100" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<text x="176" y="134" font-size="11" font-weight="500" fill="#3C4043" text-anchor="end" >warm introductions</text>
+<path d="M264 96 L128 230" stroke="#F29900" stroke-width="2.2" marker-end="url(#ary)"/>
+<text x="14" y="196" font-size="11" font-weight="700" fill="#F29900" text-anchor="start" >share on closed deals</text>
+<rect x="226" y="24" width="168" height="52" rx="26" fill="#E8F0FE" stroke="#4285F4" stroke-width="1.8"/>
+<g transform="translate(242,38) scale(1.0)" fill="none" stroke="#4285F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7 7 .6-5.3 4.6L18.5 21 12 17l-6.5 4 1.8-6.8L2 9.6 9 9z"/></g>
+<text x="320" y="55" font-size="13" font-weight="700" fill="#4285F4" text-anchor="middle" >FRAGRANT HILL</text>
+<rect x="26" y="214" width="168" height="52" rx="26" fill="#E6F4EA" stroke="#34A853" stroke-width="1.8"/>
+<g transform="translate(42,228) scale(1.0)" fill="none" stroke="#34A853" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l4-4h5l3 3-3 3 4 4 3-3M22 9l-4-4h-3M8 13l3 3M11 16l2 2M14 18l2 2"/></g>
+<text x="120" y="245" font-size="13" font-weight="700" fill="#34A853" text-anchor="middle" >PARTNER</text>
+<rect x="426" y="214" width="168" height="52" rx="26" fill="#FEF7E0" stroke="#B06000" stroke-width="1.8"/>
+<g transform="translate(442,228) scale(1.0)" fill="none" stroke="#B06000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18"/><path d="M8 7h3M13 7h3M8 11h3M13 11h3M8 15h3M13 15h3M10 21v-3h4v3"/></g>
+<text x="520" y="245" font-size="13" font-weight="700" fill="#B06000" text-anchor="middle" >SPONSOR</text>
+</svg></figure><figcaption></figcaption></div>
+<div class="c6" style="display:grid;gap:14px"><div class="fig "><h2>Risks and controls</h2><figure><svg viewBox="0 0 620 120" role="img" aria-label="Three risk tiles with controls." xmlns="http://www.w3.org/2000/svg">
+<rect x="4" y="8" width="196" height="104" rx="12" fill="#FCE8E6"/>
+<g transform="translate(18,22) scale(1.3)" fill="none" stroke="#EA4335" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z"/></g>
+<text x="56" y="42" font-size="12.5" font-weight="700" fill="#202124" text-anchor="start" >Category conflict</text>
+<text x="18" y="68" font-size="11" font-weight="400" fill="#3C4043" text-anchor="start" >open categories confirmed</text>
+<text x="18" y="84" font-size="11" font-weight="400" fill="#3C4043" text-anchor="start" >in writing before any pitch</text>
+<rect x="210" y="8" width="196" height="104" rx="12" fill="#FCE8E6"/>
+<g transform="translate(224,22) scale(1.3)" fill="none" stroke="#EA4335" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22V3h12l-2 4 2 4H5"/></g>
+<text x="262" y="42" font-size="12.5" font-weight="700" fill="#202124" text-anchor="start" >Sales cycle</text>
+<text x="224" y="68" font-size="11" font-weight="400" fill="#3C4043" text-anchor="start" >warm introductions only ·</text>
+<text x="224" y="84" font-size="11" font-weight="400" fill="#3C4043" text-anchor="start" >base of three signatures</text>
+<rect x="416" y="8" width="196" height="104" rx="12" fill="#FCE8E6"/>
+<g transform="translate(430,22) scale(1.3)" fill="none" stroke="#EA4335" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></g>
+<text x="468" y="42" font-size="12.5" font-weight="700" fill="#202124" text-anchor="start" >Artist · venue · payment</text>
+<text x="430" y="68" font-size="11" font-weight="400" fill="#3C4043" text-anchor="start" >insurance · venue options ·</text>
+<text x="430" y="84" font-size="11" font-weight="400" fill="#3C4043" text-anchor="start" >non-refundable deposits</text>
+</svg></figure><figcaption></figcaption></div><div class="fig "><h2>Why it repeats</h2><figure><svg viewBox="0 0 620 120" role="img" aria-label="Three tiles on why Encore repeats." xmlns="http://www.w3.org/2000/svg">
+<rect x="4" y="8" width="196" height="104" rx="12" fill="#E6F4EA"/>
+<g transform="translate(18,22) scale(1.4)" fill="none" stroke="#34A853" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></g>
+<text x="18" y="84" font-size="12.5" font-weight="700" fill="#202124" text-anchor="start" >Annual tour edition</text>
+<rect x="210" y="8" width="196" height="104" rx="12" fill="#E6F4EA"/>
+<g transform="translate(224,22) scale(1.4)" fill="none" stroke="#34A853" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6M15 15c3 0 6 1.5 6 5"/></g>
+<text x="224" y="78" font-size="12.5" font-weight="700" fill="#202124" text-anchor="start" >Executive salons on</text>
+<text x="224" y="96" font-size="12.5" font-weight="700" fill="#202124" text-anchor="start" >the same stages</text>
+<rect x="416" y="8" width="196" height="104" rx="12" fill="#E6F4EA"/>
+<g transform="translate(430,22) scale(1.4)" fill="none" stroke="#34A853" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M3 15h18M8 4v16M16 4v16"/></g>
+<text x="430" y="78" font-size="12.5" font-weight="700" fill="#202124" text-anchor="start" >Content and guest</text>
+<text x="430" y="96" font-size="12.5" font-weight="700" fill="#202124" text-anchor="start" >lists for every pillar</text>
+</svg></figure><figcaption></figcaption></div></div>
+</div><div class="foot"><span>Sources in framework/research/ · figures are reported unless marked estimate</span><span>Fragrant Hill Studio</span></div></div>

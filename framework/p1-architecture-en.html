@@ -2,158 +2,243 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
 <style>
-:root{
-  --bg:#FFFFFF; --surface:#F8F9FA; --ink:#202124; --ink-2:#3C4043; --muted:#5F6368; --line:#DADCE0; --line-2:#E8EAED;
-  --accent:#1A73E8;
-  --p1:#EA4335; --p2:#4285F4; --p3:#34A853; --p4:#FBBC04; --p5:#A142F4;
-  --p1-soft:#FCE8E6; --p2-soft:#E8F0FE; --p3-soft:#E6F4EA; --p4-soft:#FEF7E0; --p5-soft:#F3E8FD;
-  --p4-ink:#202124;
-  --font:"Roboto","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
-  color-scheme:light;
-}
+:root{--bg:#FFFFFF;--surface:#F8F9FA;--ink:#202124;--ink-2:#3C4043;--muted:#5F6368;--line:#DADCE0;--accent:#1A73E8;
+--font:"Roboto","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;color-scheme:light}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.45;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
+padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
 .sheet{max-width:1240px;margin:0 auto}
-header{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;justify-content:space-between;padding:18px 0 12px;border-bottom:1px solid var(--line)}
+header{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;justify-content:space-between;padding:16px 0 12px;border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:12px}
-.seal{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff;background:linear-gradient(135deg,var(--p2) 0 25%,var(--p1) 25% 50%,var(--p4) 50% 75%,var(--p3) 75% 100%)}
-.brand b{font-weight:700;font-size:14px;letter-spacing:.04em;display:block}
-.brand span{color:var(--muted);font-size:12px}
-.docline{display:flex;align-items:center;gap:14px;font-size:12px;color:var(--muted)}
-.docline b{color:var(--ink);display:block;font-size:13px}
-.pages{display:flex;gap:6px}
-.pages span{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;border:1px solid var(--line);color:var(--muted)}
+.seal{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff;background:conic-gradient(#4285F4 0 25%,#EA4335 25% 50%,#FBBC04 50% 75%,#34A853 75% 100%)}
+.brand b{font-weight:700;font-size:14px;display:block}.brand span{color:var(--muted);font-size:12px}
+.docline{display:flex;align-items:center;gap:14px;font-size:12px;color:var(--muted)}.docline b{color:var(--ink);display:block;font-size:13px}
+.pages{display:flex;gap:6px}.pages span{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;border:1px solid var(--line);color:var(--muted)}
 .pages span.on{background:var(--accent);border-color:var(--accent);color:#fff}
 .lang{font-size:12px;font-weight:500;color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:16px;padding:4px 12px}
+.hero{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:20px;align-items:center;padding:18px 0 6px}
+h1{font-size:clamp(26px,3.4vw,40px);font-weight:700;line-height:1.1;letter-spacing:-.01em;margin:0 0 8px;text-wrap:balance}
+.hero p{margin:0;color:var(--ink-2);font-size:15px;max-width:60ch}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.kpi{background:var(--surface);border-radius:12px;padding:12px 14px}
+.kpi .n{font-size:26px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;line-height:1.1}
+.kpi .l{font-size:11.5px;color:var(--ink-2);margin-top:4px;line-height:1.3}.kpi .l i{display:block;font-style:normal;color:var(--muted);font-size:10px;margin-top:2px}
 .grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px;margin-top:14px}
-.c12{grid-column:span 12}.c8{grid-column:span 8}.c7{grid-column:span 7}.c6{grid-column:span 6}.c5{grid-column:span 5}.c4{grid-column:span 4}.c3{grid-column:span 3}
-.blk{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:16px 18px;min-width:0}
-.blk h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 10px;font-weight:700}
-.title{grid-column:span 8;padding:6px 0 0}
-.title h1{font-size:clamp(26px,3.4vw,38px);font-weight:700;line-height:1.1;letter-spacing:-.01em;margin:0 0 8px;text-wrap:balance}
-.title p{margin:0;color:var(--ink-2);font-size:15px;max-width:64ch}
-.facts{grid-column:span 4;display:grid;gap:8px;align-content:start}
-.fact{background:var(--surface);border-radius:10px;padding:10px 14px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center}
-.fact .n{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--accent);min-width:70px}
-.fact .l{font-size:12px;color:var(--ink-2);line-height:1.3}
-.fact .l i{display:block;font-style:normal;color:var(--muted);font-size:10.5px;margin-top:2px}
-.pillars{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
-.pc{border-radius:10px;border:1px solid var(--line);overflow:hidden;background:var(--bg);display:flex;flex-direction:column}
-.pc .hd{padding:10px 12px;color:#fff;font-weight:700;font-size:14px;line-height:1.2}
-.pc .hd small{display:block;font-weight:500;font-size:11px;opacity:.9;margin-top:2px}
-.pc .bd{padding:10px 12px;font-size:12.5px;color:var(--ink-2);display:grid;gap:8px;flex:1}
-.pc .k{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px;font-weight:700}
-.pc ul{margin:0;padding-left:16px}
-.pc li{margin:1px 0}
-.pc .chip{align-self:start;margin-top:auto}
-.chip{display:inline-block;padding:2px 9px;border-radius:12px;font-size:10.5px;font-weight:700;letter-spacing:.03em}
-.ups{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;text-align:center;color:var(--muted);font-size:16px;line-height:1;margin:6px 0}
-.band{border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-.band.core{background:var(--p2-soft);border:1px solid #AECBFA}
-.band.inputs{background:var(--surface);border:1px solid var(--line)}
-.band .lbl{grid-column:1/-1;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--accent);margin-bottom:-4px}
-.band.inputs .lbl{color:var(--muted)}
-.band b{display:block;font-size:13px;margin-bottom:2px}
-.band p{margin:0;font-size:12px;color:var(--ink-2)}
-figure{margin:0;overflow-x:auto}
-figure svg{display:block;width:100%;height:auto}
-figcaption{font-size:11.5px;color:var(--muted);margin-top:8px}
-.list{display:grid;gap:10px}
-.list div{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;font-size:13px;color:var(--ink-2)}
-.list b{color:var(--ink)}
-.num{width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700;flex:none}
-.phases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.ph{border-radius:10px;padding:12px 14px;border:1px solid var(--line)}
-.ph b{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
-.ph .who{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px}
-.ph p{margin:0;font-size:12.5px;color:var(--ink-2)}
-.ph .gate{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--ink-2)}
-.ph .gate b{display:inline;font-size:10px;color:var(--muted);margin-right:4px}
-.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:0}
-table{width:100%;border-collapse:collapse;font-size:12.5px}
-th{text-align:left;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:6px 8px;border-bottom:2px solid var(--line)}
-td{padding:8px;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
-td:first-child{color:var(--ink);font-weight:700}
-.mx th{text-align:center}.mx th:first-child{text-align:left}.mx td{text-align:center}.mx td:first-child{text-align:left;white-space:nowrap}
-.d{display:inline-block;width:14px;height:14px;border-radius:50%}
-.d.h{opacity:.3}
-.streams{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.st{border-radius:10px;border:1px solid var(--line);padding:12px 14px;background:var(--surface)}
-.st b{display:block;font-size:14px;margin-bottom:4px}
-.st p{margin:0 0 6px;font-size:12.5px;color:var(--ink-2)}
-.st .meta{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-.money{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
-.mc{border-radius:10px;border-top:4px solid var(--line);background:var(--surface);padding:10px 12px;font-size:12.5px;color:var(--ink-2)}
-.mc b{display:block;font-size:13px;color:var(--ink);margin-bottom:4px}
-.mc i{display:block;font-style:normal;font-size:11.5px;color:var(--muted);margin-top:6px;padding-top:6px;border-top:1px dashed var(--line)}
-.cols3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.cols4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-.cell{border-radius:10px;background:var(--surface);padding:12px 14px;font-size:12.5px;color:var(--ink-2)}
-.cell b{display:block;font-size:13px;color:var(--ink);margin-bottom:4px}
-.cell ul{margin:0;padding-left:16px}
-.offer{grid-column:span 4;background:var(--p4-soft);border:1px solid #FDE293;border-radius:12px;padding:14px 16px}
-.offer h2{color:var(--ink);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 8px;font-weight:700}
-.offer dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:12.5px}
-.offer dt{color:var(--muted);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;font-weight:700}
-.offer dd{margin:0;color:var(--ink)}
-.tier{border-radius:10px;border:1px solid var(--line);padding:12px 14px;background:var(--bg)}
-.tier b{display:block;font-size:14px}
-.tier small{display:block;color:var(--muted);font-size:11px;margin-bottom:6px}
-.tier ul{margin:0;padding-left:16px;font-size:12.5px;color:var(--ink-2)}
-.risk{border-left:4px solid var(--p1);padding:4px 12px;font-size:12.5px;color:var(--ink-2);background:var(--surface);border-radius:0 8px 8px 0}
-.risk b{color:var(--ink)}
+.c12{grid-column:span 12}.c8{grid-column:span 8}.c7{grid-column:span 7}.c6{grid-column:span 6}.c5{grid-column:span 5}.c4{grid-column:span 4}
+.fig{border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0;background:var(--bg)}
+.fig h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 8px;font-weight:700}
+figure{margin:0;overflow-x:auto}figure svg{display:block;width:100%;height:auto}
+figcaption{font-size:11.5px;color:var(--muted);margin-top:8px;line-height:1.4}
 .foot{margin-top:14px;font-size:11.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:space-between}
-@media (max-width:1000px){.pillars,.money{grid-template-columns:repeat(2,minmax(0,1fr))}.streams{grid-template-columns:repeat(3,minmax(0,1fr)) !important}.ups{display:none}.band{grid-template-columns:1fr 1fr}}
-@media (max-width:860px){.c8,.c7,.c6,.c5,.c4,.c3,.title,.facts,.offer{grid-column:span 12}.phases,.cols3,.cols4{grid-template-columns:1fr}.streams{grid-template-columns:1fr 1fr !important}.pillars,.money,.band{grid-template-columns:1fr}}
+@media (max-width:900px){.hero{grid-template-columns:1fr}.c8,.c7,.c6,.c5,.c4{grid-column:span 12}.kpis{grid-template-columns:1fr 1fr}}
 </style>
-<div class="sheet" lang="en">
-<header>
-  <div class="brand"><div class="seal">香山</div><div><b>Fragrant Hill Studio</b><span>Editorial house · Stockholm · Europe ↔ China</span></div></div>
-  <div class="docline"><div><b>Page 1 of 3 · System architecture</b>Confidential · prepared for partner and investor discussion</div><div class="pages"><span class="on">1</span><span class="">2</span><span class="">3</span></div><a class="lang" href="https://claude.ai/artifact/2jfTUPYbPZRkeG82kGiFnb">中文版 →</a></div>
-</header>
+<div class="sheet" lang="en"><header><div class="brand"><div class="seal">香山</div><div><b>Fragrant Hill Studio</b><span>Editorial house · Stockholm · Europe ↔ China</span></div></div>
+<div class="docline"><div><b>Page 1 of 3 · System architecture</b>Confidential · for partner and investor discussion</div><div class="pages"><span class="on">1</span><span class="">2</span><span class="">3</span></div><a class="lang" href="https://claude.ai/artifact/2jfTUPYbPZRkeG82kGiFnb">中文版 →</a></div></header>
+<div class="hero"><div><h1>One core. Five pillars. One network.</h1><p>Money comes in at the top from five kinds of buyer. Five product pillars sell to them. One shared core runs all five, built on inputs we already hold.</p></div><div class="kpis"><div class="kpi"><div class="n">€34.5bn</div><div class="l">European sponsorship market 2025; arts and culture 28%<i>ESA / Nielsen Sports 2026</i></div></div><div class="kpi"><div class="n">50–60%</div><div class="l">of Semafor revenue is event sponsorship; profitable 2025<i>Semafor, Nieman Lab</i></div></div><div class="kpi"><div class="n">&lt;5%</div><div class="l">of SemiAnalysis revenue is subscriptions<i>The Information, estimate</i></div></div></div></div>
 <div class="grid">
-  <div class="title"><h1>One core. Five pillars. One network.</h1><p>Fragrant Hill is one operating system, not five businesses. Five product pillars share one editorial voice, one contact base and one production line. Each sells a different thing to a different buyer, and each feeds the next.</p></div>
-  <div class="facts"><div class="fact"><div class="n">€34.5bn</div><div class="l">European sponsorship market 2025; arts and culture 28% of it<i>ESA / Nielsen Sports 2026</i></div></div><div class="fact"><div class="n">50–60%</div><div class="l">of Semafor revenue is event sponsorship; profitable in 2025<i>Semafor, Nieman Lab</i></div></div><div class="fact"><div class="n">&lt;5%</div><div class="l">of SemiAnalysis revenue is subscriptions; research and advisory carry the rest<i>The Information, estimate</i></div></div></div>
-  <div class="blk c12"><h2>The system</h2>
-    <div class="pillars"><div class="pc"><div class="hd" style="background:var(--p1);color:#fff">1 · Editorial<small>the voice</small></div>
-<div class="bd"><div><span class="k">What</span>Stories of the people building machines, Europe ↔ China</div><div><span class="k">Products</span><ul><li>Bilingual newsletter</li><li>Video interview series</li><li>LinkedIn · 公众号 · 视频号</li></ul></div><div><span class="k">Who pays</span>Season sponsors, platforms, licensees</div><span class="chip" style="background:var(--p1-soft);color:var(--p1)">Pays later</span></div></div><div class="pc"><div class="hd" style="background:var(--p2);color:#fff">2 · Advisory<small>paid answers</small></div>
-<div class="bd"><div><span class="k">What</span>Partner data plus an operator&#x27;s judgement</div><div><span class="k">Products</span><ul><li>Market-entry advisory EU ↔ CN</li><li>Co-branded industry reports</li><li>Expert calls and workshops</li></ul></div><div><span class="k">Who pays</span>Robotics and sensor firms entering Europe; European OEMs reading China</div><span class="chip" style="background:var(--p2-soft);color:var(--p2)">Cash now</span></div></div><div class="pc"><div class="hd" style="background:var(--p3);color:#fff">3 · Community<small>the vetted room</small></div>
-<div class="bd"><div><span class="k">What</span>Executives and founders on both sides, two tiers</div><div><span class="k">Products</span><ul><li>Base membership</li><li>Executive club</li><li>Courses and study trips</li></ul></div><div><span class="k">Who pays</span>Members; course and trip participants; salon sponsors</div><span class="chip" style="background:var(--p3-soft);color:var(--p3)">Recurring</span></div></div><div class="pc"><div class="hd" style="background:var(--p4);color:var(--p4-ink)">4 · Live &amp; Venues<small>the stage · Encore</small></div>
-<div class="bd"><div><span class="k">What</span>Celebrity concerts and executive salons sold to brands</div><div><span class="k">Products</span><ul><li>Encore tour sponsorship</li><li>Executive salons</li><li>Sponsor dinners and hospitality</li></ul></div><div><span class="k">Who pays</span>Automotive, robotics, semiconductor and consumer-tech brands</div><span class="chip" style="background:var(--p4-soft);color:var(--p4-ink)">Cash now</span></div></div><div class="pc"><div class="hd" style="background:var(--p5);color:#fff">5 · Acceleration<small>the pipeline</small></div>
-<div class="bd"><div><span class="k">What</span>Founders landing in the Nordics; investors finding them</div><div><span class="k">Products</span><ul><li>Soft-landing programme</li><li>Scouting for investors</li><li>Pilot matching with corporates</li></ul></div><div><span class="k">Who pays</span>Founders, accelerators, investors, corporates</div><span class="chip" style="background:var(--p5-soft);color:var(--p5)">Equity</span></div></div></div>
-    <div class="ups"><span>▲</span><span>▲</span><span>▲</span><span>▲</span><span>▲</span></div>
-    <div class="band core"><div class="lbl">Shared core · every pillar runs on it</div><div><b>Editorial voice</b><p>One theme, one tone, one host.</p></div><div><b>Relationship graph</b><p>One CRM: guests, sponsors, members, founders, investors.</p></div><div><b>Production line</b><p>Record once; publish in six channels, two languages.</p></div><div><b>Commercial desk + back office</b><p>One rate card; invoicing in Stockholm and China.</p></div></div>
-    <div class="ups" style="margin:6px 0 4px"><span></span><span></span><span>▲</span><span></span><span></span></div>
-    <div class="band inputs"><div class="lbl">Inputs already held</div><div><b>Founder domain depth</b><p>Sensing, robotics, automotive, dealer networks</p></div><div><b>Stage and talent access</b><p>Celebrity concert channel; pianist interview done</p></div><div><b>Partner assets</b><p>Data, reports, founder community, investors</p></div><div><b>Two-market base</b><p>Swedish company; operating partner in China</p></div></div>
-  </div>
-  <div class="blk c6"><h2>How the pillars feed each other</h2><figure><svg viewBox="0 0 620 410" role="img" aria-label="Cycle: Live feeds Editorial, Editorial feeds Community, Community feeds Advisory, Advisory feeds Acceleration, Acceleration feeds Live." xmlns="http://www.w3.org/2000/svg">
-<defs><marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5F6368"/></marker></defs>
-<path d="M382 64 L428 136" stroke="#5F6368" stroke-width="1.4" fill="none" marker-end="url(#fa)"/>
-<text x="426" y="92" font-size="12" fill="#3C4043" text-anchor="start" font-weight="500">content</text>
-<path d="M466 190 L430 302" stroke="#5F6368" stroke-width="1.4" fill="none" marker-end="url(#fa)"/>
-<text x="456" y="252" font-size="12" fill="#3C4043" text-anchor="start" font-weight="500">audience</text>
-<path d="M330 346 L292 346" stroke="#5F6368" stroke-width="1.4" fill="none" marker-end="url(#fa)"/>
-<text x="310" y="378" font-size="12" fill="#3C4043" text-anchor="middle" font-weight="500">clients</text>
-<path d="M170 322 L146 194" stroke="#5F6368" stroke-width="1.4" fill="none" marker-end="url(#fa)"/>
-<text x="150" y="262" font-size="12" fill="#3C4043" text-anchor="end" font-weight="500">deal flow</text>
-<path d="M176 140 L238 62" stroke="#5F6368" stroke-width="1.4" fill="none" marker-end="url(#fa)"/>
-<text x="200" y="92" font-size="12" fill="#3C4043" text-anchor="end" font-weight="500">sponsors, founders</text>
-<rect x="234" y="32" width="152" height="40" rx="20" fill="var(--p4-soft)" stroke="var(--p4)" stroke-width="1.4"/>
-<text x="310" y="57" text-anchor="middle" font-size="13" font-weight="700" fill="#202124">4 · Live</text>
-<rect x="390" y="146" width="152" height="40" rx="20" fill="var(--p1-soft)" stroke="var(--p1)" stroke-width="1.4"/>
-<text x="466" y="171" text-anchor="middle" font-size="13" font-weight="700" fill="var(--p1)">1 · Editorial</text>
-<rect x="330" y="326" width="152" height="40" rx="20" fill="var(--p3-soft)" stroke="var(--p3)" stroke-width="1.4"/>
-<text x="406" y="351" text-anchor="middle" font-size="13" font-weight="700" fill="var(--p3)">3 · Community</text>
-<rect x="138" y="326" width="152" height="40" rx="20" fill="var(--p2-soft)" stroke="var(--p2)" stroke-width="1.4"/>
-<text x="214" y="351" text-anchor="middle" font-size="13" font-weight="700" fill="var(--p2)">2 · Advisory</text>
-<rect x="78" y="146" width="152" height="40" rx="20" fill="var(--p5-soft)" stroke="var(--p5)" stroke-width="1.4"/>
-<text x="154" y="171" text-anchor="middle" font-size="13" font-weight="700" fill="var(--p5)">5 · Acceleration</text>
-<circle cx="310" cy="205" r="46" fill="#FFFFFF" stroke="var(--accent)" stroke-width="1.6"/>
-<text x="310" y="210" text-anchor="middle" font-size="11" font-weight="700" fill="var(--accent)">ONE NETWORK</text>
+<div class="fig c12"><h2>The system · who pays, what we sell, what it runs on</h2><figure><svg viewBox="0 0 1240 760" role="img" aria-label="Layered system map: five buyers at the top pay five pillars; the pillars run on a shared core of four modules; the core is built on four inputs already held." xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5F6368"/></marker><marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1A73E8"/></marker><marker id="ary" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#F29900"/></marker></defs>
+<text x="12" y="22" font-size="11" font-weight="700" fill="#5F6368" text-anchor="start" letter-spacing=".1em">WHO PAYS</text>
+<rect x="12" y="32" width="232" height="58" rx="10" fill="#F8F9FA" stroke="#DADCE0"/>
+<g transform="translate(24,44) scale(1.4)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18"/><path d="M8 7h3M13 7h3M8 11h3M13 11h3M8 15h3M13 15h3M10 21v-3h4v3"/></g>
+<text x="66" y="54" font-size="13" font-weight="700" fill="#202124" text-anchor="start" >Brands &amp; sponsors</text>
+<text x="66" y="74" font-size="11" font-weight="400" fill="#5F6368" text-anchor="start" >season sponsorship</text>
+<path d="M128.0 92 V124" stroke="#F29900" stroke-width="2.2" marker-end="url(#ary)"/>
+<text x="136.0" y="112" font-size="12" font-weight="700" fill="#F29900" text-anchor="start" >€</text>
+<rect x="258" y="32" width="232" height="58" rx="10" fill="#F8F9FA" stroke="#DADCE0"/>
+<g transform="translate(270,44) scale(1.4)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 12h18"/></g>
+<text x="312" y="54" font-size="13" font-weight="700" fill="#202124" text-anchor="start" >Clients</text>
+<text x="312" y="74" font-size="11" font-weight="400" fill="#5F6368" text-anchor="start" >retainers · reports</text>
+<path d="M374.0 92 V124" stroke="#F29900" stroke-width="2.2" marker-end="url(#ary)"/>
+<text x="382.0" y="112" font-size="12" font-weight="700" fill="#F29900" text-anchor="start" >€</text>
+<rect x="504" y="32" width="232" height="58" rx="10" fill="#F8F9FA" stroke="#DADCE0"/>
+<g transform="translate(516,44) scale(1.4)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6M15 15c3 0 6 1.5 6 5"/></g>
+<text x="558" y="54" font-size="13" font-weight="700" fill="#202124" text-anchor="start" >Members</text>
+<text x="558" y="74" font-size="11" font-weight="400" fill="#5F6368" text-anchor="start" >annual dues</text>
+<path d="M620.0 92 V124" stroke="#F29900" stroke-width="2.2" marker-end="url(#ary)"/>
+<text x="628.0" y="112" font-size="12" font-weight="700" fill="#F29900" text-anchor="start" >€</text>
+<rect x="750" y="32" width="232" height="58" rx="10" fill="#F8F9FA" stroke="#DADCE0"/>
+<g transform="translate(762,44) scale(1.4)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18"/><path d="M8 7h3M13 7h3M8 11h3M13 11h3M8 15h3M13 15h3M10 21v-3h4v3"/></g>
+<text x="804" y="54" font-size="13" font-weight="700" fill="#202124" text-anchor="start" >Brands &amp; sponsors</text>
+<text x="804" y="74" font-size="11" font-weight="400" fill="#5F6368" text-anchor="start" >tour packages · tables</text>
+<path d="M866.0 92 V124" stroke="#F29900" stroke-width="2.2" marker-end="url(#ary)"/>
+<text x="874.0" y="112" font-size="12" font-weight="700" fill="#F29900" text-anchor="start" >€</text>
+<rect x="996" y="32" width="232" height="58" rx="10" fill="#F8F9FA" stroke="#DADCE0"/>
+<g transform="translate(1008,44) scale(1.4)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></g>
+<text x="1050" y="54" font-size="13" font-weight="700" fill="#202124" text-anchor="start" >Founders &amp; investors</text>
+<text x="1050" y="74" font-size="11" font-weight="400" fill="#5F6368" text-anchor="start" >fees · carry</text>
+<path d="M1112.0 92 V124" stroke="#F29900" stroke-width="2.2" marker-end="url(#ary)"/>
+<text x="1120.0" y="112" font-size="12" font-weight="700" fill="#F29900" text-anchor="start" >€</text>
+<text x="12" y="146" font-size="11" font-weight="700" fill="#5F6368" text-anchor="start" letter-spacing=".1em">FIVE PRODUCT PILLARS</text>
+<rect x="12" y="156" width="232" height="250" rx="12" fill="#fff" stroke="#DADCE0"/>
+<path d="M12 168a12 12 0 0 1 12-12h208a12 12 0 0 1 12 12v50H12z" fill="#EA4335"/>
+<g transform="translate(26,168) scale(1.3)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4M8 22h8"/></g>
+<text x="66" y="182" font-size="15" font-weight="700" fill="#fff" text-anchor="start" >1 · Editorial</text>
+<text x="66" y="200" font-size="11" font-weight="500" fill="#fff" text-anchor="start" opacity=".9">the voice</text>
+<circle cx="34" cy="238" r="3.5" fill="#EA4335"/>
+<text x="46" y="242" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >Interview series</text>
+<circle cx="34" cy="264" r="3.5" fill="#EA4335"/>
+<text x="46" y="268" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >Bilingual newsletter</text>
+<circle cx="34" cy="290" r="3.5" fill="#EA4335"/>
+<text x="46" y="294" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >Video · LinkedIn · 公众号</text>
+<rect x="26" y="360" width="118" height="26" rx="13" fill="#FCE8E6"/>
+<text x="85" y="377" font-size="11.5" font-weight="700" fill="#EA4335" text-anchor="middle" >pays later</text>
+<path d="M128.0 446 V410" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="258" y="156" width="232" height="250" rx="12" fill="#fff" stroke="#DADCE0"/>
+<path d="M258 168a12 12 0 0 1 12-12h208a12 12 0 0 1 12 12v50H258z" fill="#4285F4"/>
+<g transform="translate(272,168) scale(1.3)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8l-2.5 5.5L8 16l2.5-5.5z"/></g>
+<text x="312" y="182" font-size="15" font-weight="700" fill="#fff" text-anchor="start" >2 · Advisory</text>
+<text x="312" y="200" font-size="11" font-weight="500" fill="#fff" text-anchor="start" opacity=".9">paid answers</text>
+<circle cx="280" cy="238" r="3.5" fill="#4285F4"/>
+<text x="292" y="242" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >Market-entry advisory</text>
+<circle cx="280" cy="264" r="3.5" fill="#4285F4"/>
+<text x="292" y="268" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >Co-branded reports</text>
+<circle cx="280" cy="290" r="3.5" fill="#4285F4"/>
+<text x="292" y="294" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >Expert calls</text>
+<rect x="272" y="360" width="118" height="26" rx="13" fill="#E8F0FE"/>
+<text x="331" y="377" font-size="11.5" font-weight="700" fill="#4285F4" text-anchor="middle" >cash now</text>
+<path d="M374.0 446 V410" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="504" y="156" width="232" height="250" rx="12" fill="#fff" stroke="#DADCE0"/>
+<path d="M504 168a12 12 0 0 1 12-12h208a12 12 0 0 1 12 12v50H504z" fill="#34A853"/>
+<g transform="translate(518,168) scale(1.3)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6M15 15c3 0 6 1.5 6 5"/></g>
+<text x="558" y="182" font-size="15" font-weight="700" fill="#fff" text-anchor="start" >3 · Community</text>
+<text x="558" y="200" font-size="11" font-weight="500" fill="#fff" text-anchor="start" opacity=".9">the vetted room</text>
+<circle cx="526" cy="238" r="3.5" fill="#34A853"/>
+<text x="538" y="242" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >Base membership</text>
+<circle cx="526" cy="264" r="3.5" fill="#34A853"/>
+<text x="538" y="268" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >Executive club</text>
+<circle cx="526" cy="290" r="3.5" fill="#34A853"/>
+<text x="538" y="294" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >Courses · study trips</text>
+<rect x="518" y="360" width="118" height="26" rx="13" fill="#E6F4EA"/>
+<text x="577" y="377" font-size="11.5" font-weight="700" fill="#34A853" text-anchor="middle" >recurring</text>
+<path d="M620.0 446 V410" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="750" y="156" width="232" height="250" rx="12" fill="#fff" stroke="#DADCE0"/>
+<path d="M750 168a12 12 0 0 1 12-12h208a12 12 0 0 1 12 12v50H750z" fill="#FBBC04"/>
+<g transform="translate(764,168) scale(1.3)" fill="none" stroke="#202124" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="1"/><path d="M6 5v8M10 5v8M14 5v8M18 5v8"/></g>
+<text x="804" y="182" font-size="15" font-weight="700" fill="#202124" text-anchor="start" >4 · Live &amp; Venues</text>
+<text x="804" y="200" font-size="11" font-weight="500" fill="#202124" text-anchor="start" opacity=".9">the stage · Encore</text>
+<circle cx="772" cy="238" r="3.5" fill="#FBBC04"/>
+<text x="784" y="242" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >Encore tour sponsorship</text>
+<circle cx="772" cy="264" r="3.5" fill="#FBBC04"/>
+<text x="784" y="268" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >Executive salons</text>
+<circle cx="772" cy="290" r="3.5" fill="#FBBC04"/>
+<text x="784" y="294" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >Sponsor dinners</text>
+<rect x="764" y="360" width="118" height="26" rx="13" fill="#FEF7E0"/>
+<text x="823" y="377" font-size="11.5" font-weight="700" fill="#B06000" text-anchor="middle" >cash now</text>
+<path d="M866.0 446 V410" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="996" y="156" width="232" height="250" rx="12" fill="#fff" stroke="#DADCE0"/>
+<path d="M996 168a12 12 0 0 1 12-12h208a12 12 0 0 1 12 12v50H996z" fill="#A142F4"/>
+<g transform="translate(1010,168) scale(1.3)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4c3 0 6 3 6 6l-8 8-6-6z"/><circle cx="14" cy="10" r="1.5"/><path d="M6 14l-3 1 2-5M10 18l-1 3 5-2M5 19l4-4"/></g>
+<text x="1050" y="182" font-size="15" font-weight="700" fill="#fff" text-anchor="start" >5 · Acceleration</text>
+<text x="1050" y="200" font-size="11" font-weight="500" fill="#fff" text-anchor="start" opacity=".9">the pipeline</text>
+<circle cx="1018" cy="238" r="3.5" fill="#A142F4"/>
+<text x="1030" y="242" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >Soft-landing programme</text>
+<circle cx="1018" cy="264" r="3.5" fill="#A142F4"/>
+<text x="1030" y="268" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >Investor scouting</text>
+<circle cx="1018" cy="290" r="3.5" fill="#A142F4"/>
+<text x="1030" y="294" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >Corporate pilots</text>
+<rect x="1010" y="360" width="118" height="26" rx="13" fill="#F3E8FD"/>
+<text x="1069" y="377" font-size="11.5" font-weight="700" fill="#A142F4" text-anchor="middle" >equity</text>
+<path d="M1112.0 446 V410" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="12" y="450" width="1216" height="112" rx="12" fill="#E8F0FE" stroke="#AECBFA"/>
+<text x="28" y="472" font-size="11" font-weight="700" fill="#1A73E8" text-anchor="start" letter-spacing=".1em">SHARED CORE · every pillar runs on it</text>
+<g transform="translate(28.0,486) scale(1.5)" fill="none" stroke="#1A73E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4M8 22h8"/></g>
+<text x="74.0" y="502" font-size="14" font-weight="700" fill="#202124" text-anchor="start" >Editorial voice</text>
+<text x="74.0" y="522" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >one theme · one host</text>
+<g transform="translate(324.0,486) scale(1.5)" fill="none" stroke="#1A73E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="4" cy="6" r="2"/><circle cx="20" cy="6" r="2"/><circle cx="4" cy="18" r="2"/><circle cx="20" cy="18" r="2"/><path d="M6 7l4 3M18 7l-4 3M6 17l4-3M18 17l-4-3"/></g>
+<text x="370.0" y="502" font-size="14" font-weight="700" fill="#202124" text-anchor="start" >Relationship graph</text>
+<text x="370.0" y="522" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >one CRM for all five</text>
+<line x1="312.0" y1="486" x2="312.0" y2="548" stroke="#AECBFA"/>
+<g transform="translate(620.0,486) scale(1.5)" fill="none" stroke="#1A73E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M3 15h18M8 4v16M16 4v16"/></g>
+<text x="666.0" y="502" font-size="14" font-weight="700" fill="#202124" text-anchor="start" >Production line</text>
+<text x="666.0" y="522" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >record once · 6 channels · 2 languages</text>
+<line x1="608.0" y1="486" x2="608.0" y2="548" stroke="#AECBFA"/>
+<g transform="translate(916.0,486) scale(1.5)" fill="none" stroke="#1A73E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></g>
+<text x="962.0" y="502" font-size="14" font-weight="700" fill="#202124" text-anchor="start" >Commercial desk</text>
+<text x="962.0" y="522" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >one rate card · invoicing SE + CN</text>
+<line x1="904.0" y1="486" x2="904.0" y2="548" stroke="#AECBFA"/>
+<path d="M176.0 600 V566" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<path d="M472.0 600 V566" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<path d="M768.0 600 V566" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<path d="M1064.0 600 V566" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="12" y="604" width="1216" height="112" rx="12" fill="#F8F9FA" stroke="#DADCE0"/>
+<text x="28" y="626" font-size="11" font-weight="700" fill="#5F6368" text-anchor="start" letter-spacing=".1em">INPUTS ALREADY HELD</text>
+<g transform="translate(28.0,640) scale(1.5)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8l-2.5 5.5L8 16l2.5-5.5z"/></g>
+<text x="74.0" y="656" font-size="14" font-weight="700" fill="#202124" text-anchor="start" >Founder domain depth</text>
+<text x="74.0" y="676" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >sensing · robotics · automotive</text>
+<g transform="translate(324.0,640) scale(1.5)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="1"/><path d="M6 5v8M10 5v8M14 5v8M18 5v8"/></g>
+<text x="370.0" y="656" font-size="14" font-weight="700" fill="#202124" text-anchor="start" >Stage &amp; talent access</text>
+<text x="370.0" y="676" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >celebrity concerts · pianist interview</text>
+<line x1="312.0" y1="640" x2="312.0" y2="702" stroke="#DADCE0"/>
+<g transform="translate(620.0,640) scale(1.5)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h8l5 5v15H6z"/><path d="M14 2v5h5M9 12h7M9 16h7"/></g>
+<text x="666.0" y="656" font-size="14" font-weight="700" fill="#202124" text-anchor="start" >Partner assets</text>
+<text x="666.0" y="676" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >data · reports · founders · investors</text>
+<line x1="608.0" y1="640" x2="608.0" y2="702" stroke="#DADCE0"/>
+<g transform="translate(916.0,640) scale(1.5)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18"/><path d="M8 7h3M13 7h3M8 11h3M13 11h3M8 15h3M13 15h3M10 21v-3h4v3"/></g>
+<text x="962.0" y="656" font-size="14" font-weight="700" fill="#202124" text-anchor="start" >Two-market base</text>
+<text x="962.0" y="676" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >Swedish AB · China partner</text>
+<line x1="904.0" y1="640" x2="904.0" y2="702" stroke="#DADCE0"/>
+</svg></figure><figcaption>Read top to bottom: buyers pay the pillars; the pillars run on one core; the core is built from inputs that already exist. Nothing in the core needs new hiring on day one.</figcaption></div>
+<div class="fig c6"><h2>How the pillars feed each other</h2><figure><svg viewBox="0 0 620 420" role="img" aria-label="Cycle of five pillars with one network in the centre." xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5F6368"/></marker><marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1A73E8"/></marker><marker id="ary" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#F29900"/></marker></defs>
+<path d="M388 66 L432 138" stroke="#5F6368" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<text x="428" y="94" font-size="12" font-weight="500" fill="#3C4043" text-anchor="start" >content</text>
+<path d="M470 196 L432 304" stroke="#5F6368" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<text x="462" y="256" font-size="12" font-weight="500" fill="#3C4043" text-anchor="start" >audience</text>
+<path d="M328 352 L292 352" stroke="#5F6368" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<text x="310" y="386" font-size="12" font-weight="500" fill="#3C4043" text-anchor="middle" >clients</text>
+<path d="M166 326 L140 196" stroke="#5F6368" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<text x="148" y="266" font-size="12" font-weight="500" fill="#3C4043" text-anchor="end" >deal flow</text>
+<path d="M176 142 L236 66" stroke="#5F6368" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<text x="206" y="94" font-size="12" font-weight="500" fill="#3C4043" text-anchor="end" >sponsors, founders</text>
+<rect x="230" y="34" width="160" height="44" rx="22" fill="#FEF7E0" stroke="#FBBC04" stroke-width="1.6"/>
+<g transform="translate(244,44) scale(1.0)" fill="none" stroke="#B06000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="1"/><path d="M6 5v8M10 5v8M14 5v8M18 5v8"/></g>
+<text x="318" y="61" font-size="13" font-weight="700" fill="#B06000" text-anchor="middle" >4 · Live</text>
+<rect x="390" y="148" width="160" height="44" rx="22" fill="#FCE8E6" stroke="#EA4335" stroke-width="1.6"/>
+<g transform="translate(404,158) scale(1.0)" fill="none" stroke="#EA4335" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4M8 22h8"/></g>
+<text x="478" y="175" font-size="13" font-weight="700" fill="#EA4335" text-anchor="middle" >1 · Editorial</text>
+<rect x="328" y="330" width="160" height="44" rx="22" fill="#E6F4EA" stroke="#34A853" stroke-width="1.6"/>
+<g transform="translate(342,340) scale(1.0)" fill="none" stroke="#34A853" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6M15 15c3 0 6 1.5 6 5"/></g>
+<text x="416" y="357" font-size="13" font-weight="700" fill="#34A853" text-anchor="middle" >3 · Community</text>
+<rect x="132" y="330" width="160" height="44" rx="22" fill="#E8F0FE" stroke="#4285F4" stroke-width="1.6"/>
+<g transform="translate(146,340) scale(1.0)" fill="none" stroke="#4285F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8l-2.5 5.5L8 16l2.5-5.5z"/></g>
+<text x="220" y="357" font-size="13" font-weight="700" fill="#4285F4" text-anchor="middle" >2 · Advisory</text>
+<rect x="70" y="148" width="160" height="44" rx="22" fill="#F3E8FD" stroke="#A142F4" stroke-width="1.6"/>
+<g transform="translate(84,158) scale(1.0)" fill="none" stroke="#A142F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4c3 0 6 3 6 6l-8 8-6-6z"/><circle cx="14" cy="10" r="1.5"/><path d="M6 14l-3 1 2-5M10 18l-1 3 5-2M5 19l4-4"/></g>
+<text x="158" y="175" font-size="13" font-weight="700" fill="#A142F4" text-anchor="middle" >5 · Acceleration</text>
+<circle cx="310" cy="210" r="48" fill="#fff" stroke="#1A73E8" stroke-width="1.8"/>
+<g transform="translate(298,184) scale(1.0)" fill="none" stroke="#1A73E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="4" cy="6" r="2"/><circle cx="20" cy="6" r="2"/><circle cx="4" cy="18" r="2"/><circle cx="20" cy="18" r="2"/><path d="M6 7l4 3M18 7l-4 3M6 17l4-3M18 17l-4-3"/></g>
+<text x="310" y="228" font-size="10.5" font-weight="700" fill="#1A73E8" text-anchor="middle" >ONE NETWORK</text>
 </svg></figure><figcaption>Start at Live. Each concert yields content and a guest list; the loop closes when sponsors and founders become the next stage.</figcaption></div>
-  <div class="blk c6"><h2>Why one system</h2><div class="list"><div><span class="num">1</span><span><b>One network</b> A concert sponsor is a future advisory client, an interview guest and a club member. One contact base makes that visible.</span></div><div><span class="num">2</span><span><b>One production line</b> A recording feeds the newsletter, two video channels and the Chinese channels. Cost per piece falls to near zero.</span></div><div><span class="num">3</span><span><b>One voice</b> A single theme makes the house known for something. Random content built no audience in six months; focus will.</span></div></div>
-    <h2 style="margin-top:18px">Activation sequence · gated by conditions, not dates</h2><div class="phases" style="grid-template-columns:1fr"><div class="ph" style="background:var(--p4-soft)"><b style="color:#B06000">Phase A · Cash</b><div class="who"><span class="dot" style="background:var(--p4)"></span><span class="dot" style="background:var(--p2)"></span>Live + Advisory</div><p>Sells access and judgement. Needs no audience.</p><div class="gate"><b>GATE</b>Stage rights and sponsor categories confirmed; partner introductions in hand</div></div><div class="ph" style="background:var(--p1-soft)"><b style="color:var(--p1)">Phase B · Recurring</b><div class="who"><span class="dot" style="background:var(--p1)"></span><span class="dot" style="background:var(--p3)"></span>Editorial season + Community</div><p>One theme, one rhythm, then two membership tiers.</p><div class="gate"><b>GATE</b>A closed sponsorship funds the season; one full season published before membership is sold</div></div><div class="ph" style="background:var(--p5-soft)"><b style="color:var(--p5)">Phase C · Equity</b><div class="who"><span class="dot" style="background:var(--p5)"></span>Acceleration</div><p>Deal flow matched to Nordic corporates and investors.</p><div class="gate"><b>GATE</b>A vetted club and paying advisory clients exist</div></div></div></div>
-</div>
-<div class="foot"><span>Sources: framework/research/ · figures are reported unless marked as estimates</span><span>Fragrant Hill Studio</span></div>
-</div>
+<div class="fig c6"><h2>Activation sequence · gated by conditions, not dates</h2><figure><svg viewBox="0 0 620 300" role="img" aria-label="Three rising steps: cash, recurring, equity, each with a gate condition." xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5F6368"/></marker><marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1A73E8"/></marker><marker id="ary" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#F29900"/></marker></defs>
+<rect x="14" y="150" width="190" height="90" rx="10" fill="#FEF7E0" stroke="#FBBC04" stroke-width="1.4"/>
+<text x="28" y="174" font-size="11.5" font-weight="700" fill="#B06000" text-anchor="start" letter-spacing=".08em">A · CASH</text>
+<circle cx="36" cy="194" r="7" fill="#FBBC04"/>
+<circle cx="56" cy="194" r="7" fill="#4285F4"/>
+<text x="28" y="220" font-size="13.5" font-weight="700" fill="#202124" text-anchor="start" >Live + Advisory</text>
+<text x="28" y="240" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >sells access and judgement</text>
+<path d="M206 120 H216" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="14" y="252" width="190" height="38" rx="8" fill="#fff" stroke="#DADCE0" stroke-dasharray="4 3"/>
+<g transform="translate(22,259) scale(0.9)" fill="none" stroke="#5F6368" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="14" r="5"/><path d="M12 11l9-9M17 6l3 3M14 9l2 2"/></g>
+<text x="48" y="276" font-size="10.5" font-weight="500" fill="#3C4043" text-anchor="start" >rights and categories confirmed</text>
+<rect x="218" y="90" width="190" height="150" rx="10" fill="#FCE8E6" stroke="#EA4335" stroke-width="1.4"/>
+<text x="232" y="114" font-size="11.5" font-weight="700" fill="#EA4335" text-anchor="start" letter-spacing=".08em">B · RECURRING</text>
+<circle cx="240" cy="134" r="7" fill="#EA4335"/>
+<circle cx="260" cy="134" r="7" fill="#34A853"/>
+<text x="232" y="160" font-size="13.5" font-weight="700" fill="#202124" text-anchor="start" >Editorial season + Community</text>
+<text x="232" y="180" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >one theme, one rhythm, two tiers</text>
+<path d="M410 60 H420" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="218" y="252" width="190" height="38" rx="8" fill="#fff" stroke="#DADCE0" stroke-dasharray="4 3"/>
+<g transform="translate(226,259) scale(0.9)" fill="none" stroke="#5F6368" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="14" r="5"/><path d="M12 11l9-9M17 6l3 3M14 9l2 2"/></g>
+<text x="252" y="276" font-size="10.5" font-weight="500" fill="#3C4043" text-anchor="start" >one sponsorship funds the season</text>
+<rect x="422" y="30" width="190" height="210" rx="10" fill="#F3E8FD" stroke="#A142F4" stroke-width="1.4"/>
+<text x="436" y="54" font-size="11.5" font-weight="700" fill="#A142F4" text-anchor="start" letter-spacing=".08em">C · EQUITY</text>
+<circle cx="444" cy="74" r="7" fill="#A142F4"/>
+<text x="436" y="100" font-size="13.5" font-weight="700" fill="#202124" text-anchor="start" >Acceleration</text>
+<text x="436" y="120" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >deal flow to investors</text>
+<rect x="422" y="252" width="190" height="38" rx="8" fill="#fff" stroke="#DADCE0" stroke-dasharray="4 3"/>
+<g transform="translate(430,259) scale(0.9)" fill="none" stroke="#5F6368" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="14" r="5"/><path d="M12 11l9-9M17 6l3 3M14 9l2 2"/></g>
+<text x="456" y="276" font-size="10.5" font-weight="500" fill="#3C4043" text-anchor="start" >club and advisory clients exist</text>
+</svg></figure><figcaption>Each step starts only when the gate below it is true.</figcaption></div>
+</div><div class="foot"><span>Sources in framework/research/ · figures are reported unless marked estimate</span><span>Fragrant Hill Studio</span></div></div>

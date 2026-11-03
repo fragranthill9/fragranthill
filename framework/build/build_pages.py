@@ -1,594 +1,605 @@
 #!/usr/bin/env python3
-"""Build the three executive one-pagers in English and Chinese from one content model.
+"""Build three visual executive one-pagers (EN + ZH) from one content model.
 Output: framework/p1-architecture-{en,zh}.html, p2-monetisation-{en,zh}.html, p3-encore-{en,zh}.html
+Everything that carries meaning is drawn: a layered architecture map, a buyer-to-pillar flow, charts, icon figures.
 """
-import html as H, os
+import html as H, os, json
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 
-# Google palette, light only
-CSS = """
-:root{
-  --bg:#FFFFFF; --surface:#F8F9FA; --ink:#202124; --ink-2:#3C4043; --muted:#5F6368; --line:#DADCE0; --line-2:#E8EAED;
-  --accent:#1A73E8;
-  --p1:#EA4335; --p2:#4285F4; --p3:#34A853; --p4:#FBBC04; --p5:#A142F4;
-  --p1-soft:#FCE8E6; --p2-soft:#E8F0FE; --p3-soft:#E6F4EA; --p4-soft:#FEF7E0; --p5-soft:#F3E8FD;
-  --p4-ink:#202124;
-  --font:"Roboto","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
-  color-scheme:light;
+# ----------------------------------------------------------------- palette (Google)
+C = dict(blue="#4285F4", red="#EA4335", yellow="#FBBC04", green="#34A853", purple="#A142F4",
+         ink="#202124", ink2="#3C4043", muted="#5F6368", line="#DADCE0", line2="#E8EAED", surface="#F8F9FA", accent="#1A73E8",
+         blueS="#E8F0FE", redS="#FCE8E6", yellowS="#FEF7E0", greenS="#E6F4EA", purpleS="#F3E8FD", amber="#F29900", yellowD="#B06000")
+PC = ["red", "blue", "green", "yellow", "purple"]          # pillar colours 1..5
+PS = ["redS", "blueS", "greenS", "yellowS", "purpleS"]
+PT = ["#fff", "#fff", "#fff", C["ink"], "#fff"]            # text on pillar header
+PICON = ["mic", "compass", "people", "piano", "rocket"]
+
+ICONS = {
+ "mic": '<rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4M8 22h8"/>',
+ "compass": '<circle cx="12" cy="12" r="10"/><path d="M16 8l-2.5 5.5L8 16l2.5-5.5z"/>',
+ "people": '<circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6M15 15c3 0 6 1.5 6 5"/>',
+ "piano": '<rect x="2" y="5" width="20" height="14" rx="1"/><path d="M6 5v8M10 5v8M14 5v8M18 5v8"/>',
+ "rocket": '<path d="M14 4c3 0 6 3 6 6l-8 8-6-6z"/><circle cx="14" cy="10" r="1.5"/><path d="M6 14l-3 1 2-5M10 18l-1 3 5-2M5 19l4-4"/>',
+ "building": '<rect x="4" y="3" width="16" height="18"/><path d="M8 7h3M13 7h3M8 11h3M13 11h3M8 15h3M13 15h3M10 21v-3h4v3"/>',
+ "briefcase": '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 12h18"/>',
+ "coins": '<ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/>',
+ "doc": '<path d="M6 2h8l5 5v15H6z"/><path d="M14 2v5h5M9 12h7M9 16h7"/>',
+ "ticket": '<path d="M3 9a2 2 0 0 0 2-2V5h14v2a2 2 0 0 0 0 4v2a2 2 0 0 0 0 4v2H5v-2a2 2 0 0 0-2-2z"/><path d="M13 5v14" stroke-dasharray="2 2"/>',
+ "star": '<path d="M12 2l3 7 7 .6-5.3 4.6L18.5 21 12 17l-6.5 4 1.8-6.8L2 9.6 9 9z"/>',
+ "shield": '<path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z"/>',
+ "door": '<rect x="5" y="2" width="14" height="20" rx="1"/><circle cx="15" cy="12" r="1"/><path d="M19 2l-7 2v18l7-2"/>',
+ "net": '<circle cx="12" cy="12" r="3"/><circle cx="4" cy="6" r="2"/><circle cx="20" cy="6" r="2"/><circle cx="4" cy="18" r="2"/><circle cx="20" cy="18" r="2"/><path d="M6 7l4 3M18 7l-4 3M6 17l4-3M18 17l-4-3"/>',
+ "film": '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M3 15h18M8 4v16M16 4v16"/>',
+ "repeat": '<path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>',
+ "handshake": '<path d="M2 9l4-4h5l3 3-3 3 4 4 3-3M22 9l-4-4h-3M8 13l3 3M11 16l2 2M14 18l2 2"/>',
+ "flag": '<path d="M5 22V3h12l-2 4 2 4H5"/>',
+ "chart": '<path d="M3 21h18M6 17V9M11 17V4M16 17v-6"/>',
+ "check": '<circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/>',
+ "pen": '<path d="M3 21l4-1 11-11-3-3L4 17z"/><path d="M14 6l3 3"/>',
+ "truck": '<rect x="2" y="7" width="13" height="9"/><path d="M15 10h4l3 3v3h-7z"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/>',
+ "seat": '<path d="M6 11V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v5"/><rect x="3" y="11" width="18" height="6" rx="2"/><path d="M5 17v3M19 17v3"/>',
+ "key": '<circle cx="8" cy="14" r="5"/><path d="M12 11l9-9M17 6l3 3M14 9l2 2"/>',
 }
+def icon(name, x, y, s=1.0, color=C["ink"], sw=2):
+    return f'<g transform="translate({x},{y}) scale({s})" fill="none" stroke="{color}" stroke-width="{sw}" stroke-linecap="round" stroke-linejoin="round">{ICONS[name]}</g>'
+
+def e(s): return H.escape(str(s))
+def wrap(s, n):
+    if any(ord(ch) > 0x2E80 for ch in s): n = n // 2 + 2
+    out, cur = [], ""
+    for w in s.replace("; ", " · ").split(" "):
+        if cur and len(cur) + 1 + len(w) > n: out.append(cur); cur = w
+        else: cur = (cur + " " + w).strip()
+    if cur: out.append(cur)
+    return out
+def tx(x, y, s, size=12, w=400, fill=None, anc="start", extra=""):
+    fill = fill or C["ink"]
+    return f'<text x="{x}" y="{y}" font-size="{size}" font-weight="{w}" fill="{fill}" text-anchor="{anc}" {extra}>{e(s)}</text>'
+MK = '<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5F6368"/></marker><marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1A73E8"/></marker><marker id="ary" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#F29900"/></marker></defs>'
+
+# ----------------------------------------------------------------- CSS
+CSS = """
+:root{--bg:#FFFFFF;--surface:#F8F9FA;--ink:#202124;--ink-2:#3C4043;--muted:#5F6368;--line:#DADCE0;--accent:#1A73E8;
+--font:"Roboto","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;color-scheme:light}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.45;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
+padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
 .sheet{max-width:1240px;margin:0 auto}
-header{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;justify-content:space-between;padding:18px 0 12px;border-bottom:1px solid var(--line)}
+header{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;justify-content:space-between;padding:16px 0 12px;border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:12px}
-.seal{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff;background:linear-gradient(135deg,var(--p2) 0 25%,var(--p1) 25% 50%,var(--p4) 50% 75%,var(--p3) 75% 100%)}
-.brand b{font-weight:700;font-size:14px;letter-spacing:.04em;display:block}
-.brand span{color:var(--muted);font-size:12px}
-.docline{display:flex;align-items:center;gap:14px;font-size:12px;color:var(--muted)}
-.docline b{color:var(--ink);display:block;font-size:13px}
-.pages{display:flex;gap:6px}
-.pages span{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;border:1px solid var(--line);color:var(--muted)}
+.seal{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff;background:conic-gradient(#4285F4 0 25%,#EA4335 25% 50%,#FBBC04 50% 75%,#34A853 75% 100%)}
+.brand b{font-weight:700;font-size:14px;display:block}.brand span{color:var(--muted);font-size:12px}
+.docline{display:flex;align-items:center;gap:14px;font-size:12px;color:var(--muted)}.docline b{color:var(--ink);display:block;font-size:13px}
+.pages{display:flex;gap:6px}.pages span{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;border:1px solid var(--line);color:var(--muted)}
 .pages span.on{background:var(--accent);border-color:var(--accent);color:#fff}
 .lang{font-size:12px;font-weight:500;color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:16px;padding:4px 12px}
+.hero{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:20px;align-items:center;padding:18px 0 6px}
+h1{font-size:clamp(26px,3.4vw,40px);font-weight:700;line-height:1.1;letter-spacing:-.01em;margin:0 0 8px;text-wrap:balance}
+.hero p{margin:0;color:var(--ink-2);font-size:15px;max-width:60ch}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.kpi{background:var(--surface);border-radius:12px;padding:12px 14px}
+.kpi .n{font-size:26px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;line-height:1.1}
+.kpi .l{font-size:11.5px;color:var(--ink-2);margin-top:4px;line-height:1.3}.kpi .l i{display:block;font-style:normal;color:var(--muted);font-size:10px;margin-top:2px}
 .grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px;margin-top:14px}
-.c12{grid-column:span 12}.c8{grid-column:span 8}.c7{grid-column:span 7}.c6{grid-column:span 6}.c5{grid-column:span 5}.c4{grid-column:span 4}.c3{grid-column:span 3}
-.blk{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:16px 18px;min-width:0}
-.blk h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 10px;font-weight:700}
-.title{grid-column:span 8;padding:6px 0 0}
-.title h1{font-size:clamp(26px,3.4vw,38px);font-weight:700;line-height:1.1;letter-spacing:-.01em;margin:0 0 8px;text-wrap:balance}
-.title p{margin:0;color:var(--ink-2);font-size:15px;max-width:64ch}
-.facts{grid-column:span 4;display:grid;gap:8px;align-content:start}
-.fact{background:var(--surface);border-radius:10px;padding:10px 14px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center}
-.fact .n{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--accent);min-width:70px}
-.fact .l{font-size:12px;color:var(--ink-2);line-height:1.3}
-.fact .l i{display:block;font-style:normal;color:var(--muted);font-size:10.5px;margin-top:2px}
-.pillars{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
-.pc{border-radius:10px;border:1px solid var(--line);overflow:hidden;background:var(--bg);display:flex;flex-direction:column}
-.pc .hd{padding:10px 12px;color:#fff;font-weight:700;font-size:14px;line-height:1.2}
-.pc .hd small{display:block;font-weight:500;font-size:11px;opacity:.9;margin-top:2px}
-.pc .bd{padding:10px 12px;font-size:12.5px;color:var(--ink-2);display:grid;gap:8px;flex:1}
-.pc .k{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px;font-weight:700}
-.pc ul{margin:0;padding-left:16px}
-.pc li{margin:1px 0}
-.pc .chip{align-self:start;margin-top:auto}
-.chip{display:inline-block;padding:2px 9px;border-radius:12px;font-size:10.5px;font-weight:700;letter-spacing:.03em}
-.ups{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;text-align:center;color:var(--muted);font-size:16px;line-height:1;margin:6px 0}
-.band{border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-.band.core{background:var(--p2-soft);border:1px solid #AECBFA}
-.band.inputs{background:var(--surface);border:1px solid var(--line)}
-.band .lbl{grid-column:1/-1;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--accent);margin-bottom:-4px}
-.band.inputs .lbl{color:var(--muted)}
-.band b{display:block;font-size:13px;margin-bottom:2px}
-.band p{margin:0;font-size:12px;color:var(--ink-2)}
-figure{margin:0;overflow-x:auto}
-figure svg{display:block;width:100%;height:auto}
-figcaption{font-size:11.5px;color:var(--muted);margin-top:8px}
-.list{display:grid;gap:10px}
-.list div{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;font-size:13px;color:var(--ink-2)}
-.list b{color:var(--ink)}
-.num{width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700;flex:none}
-.phases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.ph{border-radius:10px;padding:12px 14px;border:1px solid var(--line)}
-.ph b{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
-.ph .who{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px}
-.ph p{margin:0;font-size:12.5px;color:var(--ink-2)}
-.ph .gate{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--ink-2)}
-.ph .gate b{display:inline;font-size:10px;color:var(--muted);margin-right:4px}
-.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:0}
-table{width:100%;border-collapse:collapse;font-size:12.5px}
-th{text-align:left;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:6px 8px;border-bottom:2px solid var(--line)}
-td{padding:8px;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
-td:first-child{color:var(--ink);font-weight:700}
-.mx th{text-align:center}.mx th:first-child{text-align:left}.mx td{text-align:center}.mx td:first-child{text-align:left;white-space:nowrap}
-.d{display:inline-block;width:14px;height:14px;border-radius:50%}
-.d.h{opacity:.3}
-.streams{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.st{border-radius:10px;border:1px solid var(--line);padding:12px 14px;background:var(--surface)}
-.st b{display:block;font-size:14px;margin-bottom:4px}
-.st p{margin:0 0 6px;font-size:12.5px;color:var(--ink-2)}
-.st .meta{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-.money{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
-.mc{border-radius:10px;border-top:4px solid var(--line);background:var(--surface);padding:10px 12px;font-size:12.5px;color:var(--ink-2)}
-.mc b{display:block;font-size:13px;color:var(--ink);margin-bottom:4px}
-.mc i{display:block;font-style:normal;font-size:11.5px;color:var(--muted);margin-top:6px;padding-top:6px;border-top:1px dashed var(--line)}
-.cols3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.cols4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-.cell{border-radius:10px;background:var(--surface);padding:12px 14px;font-size:12.5px;color:var(--ink-2)}
-.cell b{display:block;font-size:13px;color:var(--ink);margin-bottom:4px}
-.cell ul{margin:0;padding-left:16px}
-.offer{grid-column:span 4;background:var(--p4-soft);border:1px solid #FDE293;border-radius:12px;padding:14px 16px}
-.offer h2{color:var(--ink);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 8px;font-weight:700}
-.offer dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:12.5px}
-.offer dt{color:var(--muted);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;font-weight:700}
-.offer dd{margin:0;color:var(--ink)}
-.tier{border-radius:10px;border:1px solid var(--line);padding:12px 14px;background:var(--bg)}
-.tier b{display:block;font-size:14px}
-.tier small{display:block;color:var(--muted);font-size:11px;margin-bottom:6px}
-.tier ul{margin:0;padding-left:16px;font-size:12.5px;color:var(--ink-2)}
-.risk{border-left:4px solid var(--p1);padding:4px 12px;font-size:12.5px;color:var(--ink-2);background:var(--surface);border-radius:0 8px 8px 0}
-.risk b{color:var(--ink)}
+.c12{grid-column:span 12}.c8{grid-column:span 8}.c7{grid-column:span 7}.c6{grid-column:span 6}.c5{grid-column:span 5}.c4{grid-column:span 4}
+.fig{border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0;background:var(--bg)}
+.fig h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 8px;font-weight:700}
+figure{margin:0;overflow-x:auto}figure svg{display:block;width:100%;height:auto}
+figcaption{font-size:11.5px;color:var(--muted);margin-top:8px;line-height:1.4}
 .foot{margin-top:14px;font-size:11.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:space-between}
-@media (max-width:1000px){.pillars,.money{grid-template-columns:repeat(2,minmax(0,1fr))}.streams{grid-template-columns:repeat(3,minmax(0,1fr)) !important}.ups{display:none}.band{grid-template-columns:1fr 1fr}}
-@media (max-width:860px){.c8,.c7,.c6,.c5,.c4,.c3,.title,.facts,.offer{grid-column:span 12}.phases,.cols3,.cols4{grid-template-columns:1fr}.streams{grid-template-columns:1fr 1fr !important}.pillars,.money,.band{grid-template-columns:1fr}}
+@media (max-width:900px){.hero{grid-template-columns:1fr}.c8,.c7,.c6,.c5,.c4{grid-column:span 12}.kpis{grid-template-columns:1fr 1fr}}
 """
+FONT = {"en": '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">',
+        "zh": '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">'}
 
-FONT_LINK = {
-    "en": '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">',
-    "zh": '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">',
-}
-
-PCOL = ["p1", "p2", "p3", "p4", "p5"]
-HDTXT = {"p1": "#fff", "p2": "#fff", "p3": "#fff", "p4": "var(--p4-ink)", "p5": "#fff"}
-
-# ---------------------------------------------------------------- content
+# ----------------------------------------------------------------- content
 T = {}
 T["en"] = dict(
-  brand="Fragrant Hill Studio", sub="Editorial house · Stockholm · Europe ↔ China",
-  lang_other="中文版", conf="Confidential · prepared for partner and investor discussion",
-  sources="Sources: framework/research/ · figures are reported unless marked as estimates",
-  pnames=["Editorial", "Advisory", "Community", "Live & Venues", "Acceleration"],
-  pshort=["Editorial", "Advisory", "Community", "Live", "Acceleration"],
-  psub=["the voice", "paid answers", "the vetted room", "the stage · Encore", "the pipeline"],
-  pwhat=["Stories of the people building machines, Europe ↔ China",
-         "Partner data plus an operator's judgement",
-         "Executives and founders on both sides, two tiers",
-         "Celebrity concerts and executive salons sold to brands",
-         "Founders landing in the Nordics; investors finding them"],
-  pprod=[["Bilingual newsletter", "Video interview series", "LinkedIn · 公众号 · 视频号"],
-         ["Market-entry advisory EU ↔ CN", "Co-branded industry reports", "Expert calls and workshops"],
-         ["Base membership", "Executive club", "Courses and study trips"],
-         ["Encore tour sponsorship", "Executive salons", "Sponsor dinners and hospitality"],
-         ["Soft-landing programme", "Scouting for investors", "Pilot matching with corporates"]],
-  pbuyer=["Season sponsors, platforms, licensees",
-          "Robotics and sensor firms entering Europe; European OEMs reading China",
-          "Members; course and trip participants; salon sponsors",
-          "Automotive, robotics, semiconductor and consumer-tech brands",
-          "Founders, accelerators, investors, corporates"],
-  pwhen=["Pays later", "Cash now", "Recurring", "Cash now", "Equity"],
-  k_what="What", k_products="Products", k_buyer="Who pays",
-  core_lbl="Shared core · every pillar runs on it",
-  core=[("Editorial voice", "One theme, one tone, one host."),
-        ("Relationship graph", "One CRM: guests, sponsors, members, founders, investors."),
-        ("Production line", "Record once; publish in six channels, two languages."),
-        ("Commercial desk + back office", "One rate card; invoicing in Stockholm and China.")],
-  inputs_lbl="Inputs already held",
-  inputs=[("Founder domain depth", "Sensing, robotics, automotive, dealer networks"),
-          ("Stage and talent access", "Celebrity concert channel; pianist interview done"),
-          ("Partner assets", "Data, reports, founder community, investors"),
-          ("Two-market base", "Swedish company; operating partner in China")],
-  p1_title="One core. Five pillars. One network.",
-  p1_lede="Fragrant Hill is one operating system, not five businesses. Five product pillars share one editorial voice, one contact base and one production line. Each sells a different thing to a different buyer, and each feeds the next.",
-  p1_doc="Page 1 of 3 · System architecture",
-  sys_h="The system",
-  fly_h="How the pillars feed each other",
-  fly_lbl=["content", "audience", "clients", "deal flow", "sponsors, founders"],
-  fly_center="ONE NETWORK",
-  fly_cap="Start at Live. Each concert yields content and a guest list; the loop closes when sponsors and founders become the next stage.",
-  why_h="Why one system",
-  why=[("One network", "A concert sponsor is a future advisory client, an interview guest and a club member. One contact base makes that visible."),
-       ("One production line", "A recording feeds the newsletter, two video channels and the Chinese channels. Cost per piece falls to near zero."),
-       ("One voice", "A single theme makes the house known for something. Random content built no audience in six months; focus will.")],
-  seq_h="Activation sequence · gated by conditions, not dates",
-  phases=[("Phase A · Cash", "Live + Advisory", "Sells access and judgement. Needs no audience.", "Stage rights and sponsor categories confirmed; partner introductions in hand"),
-          ("Phase B · Recurring", "Editorial season + Community", "One theme, one rhythm, then two membership tiers.", "A closed sponsorship funds the season; one full season published before membership is sold"),
-          ("Phase C · Equity", "Acceleration", "Deal flow matched to Nordic corporates and investors.", "A vetted club and paying advisory clients exist")],
-  gate="Gate",
-  # page 2
-  p2_doc="Page 2 of 3 · Monetisation",
-  p2_title="Six revenue streams across five pillars. No single buyer.",
-  p2_lede="Free editorial earns trust; the money sits in high-ticket products next to it. The best media businesses earn most from sponsored rooms, data and advisory, not from subscriptions or ads.",
-  facts2=[("€34.5bn", "European sponsorship market 2025; arts and culture 28% of it", "ESA / Nielsen Sports 2026"),
-          ("50–60%", "of Semafor revenue is event sponsorship; profitable in 2025", "Semafor, Nieman Lab"),
-          ("<5%", "of SemiAnalysis revenue is subscriptions; research and advisory carry the rest", "The Information, estimate"),
-          ("90%", "of a leading Chinese business pundit's year-end show revenue is sponsorship", "36Kr on 吴晓波年终秀")],
-  streams_h="The six revenue streams",
-  streams=[("Sponsorship", "Brands pay to stand beside a tour, a season or a salon", [3, 0, 2], "Cash now"),
-           ("Service fees", "Clients pay retainers, project fees and programme fees", [1, 4], "Cash now"),
-           ("Membership", "Members pay annual dues: base tier and executive club", [2], "Recurring"),
-           ("Tickets & hospitality", "Sponsors' guests, salon attendees, trip participants", [3, 2], "Cash now"),
-           ("Licences & reports", "Report buyers, platforms and media licensees", [1, 0], "Recurring"),
-           ("Equity & carry", "Programme fees, scout fees, carry through the partner fund", [4], "Equity")],
-  k_pillars="Pillars", k_when="Pays",
-  mx_h="Pillar × revenue stream",
-  mx_cols=["Sponsorship", "Service fees", "Membership", "Tickets & hospitality", "Licences & reports", "Equity & carry"],
-  mx_cap="Solid: primary stream. Faded: secondary. Every pillar has at least two streams; no stream depends on one pillar.",
-  money_h="How each pillar makes money",
-  money=[("Season sponsorship", "One presenting sponsor per season, every free distribution window. Licensing of episodes to platforms.", "Benchmark: The Circuit runs one presenting sponsor per season."),
-         ("Retainers and reports", "Retainers and projects priced on outcome; co-branded reports licensed per seat.", "Benchmark: SemiAnalysis earns over 95% from research and consulting."),
-         ("Two membership tiers", "An expensable base tier; a vetted club priced on access. Courses and trips sold per seat.", "Benchmark: vetted founder clubs sustain four- to five-figure annual dues."),
-         ("Sponsorship packages", "Sold on hospitality first, association second, content third, reach last. Deposit on signature.", "Benchmark: Semafor earns 50–60% of revenue from sponsored convenings."),
-         ("Fees and carry", "Programme fee per company, scout fee per round, carry through the partner's fund.", "Benchmark: a16z and YC run media as a deal-flow funnel.")],
-  when_h="When each stream pays",
-  when_cols=[("Cash now", [3, 1], "Sponsorship, hospitality, service fees. Sold on access and judgement before an audience exists."),
-             ("Recurring", [0, 2], "Membership, season sponsorship, report licences. Built on a published season and a vetted room."),
-             ("Equity", [4], "Programme fees and carry. A by-product of the first four pillars.")],
-  work_h="Who does the work · bird's-eye view",
-  work=[("Human", "Founder and core team own the theme, the relationships and the price."),
-        ("Digital agents", "Research, production, publishing, follow-up and finance run on agents built with the house skills."),
-        ("Partner", "Data, founder cohorts, sponsor introductions and invoicing in China.")],
-  # page 3
-  p3_doc="Page 3 of 3 · The project · Encore",
-  p3_eyebrow="Encore · sponsorship programme for a world-class pianist's European tour",
-  p3_title="Sell the room, not the reach.",
-  p3_lede="Encore packages a celebrity concert tour as a sponsorship, hospitality and content property for automotive, robotics and technology brands moving between Europe and China. Fragrant Hill holds the stage and the artist relationship. The partner holds the doors.",
-  offer_h="The offer in one block",
-  offer=[("Property", "A European tour leg by a pianist who sells out the largest halls; Nordic cities plus one of Hamburg, Paris, London"),
-         ("Buyers", "Brands launching or scaling in Europe: EV and premium automotive, robotics, semiconductors, consumer tech"),
-         ("Structure", "1 presenting partner · 3 category-exclusive official partners · up to 6 hospitality partners"),
-         ("Payment", "Deposit on signature, balance before the first show"),
-         ("Our revenue", "Agency commission on rights fees (industry average 20%) plus production and hospitality fees"),
-         ("Repeats as", "Annual tour · executive salons on the same stages · sponsor dinners")],
-  prop_h="The property · reported",
-  prop=[("5,000", "Royal Albert Hall tickets sold in 48 hours for one recital", "Classic FM, 2013"),
-        ("16–20M", "social followers claimed across platforms", "Slipped Disc 2025; claimed, not verified per platform"),
-        ("13", "European cities on the autumn 2026 run; 2027 dates listed in London, Hamburg, Bonn", "Deutsche Grammophon tour page; listings"),
-        ("0", "whole-tour presenting partners ever announced for this artist", "Research notes 3")],
-  mkt_h="The market · reported",
-  mkt=[("€34.5bn", "European sponsorship spend 2025, up 4.7%", "ESA / Nielsen Sports 2026"),
-       ("€9.7bn", "of it is non-sport: arts, culture, entertainment (28%)", "ESA / Nielsen Sports 2026"),
-       ("62%", "of brands want to sponsor culture; 61% do not yet", "ESA arts and culture survey"),
-       ("0", "Chinese EV, robotics or consumer-tech brands found sponsoring classical music in Europe", "Finding of absence, research notes 3")],
-  flow_h="How the money flows",
-  flow=dict(sponsors="SPONSORS", s1="1 presenting partner", s2="3 official partners", s3="up to 6 hospitality partners",
-            rights="rights fees", hosp="hospitality fees", prog="ENCORE PROGRAMME", pr1="contracts · category exclusivity", pr2="deposit on signature",
-            out1="Tour producer", o1="artist · venues · production", out2="Fragrant Hill", o2="commission · production fees", out3="Partner", o3="share on introduced sponsors",
-            back="value back: hospitality · association · content · reach"),
-  flow_cap="Hospitality is what B2B sponsors measure: dealer and client evenings in a concert hall. Reach is the last argument, not the first.",
-  tiers_h="Package tiers",
-  tiers=[("Presenting partner", "one · \"presented by\"", ["Naming across the tour; category exclusivity", "VIP tables per city; private recital for clients", "12-month content rights; first refusal on the next edition"]),
-         ("Official partner", "three · one per category", ["Category exclusivity: automotive · robotics and tech · finance or luxury", "Programme and screen branding; VIP table per city", "Shared content pack"]),
-         ("Hospitality partner", "up to six", ["Premium seat blocks in two cities", "Lounge access and branding; photo and social assets"])],
-  tiers_cap="Fees are set per market against the precedents below and confirmed in the first pitches.",
-  prec_h="Precedents · automotive and tech in classical music",
-  prec_cols=["Brand", "Property", "Since"],
-  prec=[("Audi", "Salzburg Festival main sponsor, extended to 2027", "1995"),
-        ("Porsche", "Gewandhaus Leipzig, incl. international tours", "2011"),
-        ("BMW", "Opera for All, Munich and Berlin, to 2030", "1997"),
-        ("Volvo", "Gothenburg Symphony principal sponsor", "long-running"),
-        ("VW Group", "Artist cultural ambassador; presented a China tour", "2012"),
-        ("Siemens", "Bayreuth Festival, about $1.4M a year", "to 2011")],
-  prec_cap="Fees undisclosed except Siemens. A thirty-year playbook for European brands, unused by Chinese brands in Europe.",
-  steps_h="How it proceeds",
-  steps=[("Secure", "Rights, dates, venues and open sponsor categories confirmed in writing", "Fragrant Hill"),
-         ("Sell", "Three tiers, warm introductions, term sheets, contracts with deposits", "Fragrant Hill + partner"),
-         ("Deliver", "Production, hospitality, client evenings, tour film and content", "Fragrant Hill + contractors"),
-         ("Renew", "First refusal on the next edition; salon series on the same stages", "Fragrant Hill")],
-  roles_h="Who does what",
-  roles=[("Fragrant Hill", ["Artist and venue relationship, rights", "Packages, pitch, contracts, collections", "Production, hospitality, content"]),
-         ("Partner", ["Warm introductions in automotive, robotics, tech", "Sponsor-side champion", "Invoicing in China where needed"]),
-         ("Sponsor", ["Rights and hospitality fees; activation budget", "Guest lists: dealers, clients, officials, press", "Brand assets and approvals"])],
-  risks_h="Risks and controls",
-  risks=[("Category conflict.", "The artist has had automotive partners. Open categories are confirmed in writing before any brand is pitched; if automotive is closed, the presenting tier goes to robotics and consumer tech."),
-         ("Sales cycle.", "Six-figure sponsorships normally take 9–18 months. We pitch only through warm introductions and start from a base of three signatures."),
-         ("Artist, venue, payment.", "Cancellation insurance; venues on option; non-refundable deposits; exclusivity written in so one exit does not unwind the others.")],
-  rep_h="Why it repeats",
-  rep=[("Annual tour edition", "Same package ladder; sponsors get first refusal. The roster can widen to other performers we can host."),
-       ("Executive salons", "Salons on the same stages, two to three sponsors each. Feeds the Community pillar."),
-       ("Content and network", "Every concert yields a tour film, interview material and a guest list that the other pillars reuse.")],
+ brand="Fragrant Hill Studio", sub="Editorial house · Stockholm · Europe ↔ China", other="中文版", conf="Confidential · for partner and investor discussion",
+ sources="Sources in framework/research/ · figures are reported unless marked estimate",
+ P=["Editorial", "Advisory", "Community", "Live & Venues", "Acceleration"], Pshort=["Editorial", "Advisory", "Community", "Live", "Acceleration"],
+ Psub=["the voice", "paid answers", "the vetted room", "the stage · Encore", "the pipeline"],
+ Pprod=[["Interview series", "Bilingual newsletter", "Video · LinkedIn · 公众号"], ["Market-entry advisory", "Co-branded reports", "Expert calls"],
+        ["Base membership", "Executive club", "Courses · study trips"], ["Encore tour sponsorship", "Executive salons", "Sponsor dinners"],
+        ["Soft-landing programme", "Investor scouting", "Corporate pilots"]],
+ Pwhen=["pays later", "cash now", "recurring", "cash now", "equity"],
+ buyers=["Brands & sponsors", "Clients", "Members", "Brands & sponsors", "Founders & investors"],
+ buyers_pay=["season sponsorship", "retainers · reports", "annual dues", "tour packages · tables", "fees · carry"],
+ lbl_buyers="WHO PAYS", lbl_pillars="FIVE PRODUCT PILLARS", lbl_core="SHARED CORE · every pillar runs on it", lbl_inputs="INPUTS ALREADY HELD",
+ core=[("Editorial voice", "one theme · one host"), ("Relationship graph", "one CRM for all five"), ("Production line", "record once · 6 channels · 2 languages"), ("Commercial desk", "one rate card · invoicing SE + CN")],
+ core_icons=["mic", "net", "film", "coins"],
+ inputs=[("Founder domain depth", "sensing · robotics · automotive"), ("Stage & talent access", "celebrity concerts · pianist interview"), ("Partner assets", "data · reports · founders · investors"), ("Two-market base", "Swedish AB · China partner")],
+ inputs_icons=["compass", "piano", "doc", "building"],
+ p1_doc="Page 1 of 3 · System architecture", p1_title="One core. Five pillars. One network.",
+ p1_lede="Money comes in at the top from five kinds of buyer. Five product pillars sell to them. One shared core runs all five, built on inputs we already hold.",
+ fig_sys="The system · who pays, what we sell, what it runs on", fig_sys_cap="Read top to bottom: buyers pay the pillars; the pillars run on one core; the core is built from inputs that already exist. Nothing in the core needs new hiring on day one.",
+ fig_cycle="How the pillars feed each other", cycle=["content", "audience", "clients", "deal flow", "sponsors, founders"], cycle_center="ONE NETWORK",
+ fig_cycle_cap="Start at Live. Each concert yields content and a guest list; the loop closes when sponsors and founders become the next stage.",
+ fig_seq="Activation sequence · gated by conditions, not dates", seq=[("A · CASH", "Live + Advisory", "sells access and judgement"), ("B · RECURRING", "Editorial season + Community", "one theme, one rhythm, two tiers"), ("C · EQUITY", "Acceleration", "deal flow to investors")],
+ gates=["rights and categories confirmed", "one sponsorship funds the season", "club and advisory clients exist"],
+ fig_seq_cap="Each step starts only when the gate below it is true.",
+ facts=[("€34.5bn", "European sponsorship market 2025; arts and culture 28%", "ESA / Nielsen Sports 2026"), ("50–60%", "of Semafor revenue is event sponsorship; profitable 2025", "Semafor, Nieman Lab"), ("<5%", "of SemiAnalysis revenue is subscriptions", "The Information, estimate")],
+ # page 2
+ p2_doc="Page 2 of 3 · Monetisation", p2_title="Four kinds of buyer, six revenue streams, five pillars.",
+ p2_lede="Follow the money left to right: who pays, through which stream, into which pillar. No pillar depends on a single stream, and no stream depends on a single pillar.",
+ fig_flow="Where the money comes from and where it lands",
+ flow_buyers=["Brands & sponsors", "Clients", "Members & guests", "Founders & investors"],
+ streams=["Sponsorship", "Service fees", "Membership", "Tickets & hospitality", "Licences & reports", "Equity & carry"],
+ fig_flow_cap="Band colour follows the pillar. Width is equal because this is structure, not a forecast.",
+ fig_bench="Where proven media houses actually earn · share of revenue", bench=[("Semafor · sponsored events", 55, "reported 2025"), ("吴晓波年终秀 · sponsorship", 90, "reported"), ("SemiAnalysis · research & advisory", 95, "estimate"), ("得到 Dedao · online courses", 64, "reported 2021"), ("The Information · subscriptions", 90, "reported")],
+ fig_bench_cap="Sponsored rooms, research and courses carry the businesses we benchmarked. Subscriptions work only at The Information's scale and price.",
+ fig_when="When each pillar pays", when_lanes=[("CASH NOW", [3, 1]), ("RECURRING", [0, 2]), ("EQUITY", [4])],
+ fig_when_cap="Live and Advisory pay before an audience exists. Editorial and Community pay once a season is published and a room is vetted. Acceleration pays last.",
+ fig_unit="What one sale looks like", units=[("Season package", "one sponsor per season", "mic"), ("Retainer · report", "outcome-priced · per-seat licence", "doc"), ("Annual seat", "base tier · vetted club", "key"), ("Tour package · table", "naming · VIP tables · content", "ticket"), ("Programme fee · carry", "per company, per round", "rocket")],
+ fig_work="Who does the work", work=[("Human", "theme · relationships · price", "people"), ("Digital agents", "research · production · publishing · finance", "net"), ("Partner", "data · cohorts · introductions · China invoicing", "handshake")],
+ # page 3
+ p3_doc="Page 3 of 3 · The project · Encore", p3_eyebrow="ENCORE · SPONSORSHIP PROGRAMME FOR A WORLD-CLASS PIANIST'S EUROPEAN TOUR", p3_title="Sell the room, not the reach.",
+ p3_lede="A celebrity concert tour packaged as sponsorship, hospitality and content for automotive, robotics and technology brands moving between Europe and China. Fragrant Hill holds the stage. The partner holds the doors.",
+ kp3=[("5,000", "Royal Albert Hall tickets sold in 48 hours for one recital", "Classic FM, 2013"), ("0", "whole-tour presenting partners ever announced for this artist", "research notes 3"), ("62%", "of European brands want to sponsor culture; 61% do not yet", "ESA arts survey")],
+ fig_ladder="The package ladder · what each tier buys", ladder=[("1 Presenting partner", ["naming across the tour", "category exclusivity", "VIP tables · private recital", "12-month content rights"]), ("3 Official partners", ["one per category", "programme and screen branding", "VIP table per city", "content pack"]), ("6 Hospitality partners", ["premium seat blocks", "lounge access and branding", "photo and social assets"])],
+ ladder_cap="Fees are set per market against the precedents and confirmed in the first pitches. Deposit on signature, balance before the first show.",
+ fig_money="How the money flows", money=dict(sp="SPONSORS", rights="rights fees", hosp="hospitality fees", prog="ENCORE", p1="contracts · exclusivity", p2="deposit on signature", o=[("Tour producer", "artist · venues · production", "piano"), ("Fragrant Hill", "commission · fees", "star"), ("Partner", "share on introduced sponsors", "handshake")], back="value back: hospitality · association · content · reach"),
+ money_cap="Hospitality is what B2B sponsors measure: dealer and client evenings in a concert hall. Reach is the last argument.",
+ fig_prec="Automotive and finance brands in classical music · years of partnership", prec=[("Deutsche Bank · Berlin Phil", 1989, 2030), ("Audi · Salzburg Festival", 1995, 2027), ("BMW · Opera for All", 1997, 2030), ("Rolex · Vienna Philharmonic", 2008, 2026), ("Porsche · Gewandhaus Leipzig", 2011, 2026), ("VW Group · artist ambassador", 2012, 2026)],
+ prec_cap="Bars run from start year to the latest confirmed year. A thirty-year playbook for European brands, unused so far by Chinese brands in Europe.",
+ fig_mkt="European sponsorship 2025 · € billion", mkt=[("Sport", 24.8, "blue"), ("Arts, culture, entertainment", 9.7, "yellow")], mkt_countries=[("Germany", 6.26), ("UK", 6.15), ("Spain", 2.18), ("Italy", 2.01), ("France", 1.85)],
+ mkt_cap="ESA / Nielsen Sports 2026. Total €34.5bn, up 4.7%. Non-sport is 28% of the market.",
+ fig_steps="How it proceeds", steps=[("Secure", "rights · dates · open categories", "key"), ("Sell", "three tiers · warm introductions · deposits", "handshake"), ("Deliver", "production · hospitality · content", "film"), ("Renew", "first refusal · salon series", "repeat")],
+ steps_owner=["Fragrant Hill", "Fragrant Hill + partner", "Fragrant Hill + contractors", "Fragrant Hill"],
+ fig_roles="Three parties, one exchange", roles=dict(fh="FRAGRANT HILL", pa="PARTNER", sp="SPONSOR", fh_sp="stage · packages · hospitality · content", sp_fh="rights fees · guest lists", pa_fh="warm introductions", fh_pa="share on closed deals"),
+ fig_risk="Risks and controls", risks=[("Category conflict", "open categories confirmed in writing before any pitch", "shield"), ("Sales cycle", "warm introductions only; base of three signatures", "flag"), ("Artist · venue · payment", "insurance · venue options · non-refundable deposits", "check")],
+ fig_rep="Why it repeats", rep=[("Annual tour edition", "repeat"), ("Executive salons on the same stages", "people"), ("Content and guest lists for every pillar", "film")],
 )
 
 T["zh"] = dict(
-  brand="香山工作室", sub="编辑内容机构 · 斯德哥尔摩 · 欧洲 ↔ 中国",
-  lang_other="English", conf="保密 · 供合作伙伴与投资人讨论",
-  sources="资料来源：framework/research/ · 除标注估算外，数字均为公开报道",
-  pnames=["内容", "咨询", "社群", "现场与场馆", "加速"],
-  pshort=["内容", "咨询", "社群", "现场", "加速"],
-  psub=["声音", "付费答案", "筛选过的圈子", "舞台 · 安可 Encore", "项目通道"],
-  pwhat=["讲述欧洲与中国之间「造机器的人」的故事",
-         "伙伴数据 + 实业操盘者的判断",
-         "两地的高管与创始人，两档会员",
-         "向品牌销售的名人音乐会与高管沙龙",
-         "创始人落地北欧，投资人找到他们"],
-  pprod=[["双语通讯", "视频访谈系列", "LinkedIn · 公众号 · 视频号"],
-         ["欧中市场进入咨询", "联名行业报告", "专家访谈与工作坊"],
-         ["基础会员", "高管俱乐部", "课程与考察团"],
-         ["安可巡演赞助", "高管沙龙", "赞助商晚宴与款待"],
-         ["软着陆计划", "为投资人寻源", "与企业对接试点"]],
-  pbuyer=["内容季赞助商、平台、授权方",
-          "进入欧洲的机器人与传感器企业；研究中国的欧洲整车厂",
-          "会员；课程与考察参与者；沙龙赞助商",
-          "汽车、机器人、半导体与消费科技品牌",
-          "创始人、加速器、投资人、企业"],
-  pwhen=["稍后变现", "即时现金", "持续收入", "即时现金", "股权"],
-  k_what="是什么", k_products="产品", k_buyer="谁付费",
-  core_lbl="共享核心 · 每个支柱都运行在其上",
-  core=[("内容之声", "一个主题、一种语调、一位主持人。"),
-        ("关系图谱", "一个 CRM：嘉宾、赞助商、会员、创始人、投资人。"),
-        ("生产线", "一次录制；六个渠道、两种语言发布。"),
-        ("商务与后台", "一张价目表；在斯德哥尔摩与中国开票。")],
-  inputs_lbl="已经持有的资源",
-  inputs=[("创始人行业深度", "传感、机器人、汽车、经销商网络"),
-          ("舞台与艺人资源", "名人音乐会渠道；已完成钢琴家专访"),
-          ("伙伴资产", "数据、报告、创始人社群、投资人"),
-          ("双市场基础", "瑞典公司；中国运营伙伴")],
-  p1_title="一个核心，五大支柱，同一张关系网。",
-  p1_lede="香山是一个运营系统，而不是五家公司。五个产品支柱共用同一个内容之声、同一个联系人库和同一条生产线。每个支柱卖给不同的买家，并为下一个支柱输送资源。",
-  p1_doc="第 1 页 / 共 3 页 · 系统架构",
-  sys_h="系统全貌",
-  fly_h="支柱之间如何互相输送",
-  fly_lbl=["内容", "受众", "客户", "项目源", "赞助商与创始人"],
-  fly_center="同一张网",
-  fly_cap="从「现场」开始。每场音乐会产生内容和嘉宾名单；当赞助商与创始人成为下一个舞台，循环闭合。",
-  why_h="为什么是一个系统",
-  why=[("同一张关系网", "一位音乐会赞助商就是未来的咨询客户、访谈嘉宾和俱乐部会员。一个联系人库让这一点可见。"),
-       ("同一条生产线", "一次录制供给通讯、两个视频频道和中文渠道。单条内容成本趋近于零。"),
-       ("同一个声音", "一个主题让机构「以某事闻名」。六个月的随机内容没有建立受众；聚焦可以。")],
-  seq_h="启动顺序 · 按条件推进，不按日期",
-  phases=[("阶段 A · 现金", "现场 + 咨询", "卖的是接触权与判断力，不需要受众基础。", "舞台权益与赞助品类书面确认；伙伴引荐到位"),
-          ("阶段 B · 持续收入", "内容季 + 社群", "一个主题、一个节奏，然后是两档会员。", "一笔已签赞助支撑内容季；发布完整一季后再销售会员"),
-          ("阶段 C · 股权", "加速", "项目源对接北欧企业与投资人。", "已有筛选过的俱乐部与付费咨询客户")],
-  gate="前提",
-  p2_doc="第 2 页 / 共 3 页 · 变现方式",
-  p2_title="五大支柱、六类收入，不依赖单一买家。",
-  p2_lede="免费内容赢得信任，钱在旁边的高客单产品里。最成功的媒体企业主要靠赞助的现场、数据和咨询赚钱，而不是订阅或广告。",
-  facts2=[("€345亿", "2025 年欧洲赞助市场规模；艺术文化占 28%", "ESA / Nielsen Sports 2026"),
-          ("50–60%", "Semafor 收入来自活动赞助；2025 年实现盈利", "Semafor, Nieman Lab"),
-          ("<5%", "SemiAnalysis 收入来自订阅；研究与咨询贡献其余", "The Information，估算"),
-          ("90%", "吴晓波年终秀收入来自赞助", "36氪")],
-  streams_h="六类收入",
-  streams=[("赞助", "品牌为与巡演、内容季或沙龙并列而付费", [3, 0, 2], "即时现金"),
-           ("服务费", "客户支付顾问费、项目费与计划费用", [1, 4], "即时现金"),
-           ("会员费", "会员支付年费：基础档与高管俱乐部", [2], "持续收入"),
-           ("票务与款待", "赞助商嘉宾、沙龙参与者、考察团成员", [3, 2], "即时现金"),
-           ("授权与报告", "报告买家、平台与媒体授权方", [1, 0], "持续收入"),
-           ("股权与收益分成", "计划费用、寻源费、通过伙伴基金的收益分成", [4], "股权")],
-  k_pillars="支柱", k_when="回款",
-  mx_h="支柱 × 收入类型",
-  mx_cols=["赞助", "服务费", "会员费", "票务与款待", "授权与报告", "股权与分成"],
-  mx_cap="实心：主要收入。浅色：次要收入。每个支柱至少两类收入；没有一类收入依赖单一支柱。",
-  money_h="每个支柱如何赚钱",
-  money=[("内容季赞助", "每季一家冠名赞助商，覆盖所有免费分发渠道；节目授权给平台。", "参照：The Circuit 每季只有一家冠名赞助商。"),
-         ("顾问费与报告", "按成果定价的顾问费与项目费；联名报告按席位授权。", "参照：SemiAnalysis 超过 95% 收入来自研究与咨询。"),
-         ("两档会员", "可报销的基础档；按接触权定价的筛选制俱乐部。课程与考察按席位销售。", "参照：筛选制创始人俱乐部的年费可达四到五位数美元。"),
-         ("赞助套餐", "先卖款待，再卖品牌联结，再卖内容，最后才是流量。签约付定金。", "参照：Semafor 50–60% 收入来自赞助的闭门会。"),
-         ("费用与收益分成", "按公司收取计划费、按轮次收取寻源费、通过伙伴基金获得收益分成。", "参照：a16z 与 YC 把媒体当作项目源漏斗。")],
-  when_h="各类收入何时到账",
-  when_cols=[("即时现金", [3, 1], "赞助、款待、服务费。在受众形成之前，凭接触权与判断力即可销售。"),
-             ("持续收入", [0, 2], "会员费、内容季赞助、报告授权。建立在已发布的内容季和筛选过的圈子之上。"),
-             ("股权", [4], "计划费用与收益分成。前四个支柱的副产品。")],
-  work_h="谁来做 · 鸟瞰",
-  work=[("人", "创始人与核心团队掌握主题、关系和定价。"),
-        ("数字代理", "研究、制作、发布、跟进与财务由基于内部技能构建的 AI 代理运行。"),
-        ("伙伴", "数据、创始人营、赞助商引荐，以及在中国开票。")],
-  p3_doc="第 3 页 / 共 3 页 · 项目 · 安可 Encore",
-  p3_eyebrow="安可 Encore · 世界级钢琴家欧洲巡演赞助计划",
-  p3_title="卖的是现场，不是流量。",
-  p3_lede="安可把一场名人音乐会巡演打包成赞助、款待与内容资产，面向在欧洲与中国之间布局的汽车、机器人和科技品牌。香山掌握舞台与艺术家关系，伙伴掌握进入品牌的大门。",
-  offer_h="一图看懂方案",
-  offer=[("标的", "一位能售罄顶级音乐厅的钢琴家的欧洲巡演；北欧城市加汉堡、巴黎或伦敦之一"),
-         ("买家", "正在进入或扩张欧洲的品牌：电动车与高端汽车、机器人、半导体、消费科技"),
-         ("结构", "1 家冠名伙伴 · 3 家品类独家官方伙伴 · 最多 6 家款待伙伴"),
-         ("付款", "签约付定金，首场前付尾款"),
-         ("我们的收入", "权益费的代理佣金（行业平均 20%）加制作与款待服务费"),
-         ("可复制为", "年度巡演 · 同一舞台上的高管沙龙 · 赞助商晚宴")],
-  prop_h="标的 · 公开报道",
-  prop=[("5,000", "皇家阿尔伯特音乐厅一场独奏会 48 小时售出的票数", "Classic FM, 2013"),
-        ("1,600–2,000万", "各平台宣称的社交媒体粉丝总数", "Slipped Disc 2025；宣称数，未逐平台核实"),
-        ("13", "2026 年秋季巡演覆盖的欧洲城市数；2027 年已排定伦敦、汉堡、波恩", "Deutsche Grammophon 巡演页；票务信息"),
-        ("0", "该艺术家历史上公布过的整巡演冠名伙伴数量", "研究笔记 3")],
-  mkt_h="市场 · 公开报道",
-  mkt=[("€345亿", "2025 年欧洲赞助支出，同比增长 4.7%", "ESA / Nielsen Sports 2026"),
-       ("€97亿", "其中非体育类：艺术、文化、娱乐（28%）", "ESA / Nielsen Sports 2026"),
-       ("62%", "的品牌希望赞助文化；61% 尚未开始", "ESA 艺术文化调研"),
-       ("0", "在欧洲赞助古典音乐的中国电动车、机器人或消费科技品牌", "研究笔记 3，未发现案例")],
-  flow_h="资金如何流动",
-  flow=dict(sponsors="赞助商", s1="1 家冠名伙伴", s2="3 家官方伙伴", s3="最多 6 家款待伙伴",
-            rights="权益费", hosp="款待费", prog="安可计划", pr1="合同 · 品类独家", pr2="签约付定金",
-            out1="巡演制作方", o1="艺术家 · 场馆 · 制作", out2="香山", o2="佣金 · 制作服务费", out3="伙伴", o3="引荐赞助商的分成",
-            back="回馈赞助商：款待 · 品牌联结 · 内容 · 触达"),
-  flow_cap="B2B 赞助商衡量的是款待：在音乐厅里的经销商与客户之夜。流量是最后一个理由，不是第一个。",
-  tiers_h="赞助套餐",
-  tiers=[("冠名伙伴", "1 家 · 「呈现」", ["整个巡演冠名；品类独家", "每城 VIP 桌；为客户举办私人独奏会", "12 个月内容权益；下一届优先续约权"]),
-         ("官方伙伴", "3 家 · 每品类一家", ["品类独家：汽车 · 机器人与科技 · 金融或奢侈品", "节目册与屏幕品牌露出；每城一桌 VIP", "共享内容包"]),
-         ("款待伙伴", "最多 6 家", ["两个城市的高级座位区", "贵宾休息室使用与品牌露出；照片与社交素材"])],
-  tiers_cap="费用按市场参照下方先例设定，并在首轮提案中确认。",
-  prec_h="先例 · 古典音乐中的汽车与科技品牌",
-  prec_cols=["品牌", "项目", "起始"],
-  prec=[("奥迪", "萨尔茨堡音乐节主赞助商，续约至 2027", "1995"),
-        ("保时捷", "莱比锡布商大厦管弦乐团，含国际巡演", "2011"),
-        ("宝马", "「人人歌剧」慕尼黑与柏林，续约至 2030", "1997"),
-        ("沃尔沃", "哥德堡交响乐团首席赞助商", "长期"),
-        ("大众集团", "艺术家文化大使；冠名中国巡演", "2012"),
-        ("西门子", "拜罗伊特音乐节，约每年 140 万美元", "至 2011")],
-  prec_cap="除西门子外费用均未披露。欧洲品牌已用了三十年的打法，中国品牌在欧洲尚未使用。",
-  steps_h="推进步骤",
-  steps=[("锁定", "书面确认权益、日期、场馆与开放的赞助品类", "香山"),
-         ("销售", "三档套餐、伙伴引荐、条款书、含定金的合同", "香山 + 伙伴"),
-         ("交付", "制作、款待、客户之夜、巡演影片与内容", "香山 + 外部团队"),
-         ("续约", "下一届优先续约权；同一舞台上的沙龙系列", "香山")],
-  roles_h="各方分工",
-  roles=[("香山", ["艺术家与场馆关系、权益", "套餐、提案、合同、回款", "制作、款待、内容"]),
-         ("伙伴", ["汽车、机器人、科技领域的引荐", "赞助商内部支持者", "需要时在中国开票"]),
-         ("赞助商", ["权益费与款待费；激活预算", "嘉宾名单：经销商、客户、官员、媒体", "品牌素材与审批"])],
-  risks_h="风险与对策",
-  risks=[("品类冲突。", "该艺术家曾有汽车品牌合作。向任何品牌提案前先书面确认开放品类；若汽车品类已关闭，冠名档位转向机器人与消费科技。"),
-         ("销售周期。", "六位数赞助通常需要 9–18 个月。我们只通过引荐提案，并以三份签约为基础方案。"),
-         ("艺术家、场馆、付款。", "取消保险；场馆预留；定金不可退；合同写入独家条款，一家退出不影响其他。")],
-  rep_h="为什么可以复制",
-  rep=[("年度巡演", "同样的套餐阶梯；赞助商享有优先续约权。艺人阵容可扩展到我们能接洽的其他表演者。"),
-       ("高管沙龙", "同一舞台上的沙龙，每场两到三家赞助商。为社群支柱输送。"),
-       ("内容与关系网", "每场音乐会产生巡演影片、访谈素材和嘉宾名单，供其他支柱复用。")],
+ brand="香山工作室", sub="编辑内容机构 · 斯德哥尔摩 · 欧洲 ↔ 中国", other="English", conf="保密 · 供合作伙伴与投资人讨论",
+ sources="资料来源见 framework/research/ · 除标注估算外均为公开报道",
+ P=["内容", "咨询", "社群", "现场与场馆", "加速"], Pshort=["内容", "咨询", "社群", "现场", "加速"],
+ Psub=["声音", "付费答案", "筛选过的圈子", "舞台 · 安可", "项目通道"],
+ Pprod=[["访谈系列", "双语通讯", "视频 · LinkedIn · 公众号"], ["市场进入咨询", "联名报告", "专家访谈"],
+        ["基础会员", "高管俱乐部", "课程 · 考察团"], ["安可巡演赞助", "高管沙龙", "赞助商晚宴"],
+        ["软着陆计划", "为投资人寻源", "企业试点对接"]],
+ Pwhen=["稍后变现", "即时现金", "持续收入", "即时现金", "股权"],
+ buyers=["品牌与赞助商", "客户", "会员", "品牌与赞助商", "创始人与投资人"],
+ buyers_pay=["内容季赞助", "顾问费 · 报告", "年费", "巡演套餐 · VIP 桌", "费用 · 收益分成"],
+ lbl_buyers="谁付费", lbl_pillars="五大产品支柱", lbl_core="共享核心 · 每个支柱都运行在其上", lbl_inputs="已经持有的资源",
+ core=[("内容之声", "一个主题 · 一位主持人"), ("关系图谱", "五个支柱共用一个 CRM"), ("生产线", "一次录制 · 6 个渠道 · 2 种语言"), ("商务与后台", "一张价目表 · 瑞典与中国开票")],
+ core_icons=["mic", "net", "film", "coins"],
+ inputs=[("创始人行业深度", "传感 · 机器人 · 汽车"), ("舞台与艺人资源", "名人音乐会 · 钢琴家专访"), ("伙伴资产", "数据 · 报告 · 创始人 · 投资人"), ("双市场基础", "瑞典公司 · 中国伙伴")],
+ inputs_icons=["compass", "piano", "doc", "building"],
+ p1_doc="第 1 页 / 共 3 页 · 系统架构", p1_title="一个核心，五大支柱，同一张关系网。",
+ p1_lede="钱从上方的五类买家进来，五个产品支柱向他们销售，一个共享核心运行全部五个支柱，核心建立在我们已经持有的资源之上。",
+ fig_sys="系统全貌 · 谁付费、我们卖什么、靠什么运行", fig_sys_cap="自上而下阅读：买家付费给支柱；支柱运行在一个核心上；核心由已有资源构成。核心在第一天不需要新招人。",
+ fig_cycle="支柱之间如何互相输送", cycle=["内容", "受众", "客户", "项目源", "赞助商与创始人"], cycle_center="同一张网",
+ fig_cycle_cap="从「现场」开始。每场音乐会产生内容和嘉宾名单；当赞助商与创始人成为下一个舞台，循环闭合。",
+ fig_seq="启动顺序 · 按条件推进，不按日期", seq=[("A · 现金", "现场 + 咨询", "卖的是接触权与判断力"), ("B · 持续收入", "内容季 + 社群", "一个主题、一个节奏、两档会员"), ("C · 股权", "加速", "项目源对接企业与投资人")],
+ gates=["舞台权益与赞助品类已确认", "一笔赞助支撑内容季", "已有俱乐部与咨询客户"],
+ fig_seq_cap="只有下方的前提成立，才进入下一步。",
+ facts=[("€345亿", "2025 年欧洲赞助市场；艺术文化占 28%", "ESA / Nielsen Sports 2026"), ("50–60%", "Semafor 收入来自活动赞助；2025 年盈利", "Semafor, Nieman Lab"), ("<5%", "SemiAnalysis 收入来自订阅", "The Information，估算")],
+ p2_doc="第 2 页 / 共 3 页 · 变现方式", p2_title="四类买家，六类收入，五大支柱。",
+ p2_lede="从左到右跟着钱走：谁付费、经过哪类收入、落到哪个支柱。没有一个支柱依赖单一收入，也没有一类收入依赖单一支柱。",
+ fig_flow="钱从哪里来，落到哪里",
+ flow_buyers=["品牌与赞助商", "客户", "会员与嘉宾", "创始人与投资人"],
+ streams=["赞助", "服务费", "会员费", "票务与款待", "授权与报告", "股权与分成"],
+ fig_flow_cap="色带颜色跟随支柱。宽度相同，因为这是结构图，不是预测。",
+ fig_bench="成熟媒体机构真正的收入来源 · 占总收入比例", bench=[("Semafor · 赞助活动", 55, "2025 年报道"), ("吴晓波年终秀 · 赞助", 90, "报道"), ("SemiAnalysis · 研究与咨询", 95, "估算"), ("得到 · 在线课程", 64, "2021 年报道"), ("The Information · 订阅", 90, "报道")],
+ fig_bench_cap="赞助的现场、研究和课程支撑了我们对标的企业。订阅模式只在 The Information 的规模与定价下成立。",
+ fig_when="每个支柱何时回款", when_lanes=[("即时现金", [3, 1]), ("持续收入", [0, 2]), ("股权", [4])],
+ fig_when_cap="现场与咨询在受众形成前即可回款；内容与社群在发布一季、筛选出圈子后回款；加速最后。",
+ fig_unit="一笔交易长什么样", units=[("内容季套餐", "每季一家冠名赞助商", "mic"), ("顾问费 · 报告", "按成果定价，按席位授权", "doc"), ("年度席位", "基础档 · 筛选制俱乐部", "key"), ("巡演套餐 · VIP 桌", "冠名、VIP 桌、内容权益", "ticket"), ("计划费 · 收益分成", "按公司、按轮次", "rocket")],
+ fig_work="谁来做", work=[("人", "主题 · 关系 · 定价", "people"), ("数字代理", "研究 · 制作 · 发布 · 财务", "net"), ("伙伴", "数据 · 创始人营 · 引荐 · 中国开票", "handshake")],
+ p3_doc="第 3 页 / 共 3 页 · 项目 · 安可", p3_eyebrow="安可 ENCORE · 世界级钢琴家欧洲巡演赞助计划", p3_title="卖的是现场，不是流量。",
+ p3_lede="把一场名人音乐会巡演打包成赞助、款待与内容资产，面向在欧洲与中国之间布局的汽车、机器人和科技品牌。香山掌握舞台，伙伴掌握大门。",
+ kp3=[("5,000", "皇家阿尔伯特音乐厅一场独奏会 48 小时售出的票数", "Classic FM, 2013"), ("0", "该艺术家历史上公布过的整巡演冠名伙伴数量", "研究笔记 3"), ("62%", "的欧洲品牌希望赞助文化；61% 尚未开始", "ESA 艺术调研")],
+ fig_ladder="赞助阶梯 · 每一档买到什么", ladder=[("1 家冠名伙伴", ["整个巡演冠名", "品类独家", "VIP 桌 · 私人独奏会", "12 个月内容权益"]), ("3 家官方伙伴", ["每品类一家", "节目册与屏幕露出", "每城一桌 VIP", "内容包"]), ("6 家款待伙伴", ["高级座位区", "贵宾室使用与露出", "照片与社交素材"])],
+ ladder_cap="费用按市场参照先例设定，在首轮提案中确认。签约付定金，首场前付尾款。",
+ fig_money="资金如何流动", money=dict(sp="赞助商", rights="权益费", hosp="款待费", prog="安可计划", p1="合同 · 品类独家", p2="签约付定金", o=[("巡演制作方", "艺术家 · 场馆 · 制作", "piano"), ("香山", "佣金 · 制作服务费", "star"), ("伙伴", "引荐赞助商的分成", "handshake")], back="回馈赞助商：款待 · 品牌联结 · 内容 · 触达"),
+ money_cap="B2B 赞助商衡量的是款待：在音乐厅里的经销商与客户之夜。流量是最后一个理由。",
+ fig_prec="古典音乐中的汽车与金融品牌 · 合作年限", prec=[("德意志银行 · 柏林爱乐", 1989, 2030), ("奥迪 · 萨尔茨堡音乐节", 1995, 2027), ("宝马 · 人人歌剧", 1997, 2030), ("劳力士 · 维也纳爱乐", 2008, 2026), ("保时捷 · 莱比锡布商大厦", 2011, 2026), ("大众集团 · 艺术家大使", 2012, 2026)],
+ prec_cap="条形从起始年到最近确认的年份。欧洲品牌已用了三十年的打法，中国品牌在欧洲尚未使用。",
+ fig_mkt="2025 年欧洲赞助市场 · 十亿欧元", mkt=[("体育", 24.8, "blue"), ("艺术、文化、娱乐", 9.7, "yellow")], mkt_countries=[("德国", 6.26), ("英国", 6.15), ("西班牙", 2.18), ("意大利", 2.01), ("法国", 1.85)],
+ mkt_cap="ESA / Nielsen Sports 2026。总计 345 亿欧元，同比增长 4.7%。非体育占 28%。",
+ fig_steps="推进步骤", steps=[("锁定", "权益 · 日期 · 开放品类", "key"), ("销售", "三档套餐 · 引荐 · 定金", "handshake"), ("交付", "制作 · 款待 · 内容", "film"), ("续约", "优先续约权 · 沙龙系列", "repeat")],
+ steps_owner=["香山", "香山 + 伙伴", "香山 + 外部团队", "香山"],
+ fig_roles="三方，一个交换", roles=dict(fh="香山", pa="伙伴", sp="赞助商", fh_sp="舞台 · 套餐 · 款待 · 内容", sp_fh="权益费 · 嘉宾名单", pa_fh="引荐", fh_pa="成交分成"),
+ fig_risk="风险与对策", risks=[("品类冲突", "提案前书面确认开放品类", "shield"), ("销售周期", "只通过引荐；以三份签约为基础", "flag"), ("艺术家 · 场馆 · 付款", "保险 · 场馆预留 · 定金不退", "check")],
+ fig_rep="为什么可以复制", rep=[("年度巡演", "repeat"), ("同一舞台上的高管沙龙", "people"), ("为每个支柱提供内容与嘉宾名单", "film")],
 )
 
-# ---------------------------------------------------------------- helpers
-def e(s): return H.escape(str(s))
-
-def head(t, lang, doc, page, other_href):
+# ----------------------------------------------------------------- shell
+def head(t, doc, page, other):
     pg = "".join(f'<span class="{"on" if i == page else ""}">{i}</span>' for i in (1, 2, 3))
-    return f'''<header>
-  <div class="brand"><div class="seal">香山</div><div><b>{e(t["brand"])}</b><span>{e(t["sub"])}</span></div></div>
-  <div class="docline"><div><b>{e(doc)}</b>{e(t["conf"])}</div><div class="pages">{pg}</div><a class="lang" href="{other_href}">{e(t["lang_other"])} →</a></div>
-</header>'''
+    return f'''<header><div class="brand"><div class="seal">香山</div><div><b>{e(t["brand"])}</b><span>{e(t["sub"])}</span></div></div>
+<div class="docline"><div><b>{e(doc)}</b>{e(t["conf"])}</div><div class="pages">{pg}</div><a class="lang" href="{other}">{e(t["other"])} →</a></div></header>'''
 
-def dots(idx):
-    return "".join(f'<span class="dot" style="background:var(--{PCOL[i]})"></span>' for i in idx)
+def kpis(items):
+    return '<div class="kpis">' + "".join(f'<div class="kpi"><div class="n">{e(n)}</div><div class="l">{e(l)}<i>{e(s)}</i></div></div>' for n, l, s in items) + '</div>'
 
-def chip(when, i):
-    c = PCOL[i]
-    tx = "var(--p4-ink)" if c == "p4" else f"var(--{c})"
-    return f'<span class="chip" style="background:var(--{c}-soft);color:{tx}">{e(when)}</span>'
+def shell(t, lang, title, body):
+    return f'<title>{e(title)}</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n{FONT[lang]}\n<style>{CSS}</style>\n<div class="sheet" lang="{"zh-CN" if lang=="zh" else "en"}">{body}</div>'
 
-def facts_html(items):
-    return "".join(f'<div class="fact"><div class="n">{e(n)}</div><div class="l">{e(l)}<i>{e(s)}</i></div></div>' for n, l, s in items)
+def fig(cls, h2, svg, cap):
+    return f'<div class="fig {cls}"><h2>{e(h2)}</h2><figure>{svg}</figure><figcaption>{e(cap)}</figcaption></div>'
 
-def pentagon(t):
-    L = t["fly_lbl"]
-    names = [f'4 · {t["pshort"][3]}', f'1 · {t["pshort"][0]}', f'3 · {t["pshort"][2]}', f'2 · {t["pshort"][1]}', f'5 · {t["pshort"][4]}']
-    cols = ["p4", "p1", "p3", "p2", "p5"]
-    # positions: top, right-top, right-bottom, left-bottom, left-top
-    pos = [(310, 52), (466, 166), (406, 346), (214, 346), (154, 166)]
-    o = ['<svg viewBox="0 0 620 410" role="img" aria-label="Cycle: Live feeds Editorial, Editorial feeds Community, Community feeds Advisory, Advisory feeds Acceleration, Acceleration feeds Live." xmlns="http://www.w3.org/2000/svg">',
-         '<defs><marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5F6368"/></marker></defs>']
-    arrows = [("M382 64 L428 136", 426, 92, "start"), ("M466 190 L430 302", 456, 252, "start"), ("M330 346 L292 346", 310, 378, "middle"),
-              ("M170 322 L146 194", 150, 262, "end"), ("M176 140 L238 62", 200, 92, "end")]
-    for (d, lx, ly, anc), lbl in zip(arrows, L):
-        o.append(f'<path d="{d}" stroke="#5F6368" stroke-width="1.4" fill="none" marker-end="url(#fa)"/>')
-        o.append(f'<text x="{lx}" y="{ly}" font-size="12" fill="#3C4043" text-anchor="{anc}" font-weight="500">{e(lbl)}</text>')
-    for (x, y), n, c in zip(pos, names, cols):
-        tx = "#202124" if c == "p4" else f"var(--{c})"
-        o.append(f'<rect x="{x-76}" y="{y-20}" width="152" height="40" rx="20" fill="var(--{c}-soft)" stroke="var(--{c})" stroke-width="1.4"/>')
-        o.append(f'<text x="{x}" y="{y+5}" text-anchor="middle" font-size="13" font-weight="700" fill="{tx}">{e(n)}</text>')
-    o.append('<circle cx="310" cy="205" r="46" fill="#FFFFFF" stroke="var(--accent)" stroke-width="1.6"/>')
-    o.append(f'<text x="310" y="210" text-anchor="middle" font-size="11" font-weight="700" fill="var(--accent)">{e(t["fly_center"])}</text>')
+# ----------------------------------------------------------------- page 1 figures
+def sys_map(t):
+    W = 1240; colw = 232; gap = 14; x0 = 12
+    xs = [x0 + i * (colw + gap) for i in range(5)]
+    o = [f'<svg viewBox="0 0 {W} 760" role="img" aria-label="Layered system map: five buyers at the top pay five pillars; the pillars run on a shared core of four modules; the core is built on four inputs already held." xmlns="http://www.w3.org/2000/svg">', MK]
+    # buyers row
+    o.append(tx(x0, 22, t["lbl_buyers"], 11, 700, C["muted"], extra='letter-spacing=".1em"'))
+    bicons = ["building", "briefcase", "people", "building", "coins"]
+    for i, x in enumerate(xs):
+        o.append(f'<rect x="{x}" y="32" width="{colw}" height="58" rx="10" fill="{C["surface"]}" stroke="{C["line"]}"/>')
+        o.append(icon(bicons[i], x + 12, 44, 1.4, C["ink2"]))
+        o.append(tx(x + 54, 54, t["buyers"][i], 13, 700))
+        o.append(tx(x + 54, 74, t["buyers_pay"][i], 11, 400, C["muted"]))
+        cx = x + colw / 2
+        o.append(f'<path d="M{cx} 92 V124" stroke="{C["amber"]}" stroke-width="2.2" marker-end="url(#ary)"/>')
+        o.append(tx(cx + 8, 112, "€", 12, 700, C["amber"]))
+    # pillars
+    o.append(tx(x0, 146, t["lbl_pillars"], 11, 700, C["muted"], extra='letter-spacing=".1em"'))
+    for i, x in enumerate(xs):
+        c = C[PC[i]]
+        o.append(f'<rect x="{x}" y="156" width="{colw}" height="250" rx="12" fill="#fff" stroke="{C["line"]}"/>')
+        o.append(f'<path d="M{x} 168a12 12 0 0 1 12-12h{colw-24}a12 12 0 0 1 12 12v50H{x}z" fill="{c}"/>')
+        o.append(icon(PICON[i], x + 14, 168, 1.3, PT[i], 2.2))
+        o.append(tx(x + 54, 182, f'{i+1} · {t["P"][i]}', 15, 700, PT[i]))
+        o.append(tx(x + 54, 200, t["Psub"][i], 11, 500, PT[i], extra='opacity=".9"'))
+        for k, pr in enumerate(t["Pprod"][i]):
+            o.append(f'<circle cx="{x+22}" cy="{238 + k*26}" r="3.5" fill="{c}"/>')
+            o.append(tx(x + 34, 242 + k * 26, pr, 12.5, 500, C["ink2"]))
+        # when chip
+        soft = C[PS[i]]; tcol = C["yellowD"] if PC[i] == "yellow" else c
+        o.append(f'<rect x="{x+14}" y="360" width="118" height="26" rx="13" fill="{soft}"/>')
+        o.append(tx(x + 73, 377, t["Pwhen"][i], 11.5, 700, tcol, "middle"))
+        cx = x + colw / 2
+        o.append(f'<path d="M{cx} 446 V410" stroke="{C["muted"]}" stroke-width="1.6" marker-end="url(#ar)"/>')
+    # core
+    o.append(f'<rect x="{x0}" y="450" width="{W-2*x0}" height="112" rx="12" fill="{C["blueS"]}" stroke="#AECBFA"/>')
+    o.append(tx(x0 + 16, 472, t["lbl_core"], 11, 700, C["accent"], extra='letter-spacing=".1em"'))
+    cw = (W - 2 * x0 - 32) / 4
+    for i, (a, b) in enumerate(t["core"]):
+        x = x0 + 16 + i * cw
+        o.append(icon(t["core_icons"][i], x, 486, 1.5, C["accent"]))
+        o.append(tx(x + 46, 502, a, 14, 700))
+        o.append(tx(x + 46, 522, b, 11.5, 400, C["ink2"]))
+        if i:
+            o.append(f'<line x1="{x-12}" y1="486" x2="{x-12}" y2="548" stroke="#AECBFA"/>')
+    for i in range(4):
+        cx = x0 + 16 + i * cw + cw / 2
+        o.append(f'<path d="M{cx} 600 V566" stroke="{C["muted"]}" stroke-width="1.6" marker-end="url(#ar)"/>')
+    # inputs
+    o.append(f'<rect x="{x0}" y="604" width="{W-2*x0}" height="112" rx="12" fill="{C["surface"]}" stroke="{C["line"]}"/>')
+    o.append(tx(x0 + 16, 626, t["lbl_inputs"], 11, 700, C["muted"], extra='letter-spacing=".1em"'))
+    for i, (a, b) in enumerate(t["inputs"]):
+        x = x0 + 16 + i * cw
+        o.append(icon(t["inputs_icons"][i], x, 640, 1.5, C["ink2"]))
+        o.append(tx(x + 46, 656, a, 14, 700))
+        o.append(tx(x + 46, 676, b, 11.5, 400, C["ink2"]))
+        if i:
+            o.append(f'<line x1="{x-12}" y1="640" x2="{x-12}" y2="702" stroke="{C["line"]}"/>')
     o.append('</svg>')
     return "\n".join(o)
 
-def moneyflow(f):
-    return f'''<svg viewBox="0 0 760 300" role="img" aria-label="Sponsors pay rights and hospitality fees into the Encore programme; money goes out to the tour producer, Fragrant Hill and the partner; value returns to sponsors as hospitality, association, content and reach." xmlns="http://www.w3.org/2000/svg">
-<defs><marker id="mf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5F6368"/></marker><marker id="mfy" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#F29900"/></marker></defs>
-<rect x="10" y="80" width="180" height="130" rx="10" fill="#F8F9FA" stroke="#DADCE0"/>
-<text x="24" y="106" font-size="13" font-weight="700" fill="#202124">{e(f["sponsors"])}</text>
-<text x="24" y="130" font-size="12" fill="#3C4043">{e(f["s1"])}</text><text x="24" y="150" font-size="12" fill="#3C4043">{e(f["s2"])}</text><text x="24" y="170" font-size="12" fill="#3C4043">{e(f["s3"])}</text>
-<path d="M190 118 H276" stroke="#F29900" stroke-width="2" marker-end="url(#mfy)"/><text x="233" y="110" font-size="11" text-anchor="middle" fill="#202124" font-weight="700">{e(f["rights"])}</text>
-<path d="M190 172 H276" stroke="#F29900" stroke-width="2" marker-end="url(#mfy)"/><text x="233" y="190" font-size="11" text-anchor="middle" fill="#202124" font-weight="700">{e(f["hosp"])}</text>
-<rect x="280" y="70" width="200" height="150" rx="10" fill="#FEF7E0" stroke="#FBBC04" stroke-width="1.6"/>
-<text x="294" y="98" font-size="13" font-weight="700" fill="#202124">{e(f["prog"])}</text>
-<text x="294" y="124" font-size="12" fill="#3C4043">{e(f["pr1"])}</text><text x="294" y="144" font-size="12" fill="#3C4043">{e(f["pr2"])}</text>
-<g stroke="#5F6368" stroke-width="1.4" fill="none" marker-end="url(#mf)"><path d="M480 100 H576"/><path d="M480 145 H576"/><path d="M480 190 H576"/></g>
-<rect x="580" y="80" width="170" height="40" rx="8" fill="#FFFFFF" stroke="#DADCE0"/><text x="592" y="97" font-size="12" font-weight="700" fill="#202124">{e(f["out1"])}</text><text x="592" y="112" font-size="10.5" fill="#5F6368">{e(f["o1"])}</text>
-<rect x="580" y="125" width="170" height="40" rx="8" fill="#E8F0FE" stroke="#4285F4" stroke-width="1.4"/><text x="592" y="142" font-size="12" font-weight="700" fill="#1A73E8">{e(f["out2"])}</text><text x="592" y="157" font-size="10.5" fill="#3C4043">{e(f["o2"])}</text>
-<rect x="580" y="170" width="170" height="40" rx="8" fill="#FFFFFF" stroke="#DADCE0"/><text x="592" y="187" font-size="12" font-weight="700" fill="#202124">{e(f["out3"])}</text><text x="592" y="202" font-size="10.5" fill="#5F6368">{e(f["o3"])}</text>
-<path d="M380 220 V256 H100 V214" fill="none" stroke="#5F6368" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#mf)"/>
-<text x="240" y="276" font-size="11" text-anchor="middle" fill="#3C4043">{e(f["back"])}</text>
-</svg>'''
+def cycle_fig(t):
+    L = t["cycle"]; names = [f'4 · {t["Pshort"][3]}', f'1 · {t["Pshort"][0]}', f'3 · {t["Pshort"][2]}', f'2 · {t["Pshort"][1]}', f'5 · {t["Pshort"][4]}']
+    cols = ["yellow", "red", "green", "blue", "purple"]; icons_ = ["piano", "mic", "people", "compass", "rocket"]
+    pos = [(310, 56), (470, 170), (408, 352), (212, 352), (150, 170)]
+    o = ['<svg viewBox="0 0 620 420" role="img" aria-label="Cycle of five pillars with one network in the centre." xmlns="http://www.w3.org/2000/svg">', MK]
+    arrows = [("M388 66 L432 138", 428, 94, "start"), ("M470 196 L432 304", 462, 256, "start"), ("M328 352 L292 352", 310, 386, "middle"), ("M166 326 L140 196", 148, 266, "end"), ("M176 142 L236 66", 206, 94, "end")]
+    for (d, lx, ly, anc), lbl in zip(arrows, L):
+        o.append(f'<path d="{d}" stroke="{C["muted"]}" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>')
+        o.append(tx(lx, ly, lbl, 12, 500, C["ink2"], anc))
+    for (x, y), n, c, ic in zip(pos, names, cols, icons_):
+        tcol = C["yellowD"] if c == "yellow" else C[c]
+        o.append(f'<rect x="{x-80}" y="{y-22}" width="160" height="44" rx="22" fill="{C[c+"S"]}" stroke="{C[c]}" stroke-width="1.6"/>')
+        o.append(icon(ic, x - 66, y - 12, 1.0, tcol))
+        o.append(tx(x + 8, y + 5, n, 13, 700, tcol, "middle"))
+    o.append(f'<circle cx="310" cy="210" r="48" fill="#fff" stroke="{C["accent"]}" stroke-width="1.8"/>')
+    o.append(icon("net", 298, 184, 1.0, C["accent"]))
+    o.append(tx(310, 228, t["cycle_center"], 10.5, 700, C["accent"], "middle"))
+    o.append('</svg>')
+    return "\n".join(o)
 
-def page_shell(t, lang, title, body):
-    return f'''<title>{e(title)}</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-{FONT_LINK[lang]}
-<style>{CSS}</style>
-<div class="sheet" lang="{ "zh-CN" if lang == "zh" else "en" }">
-{body}
-</div>'''
+def seq_fig(t):
+    o = ['<svg viewBox="0 0 620 300" role="img" aria-label="Three rising steps: cash, recurring, equity, each with a gate condition." xmlns="http://www.w3.org/2000/svg">', MK]
+    cols = ["yellow", "red", "purple"]; pil = [[3, 1], [0, 2], [4]]
+    for i, ((a, b, c), col, pi) in enumerate(zip(t["seq"], cols, pil)):
+        x = 14 + i * 204; top = 150 - i * 60; h = 300 - top - 60
+        tcol = C["yellowD"] if col == "yellow" else C[col]
+        o.append(f'<rect x="{x}" y="{top}" width="190" height="{h}" rx="10" fill="{C[col+"S"]}" stroke="{C[col]}" stroke-width="1.4"/>')
+        o.append(tx(x + 14, top + 24, a, 11.5, 700, tcol, extra='letter-spacing=".08em"'))
+        for k, p in enumerate(pi):
+            o.append(f'<circle cx="{x+22+k*20}" cy="{top+44}" r="7" fill="{C[PC[p]]}"/>')
+        o.append(tx(x + 14, top + 70, b, 13.5, 700))
+        o.append(tx(x + 14, top + 90, c, 11.5, 400, C["ink2"]))
+        if i < 2:
+            o.append(f'<path d="M{x+192} {top-30} H{x+202}" stroke="{C["muted"]}" stroke-width="1.6" marker-end="url(#ar)"/>')
+        # gate
+        o.append(f'<rect x="{x}" y="252" width="190" height="38" rx="8" fill="#fff" stroke="{C["line"]}" stroke-dasharray="4 3"/>')
+        o.append(icon("key", x + 8, 259, 0.9, C["muted"]))
+        o.append(tx(x + 34, 276, t["gates"][i], 10.5, 500, C["ink2"]))
+    o.append('</svg>')
+    return "\n".join(o)
 
-# ---------------------------------------------------------------- pages
 def page1(t, lang, other):
-    cards = []
-    for i in range(5):
-        c = PCOL[i]
-        prods = "".join(f"<li>{e(p)}</li>" for p in t["pprod"][i])
-        cards.append(f'''<div class="pc"><div class="hd" style="background:var(--{c});color:{HDTXT[c]}">{i+1} · {e(t["pnames"][i])}<small>{e(t["psub"][i])}</small></div>
-<div class="bd"><div><span class="k">{e(t["k_what"])}</span>{e(t["pwhat"][i])}</div><div><span class="k">{e(t["k_products"])}</span><ul>{prods}</ul></div><div><span class="k">{e(t["k_buyer"])}</span>{e(t["pbuyer"][i])}</div>{chip(t["pwhen"][i], i)}</div></div>''')
-    core = "".join(f"<div><b>{e(a)}</b><p>{e(b)}</p></div>" for a, b in t["core"])
-    inputs = "".join(f"<div><b>{e(a)}</b><p>{e(b)}</p></div>" for a, b in t["inputs"])
-    why = "".join(f'<div><span class="num">{i+1}</span><span><b>{e(a)}</b> {e(b)}</span></div>' for i, (a, b) in enumerate(t["why"]))
-    ph_cols = ["p4", "p1", "p5"]
-    ph_pill = [[3, 1], [0, 2], [4]]
-    phases = ""
-    for (title, who, desc, gate), c, pi in zip(t["phases"], ph_cols, ph_pill):
-        tx = "#B06000" if c == "p4" else f"var(--{c})"
-        phases += f'<div class="ph" style="background:var(--{c}-soft)"><b style="color:{tx}">{e(title)}</b><div class="who">{dots(pi)}{e(who)}</div><p>{e(desc)}</p><div class="gate"><b>{e(t["gate"]).upper()}</b>{e(gate)}</div></div>'
-    body = head(t, lang, t["p1_doc"], 1, other) + f'''
+    body = head(t, t["p1_doc"], 1, other) + f'''
+<div class="hero"><div><h1>{e(t["p1_title"])}</h1><p>{e(t["p1_lede"])}</p></div>{kpis(t["facts"])}</div>
 <div class="grid">
-  <div class="title"><h1>{e(t["p1_title"])}</h1><p>{e(t["p1_lede"])}</p></div>
-  <div class="facts">{facts_html(t["facts2"][:3])}</div>
-  <div class="blk c12"><h2>{e(t["sys_h"])}</h2>
-    <div class="pillars">{"".join(cards)}</div>
-    <div class="ups">{"<span>▲</span>" * 5}</div>
-    <div class="band core"><div class="lbl">{e(t["core_lbl"])}</div>{core}</div>
-    <div class="ups" style="margin:6px 0 4px"><span></span><span></span><span>▲</span><span></span><span></span></div>
-    <div class="band inputs"><div class="lbl">{e(t["inputs_lbl"])}</div>{inputs}</div>
-  </div>
-  <div class="blk c6"><h2>{e(t["fly_h"])}</h2><figure>{pentagon(t)}</figure><figcaption>{e(t["fly_cap"])}</figcaption></div>
-  <div class="blk c6"><h2>{e(t["why_h"])}</h2><div class="list">{why}</div>
-    <h2 style="margin-top:18px">{e(t["seq_h"])}</h2><div class="phases" style="grid-template-columns:1fr">{phases}</div></div>
-</div>
-<div class="foot"><span>{e(t["sources"])}</span><span>{e(t["brand"])}</span></div>'''
-    return page_shell(t, lang, {"en": "Fragrant Hill Architecture", "zh": "香山系统架构"}[lang], body)
+{fig("c12", t["fig_sys"], sys_map(t), t["fig_sys_cap"])}
+{fig("c6", t["fig_cycle"], cycle_fig(t), t["fig_cycle_cap"])}
+{fig("c6", t["fig_seq"], seq_fig(t), t["fig_seq_cap"])}
+</div><div class="foot"><span>{e(t["sources"])}</span><span>{e(t["brand"])}</span></div>'''
+    return shell(t, lang, {"en": "Fragrant Hill Architecture", "zh": "香山系统架构"}[lang], body)
+
+# ----------------------------------------------------------------- page 2 figures
+def flow_fig(t):
+    W, Hh = 1240, 560
+    L = [(40, 70 + i * 120, 220, 72) for i in range(4)]                 # buyers
+    M = [(500, 36 + i * 86, 220, 60) for i in range(6)]                 # streams
+    R = [(980, 50 + i * 100, 220, 72) for i in range(5)]                # pillars
+    lm = [(0, 0), (0, 3), (1, 1), (1, 4), (2, 2), (2, 3), (3, 1), (3, 5)]          # buyer -> stream
+    mr = [(0, 3), (0, 0), (0, 2), (1, 1), (1, 4), (2, 2), (3, 3), (3, 2), (4, 1), (4, 0), (5, 4)]  # stream -> pillar
+    o = [f'<svg viewBox="0 0 {W} {Hh}" role="img" aria-label="Flow from four buyer types through six revenue streams into five pillars." xmlns="http://www.w3.org/2000/svg">']
+    def band(x1, y1, x2, y2, color, op=.55, w=16):
+        mx = (x1 + x2) / 2
+        return f'<path d="M{x1} {y1} C{mx} {y1} {mx} {y2} {x2} {y2}" stroke="{color}" stroke-width="{w}" fill="none" opacity="{op}" stroke-linecap="butt"/>'
+    # offsets to spread multiple links per node
+    from collections import defaultdict
+    outL = defaultdict(list); inM = defaultdict(list); outM = defaultdict(list); inR = defaultdict(list)
+    for a, b in lm: outL[a].append(b); inM[b].append(a)
+    for a, b in mr: outM[a].append(b); inR[b].append(a)
+    def slot(lst, key, n_total, y, h):
+        k = lst.index(key); return y + h * (k + 1) / (n_total + 1)
+    for a, b in lm:
+        x1, y1, w1, h1 = L[a]; x2, y2, w2, h2 = M[b]
+        o.append(band(x1 + w1, slot(outL[a], b, len(outL[a]), y1, h1), x2, slot(inM[b], a, len(inM[b]), y2, h2), C["muted"], .28))
+    for a, b in mr:
+        x1, y1, w1, h1 = M[a]; x2, y2, w2, h2 = R[b]
+        o.append(band(x1 + w1, slot(outM[a], b, len(outM[a]), y1, h1), x2, slot(inR[b], a, len(inR[b]), y2, h2), C[PC[b]], .6))
+    bic = ["building", "briefcase", "people", "coins"]
+    for i, (x, y, w, h) in enumerate(L):
+        o.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="10" fill="{C["surface"]}" stroke="{C["line"]}"/>')
+        o.append(icon(bic[i], x + 14, y + 22, 1.2, C["ink2"]))
+        o.append(tx(x + 52, y + 43, t["flow_buyers"][i], 13.5, 700))
+    sic = ["star", "briefcase", "key", "ticket", "doc", "rocket"]
+    for i, (x, y, w, h) in enumerate(M):
+        o.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="10" fill="#fff" stroke="{C["ink2"]}" stroke-width="1.4"/>')
+        o.append(icon(sic[i], x + 12, y + 18, 1.0, C["ink2"]))
+        o.append(tx(x + 46, y + 36, t["streams"][i], 13, 700))
+    for i, (x, y, w, h) in enumerate(R):
+        c = C[PC[i]]
+        o.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="10" fill="{c}"/>')
+        o.append(icon(PICON[i], x + 14, y + 22, 1.2, PT[i], 2.2))
+        o.append(tx(x + 52, y + 36, f'{i+1} · {t["P"][i]}', 13.5, 700, PT[i]))
+        o.append(tx(x + 52, y + 54, t["Pwhen"][i], 11, 500, PT[i], extra='opacity=".9"'))
+    o.append(tx(40, 24, t["lbl_buyers"] if "lbl_buyers" in t else "", 11, 700, C["muted"], extra='letter-spacing=".1em"'))
+    o.append('</svg>')
+    return "\n".join(o)
+
+def bench_fig(t):
+    o = ['<svg viewBox="0 0 620 250" role="img" aria-label="Horizontal bars: share of revenue from the main non-advertising source for five benchmarked media businesses." xmlns="http://www.w3.org/2000/svg">']
+    for i, (name, v, src) in enumerate(t["bench"]):
+        y = 18 + i * 46
+        o.append(tx(0, y + 14, name, 12, 500, C["ink"]))
+        o.append(f'<rect x="0" y="{y+20}" width="{v*4.4:.0f}" height="14" rx="3" fill="{C["blue"]}"/>')
+        o.append(tx(v * 4.4 + 8, y + 32, f"{v}%", 12, 700, C["ink"]))
+        o.append(tx(620, y + 14, src, 10.5, 400, C["muted"], "end"))
+    o.append('</svg>')
+    return "\n".join(o)
+
+def when_fig(t):
+    o = ['<svg viewBox="0 0 620 230" role="img" aria-label="Three lanes, cash now, recurring, equity, with pillar markers placed in sequence." xmlns="http://www.w3.org/2000/svg">', MK]
+    cols = ["yellow", "green", "purple"]
+    for i, ((lbl, pil), col) in enumerate(zip(t["when_lanes"], cols)):
+        y = 16 + i * 70
+        tcol = C["yellowD"] if col == "yellow" else C[col]
+        o.append(f'<rect x="0" y="{y}" width="620" height="58" rx="10" fill="{C[col+"S"]}"/>')
+        o.append(tx(14, y + 34, lbl, 11, 700, tcol, extra='letter-spacing=".1em"'))
+        for k, p in enumerate(pil):
+            x = 130 + i * 120 + k * 180
+            c = C[PC[p]]
+            o.append(f'<rect x="{x}" y="{y+11}" width="170" height="36" rx="18" fill="#fff" stroke="{c}" stroke-width="1.6"/>')
+            o.append(icon(PICON[p], x + 12, y + 17, 1.0, C["yellowD"] if PC[p] == "yellow" else c))
+            o.append(tx(x + 44, y + 34, f'{p+1} · {t["P"][p]}', 12.5, 700, C["ink"]))
+    o.append(f'<path d="M30 212 H600" stroke="{C["muted"]}" stroke-width="1.6" marker-end="url(#ar)"/>')
+    o.append('</svg>')
+    return "\n".join(o)
+
+def units_fig(t):
+    o = ['<svg viewBox="0 0 1240 120" role="img" aria-label="Five tiles describing the unit of sale per pillar." xmlns="http://www.w3.org/2000/svg">']
+    for i, (a, b, ic) in enumerate(t["units"]):
+        x = 12 + i * 246; c = C[PC[i]]; tcol = C["yellowD"] if PC[i] == "yellow" else c
+        o.append(f'<rect x="{x}" y="8" width="232" height="100" rx="12" fill="{C["surface"]}"/>')
+        o.append(f'<rect x="{x}" y="8" width="232" height="6" rx="3" fill="{c}"/>')
+        o.append(icon(ic, x + 14, 34, 1.5, tcol))
+        o.append(tx(x + 60, 46, a, 14, 700))
+        o.append(tx(x + 60, 68, b, 11.5, 400, C["ink2"]))
+        o.append(tx(x + 60, 92, f'{i+1} · {t["P"][i]}', 10.5, 700, tcol))
+    o.append('</svg>')
+    return "\n".join(o)
+
+def work_fig(t):
+    o = ['<svg viewBox="0 0 1240 92" role="img" aria-label="Three tiles: human, digital agents, partner." xmlns="http://www.w3.org/2000/svg">']
+    for i, (a, b, ic) in enumerate(t["work"]):
+        x = 12 + i * 410
+        o.append(f'<rect x="{x}" y="8" width="396" height="76" rx="12" fill="{C["surface"]}"/>')
+        o.append(icon(ic, x + 16, 26, 1.6, C["accent"]))
+        o.append(tx(x + 64, 40, a, 15, 700))
+        o.append(tx(x + 64, 64, b, 12, 400, C["ink2"]))
+    o.append('</svg>')
+    return "\n".join(o)
 
 def page2(t, lang, other):
-    streams = ""
-    for name, who, pil, when in t["streams"]:
-        streams += f'<div class="st"><b>{e(name)}</b><p>{e(who)}</p><div class="meta"><span>{dots(pil)}</span>{chip(when, pil[0])}</div></div>'
-    rows = ""
-    # primary/secondary from streams: primary = first pillar of each stream and the pillar's listed main streams
-    prim = {(3, 0), (0, 0), (1, 1), (4, 1), (2, 2), (3, 3), (1, 4), (0, 4), (4, 5), (2, 3)}
-    sec = {(2, 0), (3, 1), (2, 1)}
-    for i in range(5):
-        cells = ""
-        for j in range(6):
-            if (i, j) in prim: cells += f'<td><span class="d" style="background:var(--{PCOL[i]})"></span></td>'
-            elif (i, j) in sec: cells += f'<td><span class="d h" style="background:var(--{PCOL[i]})"></span></td>'
-            else: cells += "<td></td>"
-        rows += f'<tr><td>{dots([i])}{i+1} {e(t["pnames"][i])}</td>{cells}</tr>'
-    mxh = "".join(f"<th>{e(c)}</th>" for c in t["mx_cols"])
-    money = "".join(f'<div class="mc" style="border-top-color:var(--{PCOL[i]})"><b>{i+1} · {e(t["pnames"][i])} · {e(a)}</b>{e(b)}<i>{e(c)}</i></div>' for i, (a, b, c) in enumerate(t["money"]))
-    when = "".join(f'<div class="cell"><b>{e(a)}</b><div style="margin-bottom:6px">{dots(p)}{", ".join(e(t["pnames"][i]) for i in p)}</div>{e(d)}</div>' for a, p, d in t["when_cols"])
-    work = "".join(f'<div class="cell"><b>{e(a)}</b>{e(b)}</div>' for a, b in t["work"])
-    body = head(t, lang, t["p2_doc"], 2, other) + f'''
+    body = head(t, t["p2_doc"], 2, other) + f'''
+<div class="hero"><div><h1>{e(t["p2_title"])}</h1><p>{e(t["p2_lede"])}</p></div>{kpis(t["facts"])}</div>
 <div class="grid">
-  <div class="title"><h1>{e(t["p2_title"])}</h1><p>{e(t["p2_lede"])}</p></div>
-  <div class="facts">{facts_html(t["facts2"][1:])}</div>
-  <div class="blk c12"><h2>{e(t["streams_h"])}</h2><div class="streams" style="grid-template-columns:repeat(6,minmax(0,1fr))">{streams}</div></div>
-  <div class="blk c7"><h2>{e(t["mx_h"])}</h2><div style="overflow-x:auto"><table class="mx"><thead><tr><th>{e(t["k_pillars"])}</th>{mxh}</tr></thead><tbody>{rows}</tbody></table></div><figcaption>{e(t["mx_cap"])}</figcaption></div>
-  <div class="blk c5"><h2>{e(t["when_h"])}</h2><div class="cols3" style="grid-template-columns:1fr">{when}</div></div>
-  <div class="blk c12"><h2>{e(t["money_h"])}</h2><div class="money">{money}</div></div>
-  <div class="blk c12"><h2>{e(t["work_h"])}</h2><div class="cols3">{work}</div></div>
-</div>
-<div class="foot"><span>{e(t["sources"])}</span><span>{e(t["brand"])}</span></div>'''
-    return page_shell(t, lang, {"en": "Fragrant Hill Monetisation", "zh": "香山变现方式"}[lang], body)
+{fig("c12", t["fig_flow"], flow_fig(t), t["fig_flow_cap"])}
+{fig("c6", t["fig_bench"], bench_fig(t), t["fig_bench_cap"])}
+{fig("c6", t["fig_when"], when_fig(t), t["fig_when_cap"])}
+{fig("c12", t["fig_unit"], units_fig(t), "")}
+{fig("c12", t["fig_work"], work_fig(t), "")}
+</div><div class="foot"><span>{e(t["sources"])}</span><span>{e(t["brand"])}</span></div>'''
+    return shell(t, lang, {"en": "Fragrant Hill Monetisation", "zh": "香山变现方式"}[lang], body)
+
+# ----------------------------------------------------------------- page 3 figures
+def ladder_fig(t):
+    o = ['<svg viewBox="0 0 620 300" role="img" aria-label="Pyramid of three sponsor tiers with what each tier receives." xmlns="http://www.w3.org/2000/svg">']
+    tiers = t["ladder"]
+    geo = [(170, 20, 280, 80, C["yellow"], C["ink"]), (120, 110, 380, 80, "#FDD663", C["ink"]), (70, 200, 480, 80, C["yellowS"], C["ink"])]
+    for (x, y, w, h, fill, tc), (name, items) in zip(geo, tiers):
+        o.append(f'<path d="M{x+20} {y} H{x+w-20} L{x+w} {y+h} H{x} Z" fill="{fill}" stroke="#F29900" stroke-width="1.2"/>')
+        o.append(tx(x + w / 2, y + 30, name, 14, 700, tc, "middle"))
+        o.append(tx(x + w / 2, y + 52, " · ".join(items[:2]), 10.5, 500, tc, "middle"))
+        o.append(tx(x + w / 2, y + 68, " · ".join(items[2:]), 10.5, 500, tc, "middle"))
+    o.append('</svg>')
+    return "\n".join(o)
+
+def money_fig(t):
+    f = t["money"]
+    o = ['<svg viewBox="0 0 760 290" role="img" aria-label="Money flow from sponsors into the Encore programme and out to the tour producer, Fragrant Hill and the partner; value returns to sponsors." xmlns="http://www.w3.org/2000/svg">', MK]
+    o.append(f'<rect x="10" y="70" width="180" height="140" rx="12" fill="{C["surface"]}" stroke="{C["line"]}"/>')
+    o.append(icon("building", 24, 84, 1.3, C["ink2"]))
+    o.append(tx(64, 104, f["sp"], 14, 700))
+    for k, s in enumerate(["1", "3", "6"]):
+        o.append(f'<circle cx="34" cy="{134+k*24}" r="10" fill="{C["yellow"]}"/>')
+        o.append(tx(34, 138 + k * 24, s, 11, 700, C["ink"], "middle"))
+    labels = {"en": ["presenting", "official", "hospitality"], "zh": ["冠名伙伴", "官方伙伴", "款待伙伴"]}["zh" if f["sp"] == "赞助商" else "en"]
+    for k, l in enumerate(labels): o.append(tx(52, 138 + k * 24, l, 12, 500, C["ink2"]))
+    o.append(f'<path d="M190 112 H276" stroke="{C["amber"]}" stroke-width="2.4" marker-end="url(#ary)"/>'); o.append(tx(233, 104, f["rights"], 11, 700, C["ink"], "middle"))
+    o.append(f'<path d="M190 168 H276" stroke="{C["amber"]}" stroke-width="2.4" marker-end="url(#ary)"/>'); o.append(tx(233, 186, f["hosp"], 11, 700, C["ink"], "middle"))
+    o.append(f'<rect x="280" y="62" width="200" height="156" rx="12" fill="{C["yellowS"]}" stroke="{C["yellow"]}" stroke-width="1.8"/>')
+    o.append(icon("piano", 294, 76, 1.3, C["yellowD"]))
+    o.append(tx(334, 96, f["prog"], 14, 700, C["ink"]))
+    o.append(tx(294, 130, f["p1"], 12, 500, C["ink2"])); o.append(tx(294, 150, f["p2"], 12, 500, C["ink2"]))
+    o.append(icon("coins", 294, 164, 1.1, C["amber"])); o.append(icon("film", 330, 164, 1.1, C["amber"])); o.append(icon("seat", 366, 164, 1.1, C["amber"]))
+    for k, (a, b, ic) in enumerate(f["o"]):
+        y = 72 + k * 50
+        o.append(f'<path d="M480 {y+20} H576" stroke="{C["muted"]}" stroke-width="1.6" marker-end="url(#ar)"/>')
+        hi = k == 1
+        o.append(f'<rect x="580" y="{y}" width="170" height="42" rx="10" fill="{C["blueS"] if hi else "#fff"}" stroke="{C["blue"] if hi else C["line"]}" stroke-width="{1.6 if hi else 1}"/>')
+        o.append(icon(ic, 590, y + 9, 1.0, C["accent"] if hi else C["ink2"]))
+        o.append(tx(622, y + 18, a, 12.5, 700, C["accent"] if hi else C["ink"]))
+        o.append(tx(622, y + 34, b, 10.5, 400, C["ink2"]))
+    o.append(f'<path d="M380 218 V252 H100 V214" fill="none" stroke="{C["muted"]}" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#ar)"/>')
+    o.append(tx(240, 272, f["back"], 11, 500, C["ink2"], "middle"))
+    o.append('</svg>')
+    return "\n".join(o)
+
+def prec_fig(t):
+    y0, y1 = 1985, 2032; scale = 400 / (y1 - y0); x0 = 212
+    o = ['<svg viewBox="0 0 620 250" role="img" aria-label="Timeline bars of long-running brand partnerships in classical music." xmlns="http://www.w3.org/2000/svg">']
+    for yr in range(1990, 2031, 10):
+        x = x0 + (yr - y0) * scale
+        o.append(f'<line x1="{x:.0f}" y1="14" x2="{x:.0f}" y2="214" stroke="{C["line2"]}"/>')
+        o.append(tx(x, 232, str(yr), 10.5, 400, C["muted"], "middle"))
+    for i, (name, a, b) in enumerate(t["prec"]):
+        y = 24 + i * 32
+        o.append(tx(x0 - 8, y + 12, name, 11.5, 500, C["ink"], "end"))
+        xa = x0 + (a - y0) * scale; xb = x0 + (b - y0) * scale
+        o.append(f'<rect x="{xa:.0f}" y="{y}" width="{xb-xa:.0f}" height="16" rx="4" fill="{C["blue"]}"/>')
+        o.append(tx(xa + 6, y + 12, str(a), 10, 700, "#fff"))
+    xn = x0 + (2026 - y0) * scale
+    o.append(f'<line x1="{xn:.0f}" y1="14" x2="{xn:.0f}" y2="214" stroke="{C["red"]}" stroke-dasharray="3 3"/>')
+    o.append(tx(xn + 4, 24, "2026", 10, 700, C["red"]))
+    o.append('</svg>')
+    return "\n".join(o)
+
+def mkt_fig(t):
+    o = ['<svg viewBox="0 0 620 252" role="img" aria-label="Stacked bar of European sponsorship split between sport and non-sport, and bars for the five largest country markets." xmlns="http://www.w3.org/2000/svg">']
+    total = sum(v for _, v, _ in t["mkt"]); x = 0
+    for name, v, col in t["mkt"]:
+        w = v / total * 600
+        o.append(f'<rect x="{x:.0f}" y="16" width="{w-2:.0f}" height="34" rx="4" fill="{C[col]}"/>')
+        if col == "blue": o.append(tx(x + 10, 38, f"{name} · €{v}bn · {v/total*100:.0f}%", 12, 700, "#fff"))
+        else: o.append(tx(x + w - 2, 68, f"{name} · €{v}bn · {v/total*100:.0f}%", 12, 700, C["ink"], "end"))
+        x += w
+    for i, (name, v) in enumerate(t["mkt_countries"]):
+        y = 92 + i * 30
+        o.append(tx(0, y + 12, name, 12, 500, C["ink"]))
+        o.append(f'<rect x="90" y="{y}" width="{v*60:.0f}" height="16" rx="4" fill="{C["blue"]}"/>')
+        o.append(tx(90 + v * 60 + 8, y + 12, f"€{v}bn", 11.5, 700, C["ink"]))
+    o.append('</svg>')
+    return "\n".join(o)
+
+def steps_fig(t):
+    o = ['<svg viewBox="0 0 1240 130" role="img" aria-label="Four chevrons: secure, sell, deliver, renew, with owners." xmlns="http://www.w3.org/2000/svg">']
+    for i, ((a, b, ic), owner) in enumerate(zip(t["steps"], t["steps_owner"])):
+        x = 12 + i * 306; w = 300
+        o.append(f'<path d="M{x} 10 H{x+w-22} L{x+w} 50 L{x+w-22} 90 H{x} L{x+22 if i else x} 50 Z" fill="{C["yellowS"] if i%2==0 else C["blueS"]}"/>')
+        o.append(icon(ic, x + 30, 32, 1.4, C["ink2"]))
+        o.append(tx(x + 72, 44, f"{i+1} · {a}", 15, 700))
+        o.append(tx(x + 72, 66, b, 11.5, 400, C["ink2"]))
+        o.append(tx(x + 30, 118, owner, 11, 700, C["accent"]))
+    o.append('</svg>')
+    return "\n".join(o)
+
+def roles_fig(t):
+    r = t["roles"]
+    o = ['<svg viewBox="0 0 620 300" role="img" aria-label="Triangle of Fragrant Hill, partner and sponsor with labelled exchanges." xmlns="http://www.w3.org/2000/svg">', MK]
+    nodes = [(310, 50, r["fh"], C["blue"], C["blueS"], "star"), (110, 240, r["pa"], C["green"], C["greenS"], "handshake"), (510, 240, r["sp"], C["yellowD"], C["yellowS"], "building")]
+    o.append(f'<path d="M330 92 L488 206" stroke="{C["muted"]}" stroke-width="1.6" marker-end="url(#ar)"/>'); o.append(tx(430, 136, r["fh_sp"], 11, 500, C["ink2"]))
+    o.append(f'<path d="M466 232 L352 98" stroke="{C["amber"]}" stroke-width="2.2" marker-end="url(#ary)"/>'); o.append(tx(606, 196, r["sp_fh"], 11, 700, C["amber"], "end"))
+    o.append(f'<path d="M150 206 L280 100" stroke="{C["muted"]}" stroke-width="1.6" marker-end="url(#ar)"/>'); o.append(tx(176, 134, r["pa_fh"], 11, 500, C["ink2"], "end"))
+    o.append(f'<path d="M264 96 L128 230" stroke="{C["amber"]}" stroke-width="2.2" marker-end="url(#ary)"/>'); o.append(tx(14, 196, r["fh_pa"], 11, 700, C["amber"]))
+    for x, y, n, c, s, ic in nodes:
+        o.append(f'<rect x="{x-84}" y="{y-26}" width="168" height="52" rx="26" fill="{s}" stroke="{c}" stroke-width="1.8"/>')
+        o.append(icon(ic, x - 68, y - 12, 1.0, c))
+        o.append(tx(x + 10, y + 5, n, 13, 700, c, "middle"))
+    o.append('</svg>')
+    return "\n".join(o)
+
+def risk_fig(t):
+    o = ['<svg viewBox="0 0 620 120" role="img" aria-label="Three risk tiles with controls." xmlns="http://www.w3.org/2000/svg">']
+    for i, (a, b, ic) in enumerate(t["risks"]):
+        x = 4 + i * 206
+        o.append(f'<rect x="{x}" y="8" width="196" height="104" rx="12" fill="{C["redS"]}"/>')
+        o.append(icon(ic, x + 14, 22, 1.3, C["red"]))
+        o.append(tx(x + 52, 42, a, 12.5, 700))
+        lines = wrap(b, 27)
+        for k, ln in enumerate(lines[:3]): o.append(tx(x + 14, 68 + k * 16, ln, 11, 400, C["ink2"]))
+    o.append('</svg>')
+    return "\n".join(o)
+
+def rep_fig(t):
+    o = ['<svg viewBox="0 0 620 120" role="img" aria-label="Three tiles on why Encore repeats." xmlns="http://www.w3.org/2000/svg">']
+    for i, (a, ic) in enumerate(t["rep"]):
+        x = 4 + i * 206
+        o.append(f'<rect x="{x}" y="8" width="196" height="104" rx="12" fill="{C["greenS"]}"/>')
+        o.append(icon(ic, x + 14, 22, 1.4, C["green"]))
+        words = a.split(" ")
+        if len(a) > 22 and " " in a:
+            mid = len(words) // 2
+            o.append(tx(x + 14, 78, " ".join(words[:mid]), 12.5, 700)); o.append(tx(x + 14, 96, " ".join(words[mid:]), 12.5, 700))
+        else:
+            o.append(tx(x + 14, 84, a, 12.5, 700))
+    o.append('</svg>')
+    return "\n".join(o)
 
 def page3(t, lang, other):
-    offer = "".join(f"<dt>{e(a)}</dt><dd>{e(b)}</dd>" for a, b in t["offer"])
-    tiers = ""
-    for i, (name, cnt, items) in enumerate(t["tiers"]):
-        tiers += f'<div class="tier" style="border-top:4px solid {"var(--p4)" if i < 2 else "var(--line)"}"><b>{e(name)}</b><small>{e(cnt)}</small><ul>{"".join(f"<li>{e(x)}</li>" for x in items)}</ul></div>'
-    prec = "".join(f"<tr><td>{e(a)}</td><td>{e(b)}</td><td>{e(c)}</td></tr>" for a, b, c in t["prec"])
-    steps = "".join(f'<div class="cell"><b><span class="num" style="display:inline-grid;margin-right:8px;vertical-align:middle">{i+1}</span>{e(a)}</b>{e(b)}<div style="margin-top:6px;font-size:11px;color:var(--muted)">{e(c)}</div></div>' for i, (a, b, c) in enumerate(t["steps"]))
-    roles = "".join(f'<div class="cell"><b>{e(a)}</b><ul>{"".join(f"<li>{e(x)}</li>" for x in items)}</ul></div>' for a, items in t["roles"])
-    risks = "".join(f'<div class="risk"><b>{e(a)}</b> {e(b)}</div>' for a, b in t["risks"])
-    rep = "".join(f'<div class="cell"><b>{e(a)}</b>{e(b)}</div>' for a, b in t["rep"])
-    body = head(t, lang, t["p3_doc"], 3, other) + f'''
+    body = head(t, t["p3_doc"], 3, other) + f'''
+<div class="hero"><div><div style="font-size:11.5px;letter-spacing:.06em;color:#B06000;font-weight:700;margin-bottom:6px">{e(t["p3_eyebrow"])}</div><h1>{e(t["p3_title"])}</h1><p>{e(t["p3_lede"])}</p></div>{kpis(t["kp3"])}</div>
 <div class="grid">
-  <div class="title"><div style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#B06000;font-weight:700;margin-bottom:6px">{e(t["p3_eyebrow"])}</div><h1>{e(t["p3_title"])}</h1><p>{e(t["p3_lede"])}</p></div>
-  <div class="offer"><h2>{e(t["offer_h"])}</h2><dl>{offer}</dl></div>
-  <div class="blk c4"><h2>{e(t["prop_h"])}</h2><div class="facts" style="grid-column:auto">{facts_html(t["prop"])}</div></div>
-  <div class="blk c4"><h2>{e(t["mkt_h"])}</h2><div class="facts" style="grid-column:auto">{facts_html(t["mkt"])}</div></div>
-  <div class="blk c4"><h2>{e(t["prec_h"])}</h2><table><thead><tr>{"".join(f"<th>{e(c)}</th>" for c in t["prec_cols"])}</tr></thead><tbody>{prec}</tbody></table><figcaption>{e(t["prec_cap"])}</figcaption></div>
-  <div class="blk c7"><h2>{e(t["flow_h"])}</h2><figure>{moneyflow(t["flow"])}</figure><figcaption>{e(t["flow_cap"])}</figcaption></div>
-  <div class="blk c5"><h2>{e(t["tiers_h"])}</h2><div class="cols3" style="grid-template-columns:1fr">{tiers}</div><figcaption>{e(t["tiers_cap"])}</figcaption></div>
-  <div class="blk c12"><h2>{e(t["steps_h"])}</h2><div class="cols4">{steps}</div></div>
-  <div class="blk c6"><h2>{e(t["roles_h"])}</h2><div class="cols3">{roles}</div></div>
-  <div class="blk c6"><h2>{e(t["risks_h"])}</h2><div class="list" style="gap:8px">{risks}</div></div>
-  <div class="blk c12"><h2>{e(t["rep_h"])}</h2><div class="cols3">{rep}</div></div>
-</div>
-<div class="foot"><span>{e(t["sources"])}</span><span>{e(t["brand"])}</span></div>'''
-    return page_shell(t, lang, {"en": "Encore Programme", "zh": "安可计划"}[lang], body)
+{fig("c7", t["fig_money"], money_fig(t), t["money_cap"])}
+{fig("c5", t["fig_ladder"], ladder_fig(t), t["ladder_cap"])}
+{fig("c6", t["fig_prec"], prec_fig(t), t["prec_cap"])}
+{fig("c6", t["fig_mkt"], mkt_fig(t), t["mkt_cap"])}
+{fig("c12", t["fig_steps"], steps_fig(t), "")}
+{fig("c6", t["fig_roles"], roles_fig(t), "")}
+<div class="c6" style="display:grid;gap:14px">{fig("", t["fig_risk"], risk_fig(t), "")}{fig("", t["fig_rep"], rep_fig(t), "")}</div>
+</div><div class="foot"><span>{e(t["sources"])}</span><span>{e(t["brand"])}</span></div>'''
+    return shell(t, lang, {"en": "Encore Programme", "zh": "安可计划"}[lang], body)
 
-LINKS = {}  # filled from links.json if present: {"p1-en": url, ...}
+# ----------------------------------------------------------------- build
+LINKS = {}
 lp = os.path.join(ROOT, "build", "links.json")
-if os.path.exists(lp):
-    import json
-    LINKS = json.load(open(lp))
-
+if os.path.exists(lp): LINKS = json.load(open(lp))
 for lang in ("en", "zh"):
-    t = T[lang]
-    other = "zh" if lang == "en" else "en"
+    t = T[lang]; other = "zh" if lang == "en" else "en"
     for key, fn in (("p1-architecture", page1), ("p2-monetisation", page2), ("p3-encore", page3)):
         href = LINKS.get(f"{key}-{other}", f"{key}-{other}.html")
         out = os.path.join(ROOT, f"{key}-{lang}.html")
-        with open(out, "w") as f:
-            f.write(fn(t, lang, href))
-        print("wrote", out)
+        open(out, "w").write(fn(t, lang, href)); print("wrote", out)

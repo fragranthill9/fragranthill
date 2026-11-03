@@ -2,158 +2,243 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
 <style>
-:root{
-  --bg:#FFFFFF; --surface:#F8F9FA; --ink:#202124; --ink-2:#3C4043; --muted:#5F6368; --line:#DADCE0; --line-2:#E8EAED;
-  --accent:#1A73E8;
-  --p1:#EA4335; --p2:#4285F4; --p3:#34A853; --p4:#FBBC04; --p5:#A142F4;
-  --p1-soft:#FCE8E6; --p2-soft:#E8F0FE; --p3-soft:#E6F4EA; --p4-soft:#FEF7E0; --p5-soft:#F3E8FD;
-  --p4-ink:#202124;
-  --font:"Roboto","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
-  color-scheme:light;
-}
+:root{--bg:#FFFFFF;--surface:#F8F9FA;--ink:#202124;--ink-2:#3C4043;--muted:#5F6368;--line:#DADCE0;--accent:#1A73E8;
+--font:"Roboto","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;color-scheme:light}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.45;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
+padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
 .sheet{max-width:1240px;margin:0 auto}
-header{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;justify-content:space-between;padding:18px 0 12px;border-bottom:1px solid var(--line)}
+header{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;justify-content:space-between;padding:16px 0 12px;border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:12px}
-.seal{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff;background:linear-gradient(135deg,var(--p2) 0 25%,var(--p1) 25% 50%,var(--p4) 50% 75%,var(--p3) 75% 100%)}
-.brand b{font-weight:700;font-size:14px;letter-spacing:.04em;display:block}
-.brand span{color:var(--muted);font-size:12px}
-.docline{display:flex;align-items:center;gap:14px;font-size:12px;color:var(--muted)}
-.docline b{color:var(--ink);display:block;font-size:13px}
-.pages{display:flex;gap:6px}
-.pages span{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;border:1px solid var(--line);color:var(--muted)}
+.seal{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff;background:conic-gradient(#4285F4 0 25%,#EA4335 25% 50%,#FBBC04 50% 75%,#34A853 75% 100%)}
+.brand b{font-weight:700;font-size:14px;display:block}.brand span{color:var(--muted);font-size:12px}
+.docline{display:flex;align-items:center;gap:14px;font-size:12px;color:var(--muted)}.docline b{color:var(--ink);display:block;font-size:13px}
+.pages{display:flex;gap:6px}.pages span{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;border:1px solid var(--line);color:var(--muted)}
 .pages span.on{background:var(--accent);border-color:var(--accent);color:#fff}
 .lang{font-size:12px;font-weight:500;color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:16px;padding:4px 12px}
+.hero{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:20px;align-items:center;padding:18px 0 6px}
+h1{font-size:clamp(26px,3.4vw,40px);font-weight:700;line-height:1.1;letter-spacing:-.01em;margin:0 0 8px;text-wrap:balance}
+.hero p{margin:0;color:var(--ink-2);font-size:15px;max-width:60ch}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.kpi{background:var(--surface);border-radius:12px;padding:12px 14px}
+.kpi .n{font-size:26px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;line-height:1.1}
+.kpi .l{font-size:11.5px;color:var(--ink-2);margin-top:4px;line-height:1.3}.kpi .l i{display:block;font-style:normal;color:var(--muted);font-size:10px;margin-top:2px}
 .grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px;margin-top:14px}
-.c12{grid-column:span 12}.c8{grid-column:span 8}.c7{grid-column:span 7}.c6{grid-column:span 6}.c5{grid-column:span 5}.c4{grid-column:span 4}.c3{grid-column:span 3}
-.blk{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:16px 18px;min-width:0}
-.blk h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 10px;font-weight:700}
-.title{grid-column:span 8;padding:6px 0 0}
-.title h1{font-size:clamp(26px,3.4vw,38px);font-weight:700;line-height:1.1;letter-spacing:-.01em;margin:0 0 8px;text-wrap:balance}
-.title p{margin:0;color:var(--ink-2);font-size:15px;max-width:64ch}
-.facts{grid-column:span 4;display:grid;gap:8px;align-content:start}
-.fact{background:var(--surface);border-radius:10px;padding:10px 14px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center}
-.fact .n{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--accent);min-width:70px}
-.fact .l{font-size:12px;color:var(--ink-2);line-height:1.3}
-.fact .l i{display:block;font-style:normal;color:var(--muted);font-size:10.5px;margin-top:2px}
-.pillars{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
-.pc{border-radius:10px;border:1px solid var(--line);overflow:hidden;background:var(--bg);display:flex;flex-direction:column}
-.pc .hd{padding:10px 12px;color:#fff;font-weight:700;font-size:14px;line-height:1.2}
-.pc .hd small{display:block;font-weight:500;font-size:11px;opacity:.9;margin-top:2px}
-.pc .bd{padding:10px 12px;font-size:12.5px;color:var(--ink-2);display:grid;gap:8px;flex:1}
-.pc .k{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px;font-weight:700}
-.pc ul{margin:0;padding-left:16px}
-.pc li{margin:1px 0}
-.pc .chip{align-self:start;margin-top:auto}
-.chip{display:inline-block;padding:2px 9px;border-radius:12px;font-size:10.5px;font-weight:700;letter-spacing:.03em}
-.ups{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;text-align:center;color:var(--muted);font-size:16px;line-height:1;margin:6px 0}
-.band{border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-.band.core{background:var(--p2-soft);border:1px solid #AECBFA}
-.band.inputs{background:var(--surface);border:1px solid var(--line)}
-.band .lbl{grid-column:1/-1;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--accent);margin-bottom:-4px}
-.band.inputs .lbl{color:var(--muted)}
-.band b{display:block;font-size:13px;margin-bottom:2px}
-.band p{margin:0;font-size:12px;color:var(--ink-2)}
-figure{margin:0;overflow-x:auto}
-figure svg{display:block;width:100%;height:auto}
-figcaption{font-size:11.5px;color:var(--muted);margin-top:8px}
-.list{display:grid;gap:10px}
-.list div{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;font-size:13px;color:var(--ink-2)}
-.list b{color:var(--ink)}
-.num{width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700;flex:none}
-.phases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.ph{border-radius:10px;padding:12px 14px;border:1px solid var(--line)}
-.ph b{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
-.ph .who{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px}
-.ph p{margin:0;font-size:12.5px;color:var(--ink-2)}
-.ph .gate{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--ink-2)}
-.ph .gate b{display:inline;font-size:10px;color:var(--muted);margin-right:4px}
-.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:0}
-table{width:100%;border-collapse:collapse;font-size:12.5px}
-th{text-align:left;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:6px 8px;border-bottom:2px solid var(--line)}
-td{padding:8px;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
-td:first-child{color:var(--ink);font-weight:700}
-.mx th{text-align:center}.mx th:first-child{text-align:left}.mx td{text-align:center}.mx td:first-child{text-align:left;white-space:nowrap}
-.d{display:inline-block;width:14px;height:14px;border-radius:50%}
-.d.h{opacity:.3}
-.streams{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.st{border-radius:10px;border:1px solid var(--line);padding:12px 14px;background:var(--surface)}
-.st b{display:block;font-size:14px;margin-bottom:4px}
-.st p{margin:0 0 6px;font-size:12.5px;color:var(--ink-2)}
-.st .meta{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-.money{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
-.mc{border-radius:10px;border-top:4px solid var(--line);background:var(--surface);padding:10px 12px;font-size:12.5px;color:var(--ink-2)}
-.mc b{display:block;font-size:13px;color:var(--ink);margin-bottom:4px}
-.mc i{display:block;font-style:normal;font-size:11.5px;color:var(--muted);margin-top:6px;padding-top:6px;border-top:1px dashed var(--line)}
-.cols3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.cols4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-.cell{border-radius:10px;background:var(--surface);padding:12px 14px;font-size:12.5px;color:var(--ink-2)}
-.cell b{display:block;font-size:13px;color:var(--ink);margin-bottom:4px}
-.cell ul{margin:0;padding-left:16px}
-.offer{grid-column:span 4;background:var(--p4-soft);border:1px solid #FDE293;border-radius:12px;padding:14px 16px}
-.offer h2{color:var(--ink);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 8px;font-weight:700}
-.offer dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:12.5px}
-.offer dt{color:var(--muted);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;font-weight:700}
-.offer dd{margin:0;color:var(--ink)}
-.tier{border-radius:10px;border:1px solid var(--line);padding:12px 14px;background:var(--bg)}
-.tier b{display:block;font-size:14px}
-.tier small{display:block;color:var(--muted);font-size:11px;margin-bottom:6px}
-.tier ul{margin:0;padding-left:16px;font-size:12.5px;color:var(--ink-2)}
-.risk{border-left:4px solid var(--p1);padding:4px 12px;font-size:12.5px;color:var(--ink-2);background:var(--surface);border-radius:0 8px 8px 0}
-.risk b{color:var(--ink)}
+.c12{grid-column:span 12}.c8{grid-column:span 8}.c7{grid-column:span 7}.c6{grid-column:span 6}.c5{grid-column:span 5}.c4{grid-column:span 4}
+.fig{border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0;background:var(--bg)}
+.fig h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 8px;font-weight:700}
+figure{margin:0;overflow-x:auto}figure svg{display:block;width:100%;height:auto}
+figcaption{font-size:11.5px;color:var(--muted);margin-top:8px;line-height:1.4}
 .foot{margin-top:14px;font-size:11.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:space-between}
-@media (max-width:1000px){.pillars,.money{grid-template-columns:repeat(2,minmax(0,1fr))}.streams{grid-template-columns:repeat(3,minmax(0,1fr)) !important}.ups{display:none}.band{grid-template-columns:1fr 1fr}}
-@media (max-width:860px){.c8,.c7,.c6,.c5,.c4,.c3,.title,.facts,.offer{grid-column:span 12}.phases,.cols3,.cols4{grid-template-columns:1fr}.streams{grid-template-columns:1fr 1fr !important}.pillars,.money,.band{grid-template-columns:1fr}}
+@media (max-width:900px){.hero{grid-template-columns:1fr}.c8,.c7,.c6,.c5,.c4{grid-column:span 12}.kpis{grid-template-columns:1fr 1fr}}
 </style>
-<div class="sheet" lang="zh-CN">
-<header>
-  <div class="brand"><div class="seal">香山</div><div><b>香山工作室</b><span>编辑内容机构 · 斯德哥尔摩 · 欧洲 ↔ 中国</span></div></div>
-  <div class="docline"><div><b>第 1 页 / 共 3 页 · 系统架构</b>保密 · 供合作伙伴与投资人讨论</div><div class="pages"><span class="on">1</span><span class="">2</span><span class="">3</span></div><a class="lang" href="https://claude.ai/artifact/CGa4yMBFezwHdtR6BDxuYZ">English →</a></div>
-</header>
+<div class="sheet" lang="zh-CN"><header><div class="brand"><div class="seal">香山</div><div><b>香山工作室</b><span>编辑内容机构 · 斯德哥尔摩 · 欧洲 ↔ 中国</span></div></div>
+<div class="docline"><div><b>第 1 页 / 共 3 页 · 系统架构</b>保密 · 供合作伙伴与投资人讨论</div><div class="pages"><span class="on">1</span><span class="">2</span><span class="">3</span></div><a class="lang" href="https://claude.ai/artifact/CGa4yMBFezwHdtR6BDxuYZ">English →</a></div></header>
+<div class="hero"><div><h1>一个核心，五大支柱，同一张关系网。</h1><p>钱从上方的五类买家进来，五个产品支柱向他们销售，一个共享核心运行全部五个支柱，核心建立在我们已经持有的资源之上。</p></div><div class="kpis"><div class="kpi"><div class="n">€345亿</div><div class="l">2025 年欧洲赞助市场；艺术文化占 28%<i>ESA / Nielsen Sports 2026</i></div></div><div class="kpi"><div class="n">50–60%</div><div class="l">Semafor 收入来自活动赞助；2025 年盈利<i>Semafor, Nieman Lab</i></div></div><div class="kpi"><div class="n">&lt;5%</div><div class="l">SemiAnalysis 收入来自订阅<i>The Information，估算</i></div></div></div></div>
 <div class="grid">
-  <div class="title"><h1>一个核心，五大支柱，同一张关系网。</h1><p>香山是一个运营系统，而不是五家公司。五个产品支柱共用同一个内容之声、同一个联系人库和同一条生产线。每个支柱卖给不同的买家，并为下一个支柱输送资源。</p></div>
-  <div class="facts"><div class="fact"><div class="n">€345亿</div><div class="l">2025 年欧洲赞助市场规模；艺术文化占 28%<i>ESA / Nielsen Sports 2026</i></div></div><div class="fact"><div class="n">50–60%</div><div class="l">Semafor 收入来自活动赞助；2025 年实现盈利<i>Semafor, Nieman Lab</i></div></div><div class="fact"><div class="n">&lt;5%</div><div class="l">SemiAnalysis 收入来自订阅；研究与咨询贡献其余<i>The Information，估算</i></div></div></div>
-  <div class="blk c12"><h2>系统全貌</h2>
-    <div class="pillars"><div class="pc"><div class="hd" style="background:var(--p1);color:#fff">1 · 内容<small>声音</small></div>
-<div class="bd"><div><span class="k">是什么</span>讲述欧洲与中国之间「造机器的人」的故事</div><div><span class="k">产品</span><ul><li>双语通讯</li><li>视频访谈系列</li><li>LinkedIn · 公众号 · 视频号</li></ul></div><div><span class="k">谁付费</span>内容季赞助商、平台、授权方</div><span class="chip" style="background:var(--p1-soft);color:var(--p1)">稍后变现</span></div></div><div class="pc"><div class="hd" style="background:var(--p2);color:#fff">2 · 咨询<small>付费答案</small></div>
-<div class="bd"><div><span class="k">是什么</span>伙伴数据 + 实业操盘者的判断</div><div><span class="k">产品</span><ul><li>欧中市场进入咨询</li><li>联名行业报告</li><li>专家访谈与工作坊</li></ul></div><div><span class="k">谁付费</span>进入欧洲的机器人与传感器企业；研究中国的欧洲整车厂</div><span class="chip" style="background:var(--p2-soft);color:var(--p2)">即时现金</span></div></div><div class="pc"><div class="hd" style="background:var(--p3);color:#fff">3 · 社群<small>筛选过的圈子</small></div>
-<div class="bd"><div><span class="k">是什么</span>两地的高管与创始人，两档会员</div><div><span class="k">产品</span><ul><li>基础会员</li><li>高管俱乐部</li><li>课程与考察团</li></ul></div><div><span class="k">谁付费</span>会员；课程与考察参与者；沙龙赞助商</div><span class="chip" style="background:var(--p3-soft);color:var(--p3)">持续收入</span></div></div><div class="pc"><div class="hd" style="background:var(--p4);color:var(--p4-ink)">4 · 现场与场馆<small>舞台 · 安可 Encore</small></div>
-<div class="bd"><div><span class="k">是什么</span>向品牌销售的名人音乐会与高管沙龙</div><div><span class="k">产品</span><ul><li>安可巡演赞助</li><li>高管沙龙</li><li>赞助商晚宴与款待</li></ul></div><div><span class="k">谁付费</span>汽车、机器人、半导体与消费科技品牌</div><span class="chip" style="background:var(--p4-soft);color:var(--p4-ink)">即时现金</span></div></div><div class="pc"><div class="hd" style="background:var(--p5);color:#fff">5 · 加速<small>项目通道</small></div>
-<div class="bd"><div><span class="k">是什么</span>创始人落地北欧，投资人找到他们</div><div><span class="k">产品</span><ul><li>软着陆计划</li><li>为投资人寻源</li><li>与企业对接试点</li></ul></div><div><span class="k">谁付费</span>创始人、加速器、投资人、企业</div><span class="chip" style="background:var(--p5-soft);color:var(--p5)">股权</span></div></div></div>
-    <div class="ups"><span>▲</span><span>▲</span><span>▲</span><span>▲</span><span>▲</span></div>
-    <div class="band core"><div class="lbl">共享核心 · 每个支柱都运行在其上</div><div><b>内容之声</b><p>一个主题、一种语调、一位主持人。</p></div><div><b>关系图谱</b><p>一个 CRM：嘉宾、赞助商、会员、创始人、投资人。</p></div><div><b>生产线</b><p>一次录制；六个渠道、两种语言发布。</p></div><div><b>商务与后台</b><p>一张价目表；在斯德哥尔摩与中国开票。</p></div></div>
-    <div class="ups" style="margin:6px 0 4px"><span></span><span></span><span>▲</span><span></span><span></span></div>
-    <div class="band inputs"><div class="lbl">已经持有的资源</div><div><b>创始人行业深度</b><p>传感、机器人、汽车、经销商网络</p></div><div><b>舞台与艺人资源</b><p>名人音乐会渠道；已完成钢琴家专访</p></div><div><b>伙伴资产</b><p>数据、报告、创始人社群、投资人</p></div><div><b>双市场基础</b><p>瑞典公司；中国运营伙伴</p></div></div>
-  </div>
-  <div class="blk c6"><h2>支柱之间如何互相输送</h2><figure><svg viewBox="0 0 620 410" role="img" aria-label="Cycle: Live feeds Editorial, Editorial feeds Community, Community feeds Advisory, Advisory feeds Acceleration, Acceleration feeds Live." xmlns="http://www.w3.org/2000/svg">
-<defs><marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5F6368"/></marker></defs>
-<path d="M382 64 L428 136" stroke="#5F6368" stroke-width="1.4" fill="none" marker-end="url(#fa)"/>
-<text x="426" y="92" font-size="12" fill="#3C4043" text-anchor="start" font-weight="500">内容</text>
-<path d="M466 190 L430 302" stroke="#5F6368" stroke-width="1.4" fill="none" marker-end="url(#fa)"/>
-<text x="456" y="252" font-size="12" fill="#3C4043" text-anchor="start" font-weight="500">受众</text>
-<path d="M330 346 L292 346" stroke="#5F6368" stroke-width="1.4" fill="none" marker-end="url(#fa)"/>
-<text x="310" y="378" font-size="12" fill="#3C4043" text-anchor="middle" font-weight="500">客户</text>
-<path d="M170 322 L146 194" stroke="#5F6368" stroke-width="1.4" fill="none" marker-end="url(#fa)"/>
-<text x="150" y="262" font-size="12" fill="#3C4043" text-anchor="end" font-weight="500">项目源</text>
-<path d="M176 140 L238 62" stroke="#5F6368" stroke-width="1.4" fill="none" marker-end="url(#fa)"/>
-<text x="200" y="92" font-size="12" fill="#3C4043" text-anchor="end" font-weight="500">赞助商与创始人</text>
-<rect x="234" y="32" width="152" height="40" rx="20" fill="var(--p4-soft)" stroke="var(--p4)" stroke-width="1.4"/>
-<text x="310" y="57" text-anchor="middle" font-size="13" font-weight="700" fill="#202124">4 · 现场</text>
-<rect x="390" y="146" width="152" height="40" rx="20" fill="var(--p1-soft)" stroke="var(--p1)" stroke-width="1.4"/>
-<text x="466" y="171" text-anchor="middle" font-size="13" font-weight="700" fill="var(--p1)">1 · 内容</text>
-<rect x="330" y="326" width="152" height="40" rx="20" fill="var(--p3-soft)" stroke="var(--p3)" stroke-width="1.4"/>
-<text x="406" y="351" text-anchor="middle" font-size="13" font-weight="700" fill="var(--p3)">3 · 社群</text>
-<rect x="138" y="326" width="152" height="40" rx="20" fill="var(--p2-soft)" stroke="var(--p2)" stroke-width="1.4"/>
-<text x="214" y="351" text-anchor="middle" font-size="13" font-weight="700" fill="var(--p2)">2 · 咨询</text>
-<rect x="78" y="146" width="152" height="40" rx="20" fill="var(--p5-soft)" stroke="var(--p5)" stroke-width="1.4"/>
-<text x="154" y="171" text-anchor="middle" font-size="13" font-weight="700" fill="var(--p5)">5 · 加速</text>
-<circle cx="310" cy="205" r="46" fill="#FFFFFF" stroke="var(--accent)" stroke-width="1.6"/>
-<text x="310" y="210" text-anchor="middle" font-size="11" font-weight="700" fill="var(--accent)">同一张网</text>
+<div class="fig c12"><h2>系统全貌 · 谁付费、我们卖什么、靠什么运行</h2><figure><svg viewBox="0 0 1240 760" role="img" aria-label="Layered system map: five buyers at the top pay five pillars; the pillars run on a shared core of four modules; the core is built on four inputs already held." xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5F6368"/></marker><marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1A73E8"/></marker><marker id="ary" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#F29900"/></marker></defs>
+<text x="12" y="22" font-size="11" font-weight="700" fill="#5F6368" text-anchor="start" letter-spacing=".1em">谁付费</text>
+<rect x="12" y="32" width="232" height="58" rx="10" fill="#F8F9FA" stroke="#DADCE0"/>
+<g transform="translate(24,44) scale(1.4)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18"/><path d="M8 7h3M13 7h3M8 11h3M13 11h3M8 15h3M13 15h3M10 21v-3h4v3"/></g>
+<text x="66" y="54" font-size="13" font-weight="700" fill="#202124" text-anchor="start" >品牌与赞助商</text>
+<text x="66" y="74" font-size="11" font-weight="400" fill="#5F6368" text-anchor="start" >内容季赞助</text>
+<path d="M128.0 92 V124" stroke="#F29900" stroke-width="2.2" marker-end="url(#ary)"/>
+<text x="136.0" y="112" font-size="12" font-weight="700" fill="#F29900" text-anchor="start" >€</text>
+<rect x="258" y="32" width="232" height="58" rx="10" fill="#F8F9FA" stroke="#DADCE0"/>
+<g transform="translate(270,44) scale(1.4)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 12h18"/></g>
+<text x="312" y="54" font-size="13" font-weight="700" fill="#202124" text-anchor="start" >客户</text>
+<text x="312" y="74" font-size="11" font-weight="400" fill="#5F6368" text-anchor="start" >顾问费 · 报告</text>
+<path d="M374.0 92 V124" stroke="#F29900" stroke-width="2.2" marker-end="url(#ary)"/>
+<text x="382.0" y="112" font-size="12" font-weight="700" fill="#F29900" text-anchor="start" >€</text>
+<rect x="504" y="32" width="232" height="58" rx="10" fill="#F8F9FA" stroke="#DADCE0"/>
+<g transform="translate(516,44) scale(1.4)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6M15 15c3 0 6 1.5 6 5"/></g>
+<text x="558" y="54" font-size="13" font-weight="700" fill="#202124" text-anchor="start" >会员</text>
+<text x="558" y="74" font-size="11" font-weight="400" fill="#5F6368" text-anchor="start" >年费</text>
+<path d="M620.0 92 V124" stroke="#F29900" stroke-width="2.2" marker-end="url(#ary)"/>
+<text x="628.0" y="112" font-size="12" font-weight="700" fill="#F29900" text-anchor="start" >€</text>
+<rect x="750" y="32" width="232" height="58" rx="10" fill="#F8F9FA" stroke="#DADCE0"/>
+<g transform="translate(762,44) scale(1.4)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18"/><path d="M8 7h3M13 7h3M8 11h3M13 11h3M8 15h3M13 15h3M10 21v-3h4v3"/></g>
+<text x="804" y="54" font-size="13" font-weight="700" fill="#202124" text-anchor="start" >品牌与赞助商</text>
+<text x="804" y="74" font-size="11" font-weight="400" fill="#5F6368" text-anchor="start" >巡演套餐 · VIP 桌</text>
+<path d="M866.0 92 V124" stroke="#F29900" stroke-width="2.2" marker-end="url(#ary)"/>
+<text x="874.0" y="112" font-size="12" font-weight="700" fill="#F29900" text-anchor="start" >€</text>
+<rect x="996" y="32" width="232" height="58" rx="10" fill="#F8F9FA" stroke="#DADCE0"/>
+<g transform="translate(1008,44) scale(1.4)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></g>
+<text x="1050" y="54" font-size="13" font-weight="700" fill="#202124" text-anchor="start" >创始人与投资人</text>
+<text x="1050" y="74" font-size="11" font-weight="400" fill="#5F6368" text-anchor="start" >费用 · 收益分成</text>
+<path d="M1112.0 92 V124" stroke="#F29900" stroke-width="2.2" marker-end="url(#ary)"/>
+<text x="1120.0" y="112" font-size="12" font-weight="700" fill="#F29900" text-anchor="start" >€</text>
+<text x="12" y="146" font-size="11" font-weight="700" fill="#5F6368" text-anchor="start" letter-spacing=".1em">五大产品支柱</text>
+<rect x="12" y="156" width="232" height="250" rx="12" fill="#fff" stroke="#DADCE0"/>
+<path d="M12 168a12 12 0 0 1 12-12h208a12 12 0 0 1 12 12v50H12z" fill="#EA4335"/>
+<g transform="translate(26,168) scale(1.3)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4M8 22h8"/></g>
+<text x="66" y="182" font-size="15" font-weight="700" fill="#fff" text-anchor="start" >1 · 内容</text>
+<text x="66" y="200" font-size="11" font-weight="500" fill="#fff" text-anchor="start" opacity=".9">声音</text>
+<circle cx="34" cy="238" r="3.5" fill="#EA4335"/>
+<text x="46" y="242" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >访谈系列</text>
+<circle cx="34" cy="264" r="3.5" fill="#EA4335"/>
+<text x="46" y="268" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >双语通讯</text>
+<circle cx="34" cy="290" r="3.5" fill="#EA4335"/>
+<text x="46" y="294" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >视频 · LinkedIn · 公众号</text>
+<rect x="26" y="360" width="118" height="26" rx="13" fill="#FCE8E6"/>
+<text x="85" y="377" font-size="11.5" font-weight="700" fill="#EA4335" text-anchor="middle" >稍后变现</text>
+<path d="M128.0 446 V410" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="258" y="156" width="232" height="250" rx="12" fill="#fff" stroke="#DADCE0"/>
+<path d="M258 168a12 12 0 0 1 12-12h208a12 12 0 0 1 12 12v50H258z" fill="#4285F4"/>
+<g transform="translate(272,168) scale(1.3)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8l-2.5 5.5L8 16l2.5-5.5z"/></g>
+<text x="312" y="182" font-size="15" font-weight="700" fill="#fff" text-anchor="start" >2 · 咨询</text>
+<text x="312" y="200" font-size="11" font-weight="500" fill="#fff" text-anchor="start" opacity=".9">付费答案</text>
+<circle cx="280" cy="238" r="3.5" fill="#4285F4"/>
+<text x="292" y="242" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >市场进入咨询</text>
+<circle cx="280" cy="264" r="3.5" fill="#4285F4"/>
+<text x="292" y="268" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >联名报告</text>
+<circle cx="280" cy="290" r="3.5" fill="#4285F4"/>
+<text x="292" y="294" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >专家访谈</text>
+<rect x="272" y="360" width="118" height="26" rx="13" fill="#E8F0FE"/>
+<text x="331" y="377" font-size="11.5" font-weight="700" fill="#4285F4" text-anchor="middle" >即时现金</text>
+<path d="M374.0 446 V410" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="504" y="156" width="232" height="250" rx="12" fill="#fff" stroke="#DADCE0"/>
+<path d="M504 168a12 12 0 0 1 12-12h208a12 12 0 0 1 12 12v50H504z" fill="#34A853"/>
+<g transform="translate(518,168) scale(1.3)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6M15 15c3 0 6 1.5 6 5"/></g>
+<text x="558" y="182" font-size="15" font-weight="700" fill="#fff" text-anchor="start" >3 · 社群</text>
+<text x="558" y="200" font-size="11" font-weight="500" fill="#fff" text-anchor="start" opacity=".9">筛选过的圈子</text>
+<circle cx="526" cy="238" r="3.5" fill="#34A853"/>
+<text x="538" y="242" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >基础会员</text>
+<circle cx="526" cy="264" r="3.5" fill="#34A853"/>
+<text x="538" y="268" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >高管俱乐部</text>
+<circle cx="526" cy="290" r="3.5" fill="#34A853"/>
+<text x="538" y="294" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >课程 · 考察团</text>
+<rect x="518" y="360" width="118" height="26" rx="13" fill="#E6F4EA"/>
+<text x="577" y="377" font-size="11.5" font-weight="700" fill="#34A853" text-anchor="middle" >持续收入</text>
+<path d="M620.0 446 V410" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="750" y="156" width="232" height="250" rx="12" fill="#fff" stroke="#DADCE0"/>
+<path d="M750 168a12 12 0 0 1 12-12h208a12 12 0 0 1 12 12v50H750z" fill="#FBBC04"/>
+<g transform="translate(764,168) scale(1.3)" fill="none" stroke="#202124" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="1"/><path d="M6 5v8M10 5v8M14 5v8M18 5v8"/></g>
+<text x="804" y="182" font-size="15" font-weight="700" fill="#202124" text-anchor="start" >4 · 现场与场馆</text>
+<text x="804" y="200" font-size="11" font-weight="500" fill="#202124" text-anchor="start" opacity=".9">舞台 · 安可</text>
+<circle cx="772" cy="238" r="3.5" fill="#FBBC04"/>
+<text x="784" y="242" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >安可巡演赞助</text>
+<circle cx="772" cy="264" r="3.5" fill="#FBBC04"/>
+<text x="784" y="268" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >高管沙龙</text>
+<circle cx="772" cy="290" r="3.5" fill="#FBBC04"/>
+<text x="784" y="294" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >赞助商晚宴</text>
+<rect x="764" y="360" width="118" height="26" rx="13" fill="#FEF7E0"/>
+<text x="823" y="377" font-size="11.5" font-weight="700" fill="#B06000" text-anchor="middle" >即时现金</text>
+<path d="M866.0 446 V410" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="996" y="156" width="232" height="250" rx="12" fill="#fff" stroke="#DADCE0"/>
+<path d="M996 168a12 12 0 0 1 12-12h208a12 12 0 0 1 12 12v50H996z" fill="#A142F4"/>
+<g transform="translate(1010,168) scale(1.3)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4c3 0 6 3 6 6l-8 8-6-6z"/><circle cx="14" cy="10" r="1.5"/><path d="M6 14l-3 1 2-5M10 18l-1 3 5-2M5 19l4-4"/></g>
+<text x="1050" y="182" font-size="15" font-weight="700" fill="#fff" text-anchor="start" >5 · 加速</text>
+<text x="1050" y="200" font-size="11" font-weight="500" fill="#fff" text-anchor="start" opacity=".9">项目通道</text>
+<circle cx="1018" cy="238" r="3.5" fill="#A142F4"/>
+<text x="1030" y="242" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >软着陆计划</text>
+<circle cx="1018" cy="264" r="3.5" fill="#A142F4"/>
+<text x="1030" y="268" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >为投资人寻源</text>
+<circle cx="1018" cy="290" r="3.5" fill="#A142F4"/>
+<text x="1030" y="294" font-size="12.5" font-weight="500" fill="#3C4043" text-anchor="start" >企业试点对接</text>
+<rect x="1010" y="360" width="118" height="26" rx="13" fill="#F3E8FD"/>
+<text x="1069" y="377" font-size="11.5" font-weight="700" fill="#A142F4" text-anchor="middle" >股权</text>
+<path d="M1112.0 446 V410" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="12" y="450" width="1216" height="112" rx="12" fill="#E8F0FE" stroke="#AECBFA"/>
+<text x="28" y="472" font-size="11" font-weight="700" fill="#1A73E8" text-anchor="start" letter-spacing=".1em">共享核心 · 每个支柱都运行在其上</text>
+<g transform="translate(28.0,486) scale(1.5)" fill="none" stroke="#1A73E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4M8 22h8"/></g>
+<text x="74.0" y="502" font-size="14" font-weight="700" fill="#202124" text-anchor="start" >内容之声</text>
+<text x="74.0" y="522" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >一个主题 · 一位主持人</text>
+<g transform="translate(324.0,486) scale(1.5)" fill="none" stroke="#1A73E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="4" cy="6" r="2"/><circle cx="20" cy="6" r="2"/><circle cx="4" cy="18" r="2"/><circle cx="20" cy="18" r="2"/><path d="M6 7l4 3M18 7l-4 3M6 17l4-3M18 17l-4-3"/></g>
+<text x="370.0" y="502" font-size="14" font-weight="700" fill="#202124" text-anchor="start" >关系图谱</text>
+<text x="370.0" y="522" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >五个支柱共用一个 CRM</text>
+<line x1="312.0" y1="486" x2="312.0" y2="548" stroke="#AECBFA"/>
+<g transform="translate(620.0,486) scale(1.5)" fill="none" stroke="#1A73E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M3 15h18M8 4v16M16 4v16"/></g>
+<text x="666.0" y="502" font-size="14" font-weight="700" fill="#202124" text-anchor="start" >生产线</text>
+<text x="666.0" y="522" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >一次录制 · 6 个渠道 · 2 种语言</text>
+<line x1="608.0" y1="486" x2="608.0" y2="548" stroke="#AECBFA"/>
+<g transform="translate(916.0,486) scale(1.5)" fill="none" stroke="#1A73E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></g>
+<text x="962.0" y="502" font-size="14" font-weight="700" fill="#202124" text-anchor="start" >商务与后台</text>
+<text x="962.0" y="522" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >一张价目表 · 瑞典与中国开票</text>
+<line x1="904.0" y1="486" x2="904.0" y2="548" stroke="#AECBFA"/>
+<path d="M176.0 600 V566" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<path d="M472.0 600 V566" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<path d="M768.0 600 V566" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<path d="M1064.0 600 V566" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="12" y="604" width="1216" height="112" rx="12" fill="#F8F9FA" stroke="#DADCE0"/>
+<text x="28" y="626" font-size="11" font-weight="700" fill="#5F6368" text-anchor="start" letter-spacing=".1em">已经持有的资源</text>
+<g transform="translate(28.0,640) scale(1.5)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8l-2.5 5.5L8 16l2.5-5.5z"/></g>
+<text x="74.0" y="656" font-size="14" font-weight="700" fill="#202124" text-anchor="start" >创始人行业深度</text>
+<text x="74.0" y="676" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >传感 · 机器人 · 汽车</text>
+<g transform="translate(324.0,640) scale(1.5)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="1"/><path d="M6 5v8M10 5v8M14 5v8M18 5v8"/></g>
+<text x="370.0" y="656" font-size="14" font-weight="700" fill="#202124" text-anchor="start" >舞台与艺人资源</text>
+<text x="370.0" y="676" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >名人音乐会 · 钢琴家专访</text>
+<line x1="312.0" y1="640" x2="312.0" y2="702" stroke="#DADCE0"/>
+<g transform="translate(620.0,640) scale(1.5)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h8l5 5v15H6z"/><path d="M14 2v5h5M9 12h7M9 16h7"/></g>
+<text x="666.0" y="656" font-size="14" font-weight="700" fill="#202124" text-anchor="start" >伙伴资产</text>
+<text x="666.0" y="676" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >数据 · 报告 · 创始人 · 投资人</text>
+<line x1="608.0" y1="640" x2="608.0" y2="702" stroke="#DADCE0"/>
+<g transform="translate(916.0,640) scale(1.5)" fill="none" stroke="#3C4043" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18"/><path d="M8 7h3M13 7h3M8 11h3M13 11h3M8 15h3M13 15h3M10 21v-3h4v3"/></g>
+<text x="962.0" y="656" font-size="14" font-weight="700" fill="#202124" text-anchor="start" >双市场基础</text>
+<text x="962.0" y="676" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >瑞典公司 · 中国伙伴</text>
+<line x1="904.0" y1="640" x2="904.0" y2="702" stroke="#DADCE0"/>
+</svg></figure><figcaption>自上而下阅读：买家付费给支柱；支柱运行在一个核心上；核心由已有资源构成。核心在第一天不需要新招人。</figcaption></div>
+<div class="fig c6"><h2>支柱之间如何互相输送</h2><figure><svg viewBox="0 0 620 420" role="img" aria-label="Cycle of five pillars with one network in the centre." xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5F6368"/></marker><marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1A73E8"/></marker><marker id="ary" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#F29900"/></marker></defs>
+<path d="M388 66 L432 138" stroke="#5F6368" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<text x="428" y="94" font-size="12" font-weight="500" fill="#3C4043" text-anchor="start" >内容</text>
+<path d="M470 196 L432 304" stroke="#5F6368" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<text x="462" y="256" font-size="12" font-weight="500" fill="#3C4043" text-anchor="start" >受众</text>
+<path d="M328 352 L292 352" stroke="#5F6368" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<text x="310" y="386" font-size="12" font-weight="500" fill="#3C4043" text-anchor="middle" >客户</text>
+<path d="M166 326 L140 196" stroke="#5F6368" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<text x="148" y="266" font-size="12" font-weight="500" fill="#3C4043" text-anchor="end" >项目源</text>
+<path d="M176 142 L236 66" stroke="#5F6368" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<text x="206" y="94" font-size="12" font-weight="500" fill="#3C4043" text-anchor="end" >赞助商与创始人</text>
+<rect x="230" y="34" width="160" height="44" rx="22" fill="#FEF7E0" stroke="#FBBC04" stroke-width="1.6"/>
+<g transform="translate(244,44) scale(1.0)" fill="none" stroke="#B06000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="1"/><path d="M6 5v8M10 5v8M14 5v8M18 5v8"/></g>
+<text x="318" y="61" font-size="13" font-weight="700" fill="#B06000" text-anchor="middle" >4 · 现场</text>
+<rect x="390" y="148" width="160" height="44" rx="22" fill="#FCE8E6" stroke="#EA4335" stroke-width="1.6"/>
+<g transform="translate(404,158) scale(1.0)" fill="none" stroke="#EA4335" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4M8 22h8"/></g>
+<text x="478" y="175" font-size="13" font-weight="700" fill="#EA4335" text-anchor="middle" >1 · 内容</text>
+<rect x="328" y="330" width="160" height="44" rx="22" fill="#E6F4EA" stroke="#34A853" stroke-width="1.6"/>
+<g transform="translate(342,340) scale(1.0)" fill="none" stroke="#34A853" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6M15 15c3 0 6 1.5 6 5"/></g>
+<text x="416" y="357" font-size="13" font-weight="700" fill="#34A853" text-anchor="middle" >3 · 社群</text>
+<rect x="132" y="330" width="160" height="44" rx="22" fill="#E8F0FE" stroke="#4285F4" stroke-width="1.6"/>
+<g transform="translate(146,340) scale(1.0)" fill="none" stroke="#4285F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8l-2.5 5.5L8 16l2.5-5.5z"/></g>
+<text x="220" y="357" font-size="13" font-weight="700" fill="#4285F4" text-anchor="middle" >2 · 咨询</text>
+<rect x="70" y="148" width="160" height="44" rx="22" fill="#F3E8FD" stroke="#A142F4" stroke-width="1.6"/>
+<g transform="translate(84,158) scale(1.0)" fill="none" stroke="#A142F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4c3 0 6 3 6 6l-8 8-6-6z"/><circle cx="14" cy="10" r="1.5"/><path d="M6 14l-3 1 2-5M10 18l-1 3 5-2M5 19l4-4"/></g>
+<text x="158" y="175" font-size="13" font-weight="700" fill="#A142F4" text-anchor="middle" >5 · 加速</text>
+<circle cx="310" cy="210" r="48" fill="#fff" stroke="#1A73E8" stroke-width="1.8"/>
+<g transform="translate(298,184) scale(1.0)" fill="none" stroke="#1A73E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="4" cy="6" r="2"/><circle cx="20" cy="6" r="2"/><circle cx="4" cy="18" r="2"/><circle cx="20" cy="18" r="2"/><path d="M6 7l4 3M18 7l-4 3M6 17l4-3M18 17l-4-3"/></g>
+<text x="310" y="228" font-size="10.5" font-weight="700" fill="#1A73E8" text-anchor="middle" >同一张网</text>
 </svg></figure><figcaption>从「现场」开始。每场音乐会产生内容和嘉宾名单；当赞助商与创始人成为下一个舞台，循环闭合。</figcaption></div>
-  <div class="blk c6"><h2>为什么是一个系统</h2><div class="list"><div><span class="num">1</span><span><b>同一张关系网</b> 一位音乐会赞助商就是未来的咨询客户、访谈嘉宾和俱乐部会员。一个联系人库让这一点可见。</span></div><div><span class="num">2</span><span><b>同一条生产线</b> 一次录制供给通讯、两个视频频道和中文渠道。单条内容成本趋近于零。</span></div><div><span class="num">3</span><span><b>同一个声音</b> 一个主题让机构「以某事闻名」。六个月的随机内容没有建立受众；聚焦可以。</span></div></div>
-    <h2 style="margin-top:18px">启动顺序 · 按条件推进，不按日期</h2><div class="phases" style="grid-template-columns:1fr"><div class="ph" style="background:var(--p4-soft)"><b style="color:#B06000">阶段 A · 现金</b><div class="who"><span class="dot" style="background:var(--p4)"></span><span class="dot" style="background:var(--p2)"></span>现场 + 咨询</div><p>卖的是接触权与判断力，不需要受众基础。</p><div class="gate"><b>前提</b>舞台权益与赞助品类书面确认；伙伴引荐到位</div></div><div class="ph" style="background:var(--p1-soft)"><b style="color:var(--p1)">阶段 B · 持续收入</b><div class="who"><span class="dot" style="background:var(--p1)"></span><span class="dot" style="background:var(--p3)"></span>内容季 + 社群</div><p>一个主题、一个节奏，然后是两档会员。</p><div class="gate"><b>前提</b>一笔已签赞助支撑内容季；发布完整一季后再销售会员</div></div><div class="ph" style="background:var(--p5-soft)"><b style="color:var(--p5)">阶段 C · 股权</b><div class="who"><span class="dot" style="background:var(--p5)"></span>加速</div><p>项目源对接北欧企业与投资人。</p><div class="gate"><b>前提</b>已有筛选过的俱乐部与付费咨询客户</div></div></div></div>
-</div>
-<div class="foot"><span>资料来源：framework/research/ · 除标注估算外，数字均为公开报道</span><span>香山工作室</span></div>
-</div>
+<div class="fig c6"><h2>启动顺序 · 按条件推进，不按日期</h2><figure><svg viewBox="0 0 620 300" role="img" aria-label="Three rising steps: cash, recurring, equity, each with a gate condition." xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5F6368"/></marker><marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1A73E8"/></marker><marker id="ary" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#F29900"/></marker></defs>
+<rect x="14" y="150" width="190" height="90" rx="10" fill="#FEF7E0" stroke="#FBBC04" stroke-width="1.4"/>
+<text x="28" y="174" font-size="11.5" font-weight="700" fill="#B06000" text-anchor="start" letter-spacing=".08em">A · 现金</text>
+<circle cx="36" cy="194" r="7" fill="#FBBC04"/>
+<circle cx="56" cy="194" r="7" fill="#4285F4"/>
+<text x="28" y="220" font-size="13.5" font-weight="700" fill="#202124" text-anchor="start" >现场 + 咨询</text>
+<text x="28" y="240" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >卖的是接触权与判断力</text>
+<path d="M206 120 H216" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="14" y="252" width="190" height="38" rx="8" fill="#fff" stroke="#DADCE0" stroke-dasharray="4 3"/>
+<g transform="translate(22,259) scale(0.9)" fill="none" stroke="#5F6368" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="14" r="5"/><path d="M12 11l9-9M17 6l3 3M14 9l2 2"/></g>
+<text x="48" y="276" font-size="10.5" font-weight="500" fill="#3C4043" text-anchor="start" >舞台权益与赞助品类已确认</text>
+<rect x="218" y="90" width="190" height="150" rx="10" fill="#FCE8E6" stroke="#EA4335" stroke-width="1.4"/>
+<text x="232" y="114" font-size="11.5" font-weight="700" fill="#EA4335" text-anchor="start" letter-spacing=".08em">B · 持续收入</text>
+<circle cx="240" cy="134" r="7" fill="#EA4335"/>
+<circle cx="260" cy="134" r="7" fill="#34A853"/>
+<text x="232" y="160" font-size="13.5" font-weight="700" fill="#202124" text-anchor="start" >内容季 + 社群</text>
+<text x="232" y="180" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >一个主题、一个节奏、两档会员</text>
+<path d="M410 60 H420" stroke="#5F6368" stroke-width="1.6" marker-end="url(#ar)"/>
+<rect x="218" y="252" width="190" height="38" rx="8" fill="#fff" stroke="#DADCE0" stroke-dasharray="4 3"/>
+<g transform="translate(226,259) scale(0.9)" fill="none" stroke="#5F6368" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="14" r="5"/><path d="M12 11l9-9M17 6l3 3M14 9l2 2"/></g>
+<text x="252" y="276" font-size="10.5" font-weight="500" fill="#3C4043" text-anchor="start" >一笔赞助支撑内容季</text>
+<rect x="422" y="30" width="190" height="210" rx="10" fill="#F3E8FD" stroke="#A142F4" stroke-width="1.4"/>
+<text x="436" y="54" font-size="11.5" font-weight="700" fill="#A142F4" text-anchor="start" letter-spacing=".08em">C · 股权</text>
+<circle cx="444" cy="74" r="7" fill="#A142F4"/>
+<text x="436" y="100" font-size="13.5" font-weight="700" fill="#202124" text-anchor="start" >加速</text>
+<text x="436" y="120" font-size="11.5" font-weight="400" fill="#3C4043" text-anchor="start" >项目源对接企业与投资人</text>
+<rect x="422" y="252" width="190" height="38" rx="8" fill="#fff" stroke="#DADCE0" stroke-dasharray="4 3"/>
+<g transform="translate(430,259) scale(0.9)" fill="none" stroke="#5F6368" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="14" r="5"/><path d="M12 11l9-9M17 6l3 3M14 9l2 2"/></g>
+<text x="456" y="276" font-size="10.5" font-weight="500" fill="#3C4043" text-anchor="start" >已有俱乐部与咨询客户</text>
+</svg></figure><figcaption>只有下方的前提成立，才进入下一步。</figcaption></div>
+</div><div class="foot"><span>资料来源见 framework/research/ · 除标注估算外均为公开报道</span><span>香山工作室</span></div></div>
