@@ -1,0 +1,125 @@
+<title>Fragrant Hill Monetisation</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#FFFFFF; --surface:#F8F9FA; --ink:#202124; --ink-2:#3C4043; --muted:#5F6368; --line:#DADCE0; --line-2:#E8EAED;
+  --accent:#1A73E8;
+  --p1:#EA4335; --p2:#4285F4; --p3:#34A853; --p4:#FBBC04; --p5:#A142F4;
+  --p1-soft:#FCE8E6; --p2-soft:#E8F0FE; --p3-soft:#E6F4EA; --p4-soft:#FEF7E0; --p5-soft:#F3E8FD;
+  --p4-ink:#202124;
+  --font:"Roboto","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
+.sheet{max-width:1240px;margin:0 auto}
+header{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;justify-content:space-between;padding:18px 0 12px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px}
+.seal{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff;background:linear-gradient(135deg,var(--p2) 0 25%,var(--p1) 25% 50%,var(--p4) 50% 75%,var(--p3) 75% 100%)}
+.brand b{font-weight:700;font-size:14px;letter-spacing:.04em;display:block}
+.brand span{color:var(--muted);font-size:12px}
+.docline{display:flex;align-items:center;gap:14px;font-size:12px;color:var(--muted)}
+.docline b{color:var(--ink);display:block;font-size:13px}
+.pages{display:flex;gap:6px}
+.pages span{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;border:1px solid var(--line);color:var(--muted)}
+.pages span.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.lang{font-size:12px;font-weight:500;color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:16px;padding:4px 12px}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px;margin-top:14px}
+.c12{grid-column:span 12}.c8{grid-column:span 8}.c7{grid-column:span 7}.c6{grid-column:span 6}.c5{grid-column:span 5}.c4{grid-column:span 4}.c3{grid-column:span 3}
+.blk{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:16px 18px;min-width:0}
+.blk h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 10px;font-weight:700}
+.title{grid-column:span 8;padding:6px 0 0}
+.title h1{font-size:clamp(26px,3.4vw,38px);font-weight:700;line-height:1.1;letter-spacing:-.01em;margin:0 0 8px;text-wrap:balance}
+.title p{margin:0;color:var(--ink-2);font-size:15px;max-width:64ch}
+.facts{grid-column:span 4;display:grid;gap:8px;align-content:start}
+.fact{background:var(--surface);border-radius:10px;padding:10px 14px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center}
+.fact .n{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--accent);min-width:70px}
+.fact .l{font-size:12px;color:var(--ink-2);line-height:1.3}
+.fact .l i{display:block;font-style:normal;color:var(--muted);font-size:10.5px;margin-top:2px}
+.pillars{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.pc{border-radius:10px;border:1px solid var(--line);overflow:hidden;background:var(--bg);display:flex;flex-direction:column}
+.pc .hd{padding:10px 12px;color:#fff;font-weight:700;font-size:14px;line-height:1.2}
+.pc .hd small{display:block;font-weight:500;font-size:11px;opacity:.9;margin-top:2px}
+.pc .bd{padding:10px 12px;font-size:12.5px;color:var(--ink-2);display:grid;gap:8px;flex:1}
+.pc .k{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px;font-weight:700}
+.pc ul{margin:0;padding-left:16px}
+.pc li{margin:1px 0}
+.pc .chip{align-self:start;margin-top:auto}
+.chip{display:inline-block;padding:2px 9px;border-radius:12px;font-size:10.5px;font-weight:700;letter-spacing:.03em}
+.ups{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;text-align:center;color:var(--muted);font-size:16px;line-height:1;margin:6px 0}
+.band{border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.band.core{background:var(--p2-soft);border:1px solid #AECBFA}
+.band.inputs{background:var(--surface);border:1px solid var(--line)}
+.band .lbl{grid-column:1/-1;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--accent);margin-bottom:-4px}
+.band.inputs .lbl{color:var(--muted)}
+.band b{display:block;font-size:13px;margin-bottom:2px}
+.band p{margin:0;font-size:12px;color:var(--ink-2)}
+figure{margin:0;overflow-x:auto}
+figure svg{display:block;width:100%;height:auto}
+figcaption{font-size:11.5px;color:var(--muted);margin-top:8px}
+.list{display:grid;gap:10px}
+.list div{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;font-size:13px;color:var(--ink-2)}
+.list b{color:var(--ink)}
+.num{width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700;flex:none}
+.phases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.ph{border-radius:10px;padding:12px 14px;border:1px solid var(--line)}
+.ph b{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.ph .who{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.ph p{margin:0;font-size:12.5px;color:var(--ink-2)}
+.ph .gate{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--ink-2)}
+.ph .gate b{display:inline;font-size:10px;color:var(--muted);margin-right:4px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:0}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:6px 8px;border-bottom:2px solid var(--line)}
+td{padding:8px;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+td:first-child{color:var(--ink);font-weight:700}
+.mx th{text-align:center}.mx th:first-child{text-align:left}.mx td{text-align:center}.mx td:first-child{text-align:left;white-space:nowrap}
+.d{display:inline-block;width:14px;height:14px;border-radius:50%}
+.d.h{opacity:.3}
+.streams{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.st{border-radius:10px;border:1px solid var(--line);padding:12px 14px;background:var(--surface)}
+.st b{display:block;font-size:14px;margin-bottom:4px}
+.st p{margin:0 0 6px;font-size:12.5px;color:var(--ink-2)}
+.st .meta{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.money{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.mc{border-radius:10px;border-top:4px solid var(--line);background:var(--surface);padding:10px 12px;font-size:12.5px;color:var(--ink-2)}
+.mc b{display:block;font-size:13px;color:var(--ink);margin-bottom:4px}
+.mc i{display:block;font-style:normal;font-size:11.5px;color:var(--muted);margin-top:6px;padding-top:6px;border-top:1px dashed var(--line)}
+.cols3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.cols4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.cell{border-radius:10px;background:var(--surface);padding:12px 14px;font-size:12.5px;color:var(--ink-2)}
+.cell b{display:block;font-size:13px;color:var(--ink);margin-bottom:4px}
+.cell ul{margin:0;padding-left:16px}
+.offer{grid-column:span 4;background:var(--p4-soft);border:1px solid #FDE293;border-radius:12px;padding:14px 16px}
+.offer h2{color:var(--ink);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 8px;font-weight:700}
+.offer dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:12.5px}
+.offer dt{color:var(--muted);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;font-weight:700}
+.offer dd{margin:0;color:var(--ink)}
+.tier{border-radius:10px;border:1px solid var(--line);padding:12px 14px;background:var(--bg)}
+.tier b{display:block;font-size:14px}
+.tier small{display:block;color:var(--muted);font-size:11px;margin-bottom:6px}
+.tier ul{margin:0;padding-left:16px;font-size:12.5px;color:var(--ink-2)}
+.risk{border-left:4px solid var(--p1);padding:4px 12px;font-size:12.5px;color:var(--ink-2);background:var(--surface);border-radius:0 8px 8px 0}
+.risk b{color:var(--ink)}
+.foot{margin-top:14px;font-size:11.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:space-between}
+@media (max-width:1000px){.pillars,.money{grid-template-columns:repeat(2,minmax(0,1fr))}.streams{grid-template-columns:repeat(3,minmax(0,1fr)) !important}.ups{display:none}.band{grid-template-columns:1fr 1fr}}
+@media (max-width:860px){.c8,.c7,.c6,.c5,.c4,.c3,.title,.facts,.offer{grid-column:span 12}.phases,.cols3,.cols4{grid-template-columns:1fr}.streams{grid-template-columns:1fr 1fr !important}.pillars,.money,.band{grid-template-columns:1fr}}
+</style>
+<div class="sheet" lang="en">
+<header>
+  <div class="brand"><div class="seal">香山</div><div><b>Fragrant Hill Studio</b><span>Editorial house · Stockholm · Europe ↔ China</span></div></div>
+  <div class="docline"><div><b>Page 2 of 3 · Monetisation</b>Confidential · prepared for partner and investor discussion</div><div class="pages"><span class="">1</span><span class="on">2</span><span class="">3</span></div><a class="lang" href="https://claude.ai/artifact/YYrpKvPXzTnGxFGSqyhYPv">中文版 →</a></div>
+</header>
+<div class="grid">
+  <div class="title"><h1>Six revenue streams across five pillars. No single buyer.</h1><p>Free editorial earns trust; the money sits in high-ticket products next to it. The best media businesses earn most from sponsored rooms, data and advisory, not from subscriptions or ads.</p></div>
+  <div class="facts"><div class="fact"><div class="n">50–60%</div><div class="l">of Semafor revenue is event sponsorship; profitable in 2025<i>Semafor, Nieman Lab</i></div></div><div class="fact"><div class="n">&lt;5%</div><div class="l">of SemiAnalysis revenue is subscriptions; research and advisory carry the rest<i>The Information, estimate</i></div></div><div class="fact"><div class="n">90%</div><div class="l">of a leading Chinese business pundit&#x27;s year-end show revenue is sponsorship<i>36Kr on 吴晓波年终秀</i></div></div></div>
+  <div class="blk c12"><h2>The six revenue streams</h2><div class="streams" style="grid-template-columns:repeat(6,minmax(0,1fr))"><div class="st"><b>Sponsorship</b><p>Brands pay to stand beside a tour, a season or a salon</p><div class="meta"><span><span class="dot" style="background:var(--p4)"></span><span class="dot" style="background:var(--p1)"></span><span class="dot" style="background:var(--p3)"></span></span><span class="chip" style="background:var(--p4-soft);color:var(--p4-ink)">Cash now</span></div></div><div class="st"><b>Service fees</b><p>Clients pay retainers, project fees and programme fees</p><div class="meta"><span><span class="dot" style="background:var(--p2)"></span><span class="dot" style="background:var(--p5)"></span></span><span class="chip" style="background:var(--p2-soft);color:var(--p2)">Cash now</span></div></div><div class="st"><b>Membership</b><p>Members pay annual dues: base tier and executive club</p><div class="meta"><span><span class="dot" style="background:var(--p3)"></span></span><span class="chip" style="background:var(--p3-soft);color:var(--p3)">Recurring</span></div></div><div class="st"><b>Tickets &amp; hospitality</b><p>Sponsors&#x27; guests, salon attendees, trip participants</p><div class="meta"><span><span class="dot" style="background:var(--p4)"></span><span class="dot" style="background:var(--p3)"></span></span><span class="chip" style="background:var(--p4-soft);color:var(--p4-ink)">Cash now</span></div></div><div class="st"><b>Licences &amp; reports</b><p>Report buyers, platforms and media licensees</p><div class="meta"><span><span class="dot" style="background:var(--p2)"></span><span class="dot" style="background:var(--p1)"></span></span><span class="chip" style="background:var(--p2-soft);color:var(--p2)">Recurring</span></div></div><div class="st"><b>Equity &amp; carry</b><p>Programme fees, scout fees, carry through the partner fund</p><div class="meta"><span><span class="dot" style="background:var(--p5)"></span></span><span class="chip" style="background:var(--p5-soft);color:var(--p5)">Equity</span></div></div></div></div>
+  <div class="blk c7"><h2>Pillar × revenue stream</h2><div style="overflow-x:auto"><table class="mx"><thead><tr><th>Pillars</th><th>Sponsorship</th><th>Service fees</th><th>Membership</th><th>Tickets &amp; hospitality</th><th>Licences &amp; reports</th><th>Equity &amp; carry</th></tr></thead><tbody><tr><td><span class="dot" style="background:var(--p1)"></span>1 Editorial</td><td><span class="d" style="background:var(--p1)"></span></td><td></td><td></td><td></td><td><span class="d" style="background:var(--p1)"></span></td><td></td></tr><tr><td><span class="dot" style="background:var(--p2)"></span>2 Advisory</td><td></td><td><span class="d" style="background:var(--p2)"></span></td><td></td><td></td><td><span class="d" style="background:var(--p2)"></span></td><td></td></tr><tr><td><span class="dot" style="background:var(--p3)"></span>3 Community</td><td><span class="d h" style="background:var(--p3)"></span></td><td><span class="d h" style="background:var(--p3)"></span></td><td><span class="d" style="background:var(--p3)"></span></td><td><span class="d" style="background:var(--p3)"></span></td><td></td><td></td></tr><tr><td><span class="dot" style="background:var(--p4)"></span>4 Live &amp; Venues</td><td><span class="d" style="background:var(--p4)"></span></td><td><span class="d h" style="background:var(--p4)"></span></td><td></td><td><span class="d" style="background:var(--p4)"></span></td><td></td><td></td></tr><tr><td><span class="dot" style="background:var(--p5)"></span>5 Acceleration</td><td></td><td><span class="d" style="background:var(--p5)"></span></td><td></td><td></td><td></td><td><span class="d" style="background:var(--p5)"></span></td></tr></tbody></table></div><figcaption>Solid: primary stream. Faded: secondary. Every pillar has at least two streams; no stream depends on one pillar.</figcaption></div>
+  <div class="blk c5"><h2>When each stream pays</h2><div class="cols3" style="grid-template-columns:1fr"><div class="cell"><b>Cash now</b><div style="margin-bottom:6px"><span class="dot" style="background:var(--p4)"></span><span class="dot" style="background:var(--p2)"></span>Live &amp; Venues, Advisory</div>Sponsorship, hospitality, service fees. Sold on access and judgement before an audience exists.</div><div class="cell"><b>Recurring</b><div style="margin-bottom:6px"><span class="dot" style="background:var(--p1)"></span><span class="dot" style="background:var(--p3)"></span>Editorial, Community</div>Membership, season sponsorship, report licences. Built on a published season and a vetted room.</div><div class="cell"><b>Equity</b><div style="margin-bottom:6px"><span class="dot" style="background:var(--p5)"></span>Acceleration</div>Programme fees and carry. A by-product of the first four pillars.</div></div></div>
+  <div class="blk c12"><h2>How each pillar makes money</h2><div class="money"><div class="mc" style="border-top-color:var(--p1)"><b>1 · Editorial · Season sponsorship</b>One presenting sponsor per season, every free distribution window. Licensing of episodes to platforms.<i>Benchmark: The Circuit runs one presenting sponsor per season.</i></div><div class="mc" style="border-top-color:var(--p2)"><b>2 · Advisory · Retainers and reports</b>Retainers and projects priced on outcome; co-branded reports licensed per seat.<i>Benchmark: SemiAnalysis earns over 95% from research and consulting.</i></div><div class="mc" style="border-top-color:var(--p3)"><b>3 · Community · Two membership tiers</b>An expensable base tier; a vetted club priced on access. Courses and trips sold per seat.<i>Benchmark: vetted founder clubs sustain four- to five-figure annual dues.</i></div><div class="mc" style="border-top-color:var(--p4)"><b>4 · Live &amp; Venues · Sponsorship packages</b>Sold on hospitality first, association second, content third, reach last. Deposit on signature.<i>Benchmark: Semafor earns 50–60% of revenue from sponsored convenings.</i></div><div class="mc" style="border-top-color:var(--p5)"><b>5 · Acceleration · Fees and carry</b>Programme fee per company, scout fee per round, carry through the partner&#x27;s fund.<i>Benchmark: a16z and YC run media as a deal-flow funnel.</i></div></div></div>
+  <div class="blk c12"><h2>Who does the work · bird&#x27;s-eye view</h2><div class="cols3"><div class="cell"><b>Human</b>Founder and core team own the theme, the relationships and the price.</div><div class="cell"><b>Digital agents</b>Research, production, publishing, follow-up and finance run on agents built with the house skills.</div><div class="cell"><b>Partner</b>Data, founder cohorts, sponsor introductions and invoicing in China.</div></div></div>
+</div>
+<div class="foot"><span>Sources: framework/research/ · figures are reported unless marked as estimates</span><span>Fragrant Hill Studio</span></div>
+</div>

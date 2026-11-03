@@ -1,0 +1,145 @@
+<title>安可计划</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#FFFFFF; --surface:#F8F9FA; --ink:#202124; --ink-2:#3C4043; --muted:#5F6368; --line:#DADCE0; --line-2:#E8EAED;
+  --accent:#1A73E8;
+  --p1:#EA4335; --p2:#4285F4; --p3:#34A853; --p4:#FBBC04; --p5:#A142F4;
+  --p1-soft:#FCE8E6; --p2-soft:#E8F0FE; --p3-soft:#E6F4EA; --p4-soft:#FEF7E0; --p5-soft:#F3E8FD;
+  --p4-ink:#202124;
+  --font:"Roboto","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
+.sheet{max-width:1240px;margin:0 auto}
+header{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;justify-content:space-between;padding:18px 0 12px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px}
+.seal{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff;background:linear-gradient(135deg,var(--p2) 0 25%,var(--p1) 25% 50%,var(--p4) 50% 75%,var(--p3) 75% 100%)}
+.brand b{font-weight:700;font-size:14px;letter-spacing:.04em;display:block}
+.brand span{color:var(--muted);font-size:12px}
+.docline{display:flex;align-items:center;gap:14px;font-size:12px;color:var(--muted)}
+.docline b{color:var(--ink);display:block;font-size:13px}
+.pages{display:flex;gap:6px}
+.pages span{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;border:1px solid var(--line);color:var(--muted)}
+.pages span.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.lang{font-size:12px;font-weight:500;color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:16px;padding:4px 12px}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px;margin-top:14px}
+.c12{grid-column:span 12}.c8{grid-column:span 8}.c7{grid-column:span 7}.c6{grid-column:span 6}.c5{grid-column:span 5}.c4{grid-column:span 4}.c3{grid-column:span 3}
+.blk{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:16px 18px;min-width:0}
+.blk h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 10px;font-weight:700}
+.title{grid-column:span 8;padding:6px 0 0}
+.title h1{font-size:clamp(26px,3.4vw,38px);font-weight:700;line-height:1.1;letter-spacing:-.01em;margin:0 0 8px;text-wrap:balance}
+.title p{margin:0;color:var(--ink-2);font-size:15px;max-width:64ch}
+.facts{grid-column:span 4;display:grid;gap:8px;align-content:start}
+.fact{background:var(--surface);border-radius:10px;padding:10px 14px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center}
+.fact .n{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--accent);min-width:70px}
+.fact .l{font-size:12px;color:var(--ink-2);line-height:1.3}
+.fact .l i{display:block;font-style:normal;color:var(--muted);font-size:10.5px;margin-top:2px}
+.pillars{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.pc{border-radius:10px;border:1px solid var(--line);overflow:hidden;background:var(--bg);display:flex;flex-direction:column}
+.pc .hd{padding:10px 12px;color:#fff;font-weight:700;font-size:14px;line-height:1.2}
+.pc .hd small{display:block;font-weight:500;font-size:11px;opacity:.9;margin-top:2px}
+.pc .bd{padding:10px 12px;font-size:12.5px;color:var(--ink-2);display:grid;gap:8px;flex:1}
+.pc .k{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px;font-weight:700}
+.pc ul{margin:0;padding-left:16px}
+.pc li{margin:1px 0}
+.pc .chip{align-self:start;margin-top:auto}
+.chip{display:inline-block;padding:2px 9px;border-radius:12px;font-size:10.5px;font-weight:700;letter-spacing:.03em}
+.ups{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;text-align:center;color:var(--muted);font-size:16px;line-height:1;margin:6px 0}
+.band{border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.band.core{background:var(--p2-soft);border:1px solid #AECBFA}
+.band.inputs{background:var(--surface);border:1px solid var(--line)}
+.band .lbl{grid-column:1/-1;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--accent);margin-bottom:-4px}
+.band.inputs .lbl{color:var(--muted)}
+.band b{display:block;font-size:13px;margin-bottom:2px}
+.band p{margin:0;font-size:12px;color:var(--ink-2)}
+figure{margin:0;overflow-x:auto}
+figure svg{display:block;width:100%;height:auto}
+figcaption{font-size:11.5px;color:var(--muted);margin-top:8px}
+.list{display:grid;gap:10px}
+.list div{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;font-size:13px;color:var(--ink-2)}
+.list b{color:var(--ink)}
+.num{width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700;flex:none}
+.phases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.ph{border-radius:10px;padding:12px 14px;border:1px solid var(--line)}
+.ph b{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.ph .who{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.ph p{margin:0;font-size:12.5px;color:var(--ink-2)}
+.ph .gate{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--ink-2)}
+.ph .gate b{display:inline;font-size:10px;color:var(--muted);margin-right:4px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:0}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:6px 8px;border-bottom:2px solid var(--line)}
+td{padding:8px;border-bottom:1px solid var(--line-2);vertical-align:top;color:var(--ink-2)}
+td:first-child{color:var(--ink);font-weight:700}
+.mx th{text-align:center}.mx th:first-child{text-align:left}.mx td{text-align:center}.mx td:first-child{text-align:left;white-space:nowrap}
+.d{display:inline-block;width:14px;height:14px;border-radius:50%}
+.d.h{opacity:.3}
+.streams{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.st{border-radius:10px;border:1px solid var(--line);padding:12px 14px;background:var(--surface)}
+.st b{display:block;font-size:14px;margin-bottom:4px}
+.st p{margin:0 0 6px;font-size:12.5px;color:var(--ink-2)}
+.st .meta{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.money{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.mc{border-radius:10px;border-top:4px solid var(--line);background:var(--surface);padding:10px 12px;font-size:12.5px;color:var(--ink-2)}
+.mc b{display:block;font-size:13px;color:var(--ink);margin-bottom:4px}
+.mc i{display:block;font-style:normal;font-size:11.5px;color:var(--muted);margin-top:6px;padding-top:6px;border-top:1px dashed var(--line)}
+.cols3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.cols4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.cell{border-radius:10px;background:var(--surface);padding:12px 14px;font-size:12.5px;color:var(--ink-2)}
+.cell b{display:block;font-size:13px;color:var(--ink);margin-bottom:4px}
+.cell ul{margin:0;padding-left:16px}
+.offer{grid-column:span 4;background:var(--p4-soft);border:1px solid #FDE293;border-radius:12px;padding:14px 16px}
+.offer h2{color:var(--ink);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 8px;font-weight:700}
+.offer dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:12.5px}
+.offer dt{color:var(--muted);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px;font-weight:700}
+.offer dd{margin:0;color:var(--ink)}
+.tier{border-radius:10px;border:1px solid var(--line);padding:12px 14px;background:var(--bg)}
+.tier b{display:block;font-size:14px}
+.tier small{display:block;color:var(--muted);font-size:11px;margin-bottom:6px}
+.tier ul{margin:0;padding-left:16px;font-size:12.5px;color:var(--ink-2)}
+.risk{border-left:4px solid var(--p1);padding:4px 12px;font-size:12.5px;color:var(--ink-2);background:var(--surface);border-radius:0 8px 8px 0}
+.risk b{color:var(--ink)}
+.foot{margin-top:14px;font-size:11.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:space-between}
+@media (max-width:1000px){.pillars,.money{grid-template-columns:repeat(2,minmax(0,1fr))}.streams{grid-template-columns:repeat(3,minmax(0,1fr)) !important}.ups{display:none}.band{grid-template-columns:1fr 1fr}}
+@media (max-width:860px){.c8,.c7,.c6,.c5,.c4,.c3,.title,.facts,.offer{grid-column:span 12}.phases,.cols3,.cols4{grid-template-columns:1fr}.streams{grid-template-columns:1fr 1fr !important}.pillars,.money,.band{grid-template-columns:1fr}}
+</style>
+<div class="sheet" lang="zh-CN">
+<header>
+  <div class="brand"><div class="seal">香山</div><div><b>香山工作室</b><span>编辑内容机构 · 斯德哥尔摩 · 欧洲 ↔ 中国</span></div></div>
+  <div class="docline"><div><b>第 3 页 / 共 3 页 · 项目 · 安可 Encore</b>保密 · 供合作伙伴与投资人讨论</div><div class="pages"><span class="">1</span><span class="">2</span><span class="on">3</span></div><a class="lang" href="https://claude.ai/artifact/TWNPK42aBPMzPs9WKtPyxb">English →</a></div>
+</header>
+<div class="grid">
+  <div class="title"><div style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#B06000;font-weight:700;margin-bottom:6px">安可 Encore · 世界级钢琴家欧洲巡演赞助计划</div><h1>卖的是现场，不是流量。</h1><p>安可把一场名人音乐会巡演打包成赞助、款待与内容资产，面向在欧洲与中国之间布局的汽车、机器人和科技品牌。香山掌握舞台与艺术家关系，伙伴掌握进入品牌的大门。</p></div>
+  <div class="offer"><h2>一图看懂方案</h2><dl><dt>标的</dt><dd>一位能售罄顶级音乐厅的钢琴家的欧洲巡演；北欧城市加汉堡、巴黎或伦敦之一</dd><dt>买家</dt><dd>正在进入或扩张欧洲的品牌：电动车与高端汽车、机器人、半导体、消费科技</dd><dt>结构</dt><dd>1 家冠名伙伴 · 3 家品类独家官方伙伴 · 最多 6 家款待伙伴</dd><dt>付款</dt><dd>签约付定金，首场前付尾款</dd><dt>我们的收入</dt><dd>权益费的代理佣金（行业平均 20%）加制作与款待服务费</dd><dt>可复制为</dt><dd>年度巡演 · 同一舞台上的高管沙龙 · 赞助商晚宴</dd></dl></div>
+  <div class="blk c4"><h2>标的 · 公开报道</h2><div class="facts" style="grid-column:auto"><div class="fact"><div class="n">5,000</div><div class="l">皇家阿尔伯特音乐厅一场独奏会 48 小时售出的票数<i>Classic FM, 2013</i></div></div><div class="fact"><div class="n">1,600–2,000万</div><div class="l">各平台宣称的社交媒体粉丝总数<i>Slipped Disc 2025；宣称数，未逐平台核实</i></div></div><div class="fact"><div class="n">13</div><div class="l">2026 年秋季巡演覆盖的欧洲城市数；2027 年已排定伦敦、汉堡、波恩<i>Deutsche Grammophon 巡演页；票务信息</i></div></div><div class="fact"><div class="n">0</div><div class="l">该艺术家历史上公布过的整巡演冠名伙伴数量<i>研究笔记 3</i></div></div></div></div>
+  <div class="blk c4"><h2>市场 · 公开报道</h2><div class="facts" style="grid-column:auto"><div class="fact"><div class="n">€345亿</div><div class="l">2025 年欧洲赞助支出，同比增长 4.7%<i>ESA / Nielsen Sports 2026</i></div></div><div class="fact"><div class="n">€97亿</div><div class="l">其中非体育类：艺术、文化、娱乐（28%）<i>ESA / Nielsen Sports 2026</i></div></div><div class="fact"><div class="n">62%</div><div class="l">的品牌希望赞助文化；61% 尚未开始<i>ESA 艺术文化调研</i></div></div><div class="fact"><div class="n">0</div><div class="l">在欧洲赞助古典音乐的中国电动车、机器人或消费科技品牌<i>研究笔记 3，未发现案例</i></div></div></div></div>
+  <div class="blk c4"><h2>先例 · 古典音乐中的汽车与科技品牌</h2><table><thead><tr><th>品牌</th><th>项目</th><th>起始</th></tr></thead><tbody><tr><td>奥迪</td><td>萨尔茨堡音乐节主赞助商，续约至 2027</td><td>1995</td></tr><tr><td>保时捷</td><td>莱比锡布商大厦管弦乐团，含国际巡演</td><td>2011</td></tr><tr><td>宝马</td><td>「人人歌剧」慕尼黑与柏林，续约至 2030</td><td>1997</td></tr><tr><td>沃尔沃</td><td>哥德堡交响乐团首席赞助商</td><td>长期</td></tr><tr><td>大众集团</td><td>艺术家文化大使；冠名中国巡演</td><td>2012</td></tr><tr><td>西门子</td><td>拜罗伊特音乐节，约每年 140 万美元</td><td>至 2011</td></tr></tbody></table><figcaption>除西门子外费用均未披露。欧洲品牌已用了三十年的打法，中国品牌在欧洲尚未使用。</figcaption></div>
+  <div class="blk c7"><h2>资金如何流动</h2><figure><svg viewBox="0 0 760 300" role="img" aria-label="Sponsors pay rights and hospitality fees into the Encore programme; money goes out to the tour producer, Fragrant Hill and the partner; value returns to sponsors as hospitality, association, content and reach." xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="mf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5F6368"/></marker><marker id="mfy" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#F29900"/></marker></defs>
+<rect x="10" y="80" width="180" height="130" rx="10" fill="#F8F9FA" stroke="#DADCE0"/>
+<text x="24" y="106" font-size="13" font-weight="700" fill="#202124">赞助商</text>
+<text x="24" y="130" font-size="12" fill="#3C4043">1 家冠名伙伴</text><text x="24" y="150" font-size="12" fill="#3C4043">3 家官方伙伴</text><text x="24" y="170" font-size="12" fill="#3C4043">最多 6 家款待伙伴</text>
+<path d="M190 118 H276" stroke="#F29900" stroke-width="2" marker-end="url(#mfy)"/><text x="233" y="110" font-size="11" text-anchor="middle" fill="#202124" font-weight="700">权益费</text>
+<path d="M190 172 H276" stroke="#F29900" stroke-width="2" marker-end="url(#mfy)"/><text x="233" y="190" font-size="11" text-anchor="middle" fill="#202124" font-weight="700">款待费</text>
+<rect x="280" y="70" width="200" height="150" rx="10" fill="#FEF7E0" stroke="#FBBC04" stroke-width="1.6"/>
+<text x="294" y="98" font-size="13" font-weight="700" fill="#202124">安可计划</text>
+<text x="294" y="124" font-size="12" fill="#3C4043">合同 · 品类独家</text><text x="294" y="144" font-size="12" fill="#3C4043">签约付定金</text>
+<g stroke="#5F6368" stroke-width="1.4" fill="none" marker-end="url(#mf)"><path d="M480 100 H576"/><path d="M480 145 H576"/><path d="M480 190 H576"/></g>
+<rect x="580" y="80" width="170" height="40" rx="8" fill="#FFFFFF" stroke="#DADCE0"/><text x="592" y="97" font-size="12" font-weight="700" fill="#202124">巡演制作方</text><text x="592" y="112" font-size="10.5" fill="#5F6368">艺术家 · 场馆 · 制作</text>
+<rect x="580" y="125" width="170" height="40" rx="8" fill="#E8F0FE" stroke="#4285F4" stroke-width="1.4"/><text x="592" y="142" font-size="12" font-weight="700" fill="#1A73E8">香山</text><text x="592" y="157" font-size="10.5" fill="#3C4043">佣金 · 制作服务费</text>
+<rect x="580" y="170" width="170" height="40" rx="8" fill="#FFFFFF" stroke="#DADCE0"/><text x="592" y="187" font-size="12" font-weight="700" fill="#202124">伙伴</text><text x="592" y="202" font-size="10.5" fill="#5F6368">引荐赞助商的分成</text>
+<path d="M380 220 V256 H100 V214" fill="none" stroke="#5F6368" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#mf)"/>
+<text x="240" y="276" font-size="11" text-anchor="middle" fill="#3C4043">回馈赞助商：款待 · 品牌联结 · 内容 · 触达</text>
+</svg></figure><figcaption>B2B 赞助商衡量的是款待：在音乐厅里的经销商与客户之夜。流量是最后一个理由，不是第一个。</figcaption></div>
+  <div class="blk c5"><h2>赞助套餐</h2><div class="cols3" style="grid-template-columns:1fr"><div class="tier" style="border-top:4px solid var(--p4)"><b>冠名伙伴</b><small>1 家 · 「呈现」</small><ul><li>整个巡演冠名；品类独家</li><li>每城 VIP 桌；为客户举办私人独奏会</li><li>12 个月内容权益；下一届优先续约权</li></ul></div><div class="tier" style="border-top:4px solid var(--p4)"><b>官方伙伴</b><small>3 家 · 每品类一家</small><ul><li>品类独家：汽车 · 机器人与科技 · 金融或奢侈品</li><li>节目册与屏幕品牌露出；每城一桌 VIP</li><li>共享内容包</li></ul></div><div class="tier" style="border-top:4px solid var(--line)"><b>款待伙伴</b><small>最多 6 家</small><ul><li>两个城市的高级座位区</li><li>贵宾休息室使用与品牌露出；照片与社交素材</li></ul></div></div><figcaption>费用按市场参照下方先例设定，并在首轮提案中确认。</figcaption></div>
+  <div class="blk c12"><h2>推进步骤</h2><div class="cols4"><div class="cell"><b><span class="num" style="display:inline-grid;margin-right:8px;vertical-align:middle">1</span>锁定</b>书面确认权益、日期、场馆与开放的赞助品类<div style="margin-top:6px;font-size:11px;color:var(--muted)">香山</div></div><div class="cell"><b><span class="num" style="display:inline-grid;margin-right:8px;vertical-align:middle">2</span>销售</b>三档套餐、伙伴引荐、条款书、含定金的合同<div style="margin-top:6px;font-size:11px;color:var(--muted)">香山 + 伙伴</div></div><div class="cell"><b><span class="num" style="display:inline-grid;margin-right:8px;vertical-align:middle">3</span>交付</b>制作、款待、客户之夜、巡演影片与内容<div style="margin-top:6px;font-size:11px;color:var(--muted)">香山 + 外部团队</div></div><div class="cell"><b><span class="num" style="display:inline-grid;margin-right:8px;vertical-align:middle">4</span>续约</b>下一届优先续约权；同一舞台上的沙龙系列<div style="margin-top:6px;font-size:11px;color:var(--muted)">香山</div></div></div></div>
+  <div class="blk c6"><h2>各方分工</h2><div class="cols3"><div class="cell"><b>香山</b><ul><li>艺术家与场馆关系、权益</li><li>套餐、提案、合同、回款</li><li>制作、款待、内容</li></ul></div><div class="cell"><b>伙伴</b><ul><li>汽车、机器人、科技领域的引荐</li><li>赞助商内部支持者</li><li>需要时在中国开票</li></ul></div><div class="cell"><b>赞助商</b><ul><li>权益费与款待费；激活预算</li><li>嘉宾名单：经销商、客户、官员、媒体</li><li>品牌素材与审批</li></ul></div></div></div>
+  <div class="blk c6"><h2>风险与对策</h2><div class="list" style="gap:8px"><div class="risk"><b>品类冲突。</b> 该艺术家曾有汽车品牌合作。向任何品牌提案前先书面确认开放品类；若汽车品类已关闭，冠名档位转向机器人与消费科技。</div><div class="risk"><b>销售周期。</b> 六位数赞助通常需要 9–18 个月。我们只通过引荐提案，并以三份签约为基础方案。</div><div class="risk"><b>艺术家、场馆、付款。</b> 取消保险；场馆预留；定金不可退；合同写入独家条款，一家退出不影响其他。</div></div></div>
+  <div class="blk c12"><h2>为什么可以复制</h2><div class="cols3"><div class="cell"><b>年度巡演</b>同样的套餐阶梯；赞助商享有优先续约权。艺人阵容可扩展到我们能接洽的其他表演者。</div><div class="cell"><b>高管沙龙</b>同一舞台上的沙龙，每场两到三家赞助商。为社群支柱输送。</div><div class="cell"><b>内容与关系网</b>每场音乐会产生巡演影片、访谈素材和嘉宾名单，供其他支柱复用。</div></div></div>
+</div>
+<div class="foot"><span>资料来源：framework/research/ · 除标注估算外，数字均为公开报道</span><span>香山工作室</span></div>
+</div>
