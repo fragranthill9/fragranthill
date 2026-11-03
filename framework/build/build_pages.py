@@ -124,11 +124,14 @@ T["en"] = dict(
  facts=[("€34.5bn", "European sponsorship market 2025; arts and culture 28%", "ESA / Nielsen Sports 2026"), ("50–60%", "of Semafor revenue is event sponsorship; profitable 2025", "Semafor, Nieman Lab"), ("<5%", "of SemiAnalysis revenue is subscriptions", "The Information, estimate")],
  # page 2
  p2_doc="Page 2 of 3 · Monetisation", p2_title="Four kinds of buyer, six revenue streams, five pillars.",
- p2_lede="Follow the money left to right: who pays, through which stream, into which pillar.",
- fig_flow="Where the money comes from and where it lands",
+ p2_lede="Read each pillar top to bottom: who pays, which revenue streams, when it pays.",
+ fig_flow="Where the money comes from and where it lands · one column per pillar",
  flow_buyers=["Brands & sponsors", "Clients", "Members & guests", "Founders & investors"],
+ col_buyers=["Brands & sponsors / platforms, licensees", "Clients / OEMs, firms entering Europe", "Members / guests, trip participants", "Brands & sponsors / their guests", "Founders & investors / corporates"],
+ col_streams=[[(0,1),(4,1)], [(1,1),(4,1)], [(2,1),(3,1),(0,0)], [(0,1),(3,1),(1,0)], [(1,1),(5,1)]],
+ lbl_streams="REVENUE STREAMS", flow_key="Solid frame: primary stream. Dashed: secondary.",
  streams=["Sponsorship", "Service fees", "Membership", "Tickets & hospitality", "Licences & reports", "Equity & carry"],
- fig_flow_cap="Band colour follows the pillar; widths are equal because this is structure, not a forecast.",
+ fig_flow_cap="Read each column top to bottom: who pays, the pillar, its revenue streams, when it pays.",
  fig_bench="Where proven media houses actually earn · share of revenue", bench=[("Semafor · sponsored events", 55, "reported 2025"), ("吴晓波年终秀 · sponsorship", 90, "reported"), ("SemiAnalysis · research & advisory", 95, "estimate"), ("得到 Dedao · online courses", 64, "reported 2021"), ("The Information · subscriptions", 90, "reported")],
  fig_bench_cap="Sponsored rooms, research and courses carry the benchmarks; subscriptions only at The Information's scale.",
  fig_when="When each pillar pays", when_lanes=[("SHORT TERM", [3]), ("MID TERM", [1, 2]), ("LONG TERM", [0, 4])],
@@ -180,11 +183,14 @@ T["zh"] = dict(
  fig_seq_cap="每一步建立在下方的前提上，而不是日期上。",
  facts=[("€345亿", "2025 年欧洲赞助市场；艺术文化占 28%", "ESA / Nielsen Sports 2026"), ("50–60%", "Semafor 收入来自活动赞助；2025 年盈利", "Semafor, Nieman Lab"), ("<5%", "SemiAnalysis 收入来自订阅", "The Information，估算")],
  p2_doc="第 2 页 / 共 3 页 · 变现方式", p2_title="四类买家，六类收入，五大支柱。",
- p2_lede="从左到右跟着钱走：谁付费、经过哪类收入、落到哪个支柱。",
+ p2_lede="每个支柱自上而下阅读：谁付费、哪些收入类型、何时赚钱。",
  fig_flow="钱从哪里来，落到哪里",
  flow_buyers=["品牌与赞助商", "客户", "会员与嘉宾", "创始人与投资人"],
+ col_buyers=["品牌与赞助商 / 平台、授权方", "客户 / 整车厂、入欧企业", "会员 / 嘉宾、考察团", "品牌与赞助商 / 其嘉宾", "创始人与投资人 / 企业"],
+ col_streams=[[(0,1),(4,1)], [(1,1),(4,1)], [(2,1),(3,1),(0,0)], [(0,1),(3,1),(1,0)], [(1,1),(5,1)]],
+ lbl_streams="收入类型", flow_key="实线框：主要收入。虚线框：次要收入。",
  streams=["赞助", "服务费", "会员费", "票务与款待", "授权与报告", "股权与分成"],
- fig_flow_cap="色带颜色跟随支柱。宽度相同，因为这是结构图，不是预测。",
+ fig_flow_cap="每一列自上而下阅读：谁付费、支柱、收入类型、何时赚钱。",
  fig_bench="成熟媒体机构真正的收入来源 · 占总收入比例", bench=[("Semafor · 赞助活动", 55, "2025 年报道"), ("吴晓波年终秀 · 赞助", 90, "报道"), ("SemiAnalysis · 研究与咨询", 95, "估算"), ("得到 · 在线课程", 64, "2021 年报道"), ("The Information · 订阅", 90, "报道")],
  fig_bench_cap="赞助的现场、研究和课程支撑了对标企业；订阅只在 The Information 的规模下成立。",
  fig_when="每个支柱何时赚钱", when_lanes=[("短期", [3]), ("中期", [1, 2]), ("长期", [0, 4])],
@@ -342,47 +348,44 @@ def page1(t, lang, other):
 
 # ----------------------------------------------------------------- page 2 figures
 def flow_fig(t):
-    W, Hh = 1240, 560
-    L = [(40, 70 + i * 120, 220, 72) for i in range(4)]                 # buyers
-    M = [(500, 36 + i * 86, 220, 60) for i in range(6)]                 # streams
-    R = [(980, 50 + i * 100, 220, 72) for i in range(5)]                # pillars
-    lm = [(0, 0), (0, 3), (1, 1), (1, 4), (2, 2), (2, 3), (3, 1), (3, 5)]          # buyer -> stream
-    mr = [(0, 3), (0, 0), (0, 2), (1, 1), (1, 4), (2, 2), (3, 3), (3, 2), (4, 1), (4, 0), (5, 4)]  # stream -> pillar
-    o = [f'<svg viewBox="0 0 {W} {Hh}" role="img" aria-label="Flow from four buyer types through six revenue streams into five pillars." xmlns="http://www.w3.org/2000/svg">']
-    def band(x1, y1, x2, y2, color, op=.55, w=16):
-        mx = (x1 + x2) / 2
-        return f'<path d="M{x1} {y1} C{mx} {y1} {mx} {y2} {x2} {y2}" stroke="{color}" stroke-width="{w}" fill="none" opacity="{op}" stroke-linecap="butt"/>'
-    # offsets to spread multiple links per node
-    from collections import defaultdict
-    outL = defaultdict(list); inM = defaultdict(list); outM = defaultdict(list); inR = defaultdict(list)
-    for a, b in lm: outL[a].append(b); inM[b].append(a)
-    for a, b in mr: outM[a].append(b); inR[b].append(a)
-    def slot(lst, key, n_total, y, h):
-        k = lst.index(key); return y + h * (k + 1) / (n_total + 1)
-    for a, b in lm:
-        x1, y1, w1, h1 = L[a]; x2, y2, w2, h2 = M[b]
-        o.append(band(x1 + w1, slot(outL[a], b, len(outL[a]), y1, h1), x2, slot(inM[b], a, len(inM[b]), y2, h2), C["muted"], .28))
-    for a, b in mr:
-        x1, y1, w1, h1 = M[a]; x2, y2, w2, h2 = R[b]
-        o.append(band(x1 + w1, slot(outM[a], b, len(outM[a]), y1, h1), x2, slot(inR[b], a, len(inR[b]), y2, h2), C[PC[b]], .6))
-    bic = ["building", "briefcase", "people", "coins"]
-    for i, (x, y, w, h) in enumerate(L):
-        o.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="10" fill="{C["surface"]}" stroke="{C["line"]}"/>')
-        o.append(icon(bic[i], x + 14, y + 22, 1.2, C["ink2"]))
-        o.append(tx(x + 52, y + 43, t["flow_buyers"][i], 13.5, 700))
+    """Five straight columns: buyer -> pillar -> revenue streams -> horizon. No crossing bands."""
+    W = 1240; colw = 232; gap = 14; x0 = 12
+    xs = [x0 + i * (colw + gap) for i in range(5)]
     sic = ["star", "briefcase", "key", "ticket", "doc", "rocket"]
-    for i, (x, y, w, h) in enumerate(M):
-        o.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="10" fill="#fff" stroke="{C["ink2"]}" stroke-width="1.4"/>')
-        o.append(icon(sic[i], x + 12, y + 18, 1.0, C["ink2"]))
-        o.append(tx(x + 46, y + 36, t["streams"][i], 13, 700))
-    for i, (x, y, w, h) in enumerate(R):
-        c = C[PC[i]]
-        o.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="10" fill="{c}"/>')
-        o.append(icon(PICON[i], x + 14, y + 22, 1.2, PT[i], 2.2))
-        o.append(tx(x + 52, y + 32, f'{i+1} · {t["P"][i]}', 13.5, 700, PT[i]))
-        o.append(tx(x + 52, y + 48, t["units"][i][0], 11, 500, PT[i], extra='opacity=".95"'))
-        o.append(tx(x + 52, y + 62, t["Pwhen"][i], 10.5, 400, PT[i], extra='opacity=".85"'))
-    o.append(tx(40, 24, t["lbl_buyers"] if "lbl_buyers" in t else "", 11, 700, C["muted"], extra='letter-spacing=".1em"'))
+    o = [f'<svg viewBox="0 0 {W} 470" role="img" aria-label="Five columns, one per pillar: who pays at the top, the pillar in the middle, its revenue streams below, and the horizon on which it pays." xmlns="http://www.w3.org/2000/svg">', MK]
+    o.append(tx(x0, 18, t["lbl_buyers"], 11, 700, C["muted"], extra='letter-spacing=".1em"'))
+    o.append(tx(x0, 128, t["lbl_pillars"], 11, 700, C["muted"], extra='letter-spacing=".1em"'))
+    o.append(tx(x0, 218, t["lbl_streams"], 11, 700, C["muted"], extra='letter-spacing=".1em"'))
+    bic = ["building", "briefcase", "people", "building", "coins"]
+    for i, x in enumerate(xs):
+        c = C[PC[i]]; cx = x + colw / 2
+        # buyer
+        b1, b2 = t["col_buyers"][i].split(" / ")
+        o.append(f'<rect x="{x}" y="26" width="{colw}" height="62" rx="10" fill="{C["surface"]}" stroke="{C["line"]}"/>')
+        o.append(icon(bic[i], x + 12, 40, 1.4, C["ink2"]))
+        o.append(tx(x + 54, 50, b1, 13, 700))
+        o.append(tx(x + 54, 70, b2, 11, 400, C["muted"]))
+        o.append(f'<path d="M{cx+50} 90 V118" stroke="{C["amber"]}" stroke-width="2.2" marker-end="url(#ary)"/>')
+        o.append(tx(cx + 58, 110, "€", 12, 700, C["amber"]))
+        # pillar
+        o.append(f'<rect x="{x}" y="136" width="{colw}" height="68" rx="10" fill="{c}"/>')
+        o.append(icon(PICON[i], x + 14, 150, 1.3, PT[i], 2.2))
+        o.append(tx(x + 54, 160, f'{i+1} · {t["P"][i]}', 13.5 if len(t["P"][i]) < 18 else 12, 700, PT[i]))
+        o.append(tx(x + 54, 180, t["units"][i][0], 11, 500, PT[i], extra='opacity=".95"'))
+        o.append(f'<path d="M{cx+50} 206 V222" stroke="{C["muted"]}" stroke-width="1.6" marker-end="url(#ar)"/>')
+        # streams
+        y = 230
+        for si, prim in t["col_streams"][i]:
+            dash = "" if prim else ' stroke-dasharray="4 3"'
+            o.append(f'<rect x="{x}" y="{y}" width="{colw}" height="38" rx="8" fill="#fff" stroke="{c if prim else C["muted"]}" stroke-width="{1.6 if prim else 1.2}"{dash}/>')
+            o.append(icon(sic[si], x + 12, y + 7, 1.0, C["ink2"]))
+            o.append(tx(x + 46, y + 24, t["streams"][si], 12.5, 700 if prim else 500, C["ink"] if prim else C["ink2"]))
+            y += 46
+        # horizon chip
+        soft = C[PS[i]]; tcol = C["yellowD"] if PC[i] == "yellow" else c
+        o.append(f'<rect x="{x}" y="412" width="{colw}" height="30" rx="15" fill="{soft}"/>')
+        o.append(tx(cx, 432, t["Pwhen"][i], 12, 700, tcol, "middle"))
+    o.append(tx(x0, 466, t["flow_key"], 10.5, 400, C["muted"]))
     o.append('</svg>')
     return "\n".join(o)
 
@@ -406,9 +409,9 @@ def when_fig(t):
         o.append(f'<rect x="0" y="{y}" width="620" height="58" rx="10" fill="{C[col+"S"]}"/>')
         o.append(tx(14, y + 34, lbl, 11, 700, tcol, extra='letter-spacing=".1em"'))
         for k, p in enumerate(pil):
-            x = 120 + i * 100 + k * 200
+            x = 100 + i * 70 + k * 180
             c = C[PC[p]]
-            o.append(f'<rect x="{x}" y="{y+11}" width="190" height="36" rx="18" fill="#fff" stroke="{c}" stroke-width="1.6"/>')
+            o.append(f'<rect x="{x}" y="{y+11}" width="170" height="36" rx="18" fill="#fff" stroke="{c}" stroke-width="1.6"/>')
             o.append(icon(PICON[p], x + 12, y + 17, 1.0, C["yellowD"] if PC[p] == "yellow" else c))
             o.append(tx(x + 44, y + 34, f'{p+1} · {t["Pshort"][p]}', 12.5, 700, C["ink"]))
     o.append(f'<path d="M30 212 H600" stroke="{C["muted"]}" stroke-width="1.6" marker-end="url(#ar)"/>')
