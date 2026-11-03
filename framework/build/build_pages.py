@@ -87,7 +87,7 @@ h1{font-size:clamp(24px,3vw,34px);font-weight:700;line-height:1.1;letter-spacing
 .fig{border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0;background:var(--bg)}
 .fig h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 8px;font-weight:700;display:flex;align-items:center;gap:8px}
 .fn{width:20px;height:20px;border-radius:50%;background:var(--accent);color:#fff;display:inline-grid;place-items:center;font-size:11px;letter-spacing:0}
-figure{margin:0;overflow-x:auto}figure svg{display:block;width:100%;height:auto}
+figure{margin:0;overflow-x:auto}figure svg{display:block;width:100%;height:auto}figure svg[viewBox^='0 0 1240']{min-width:860px}figure svg[viewBox^='0 0 760'],figure svg[viewBox^='0 0 620']{min-width:420px}
 figcaption{font-size:11.5px;color:var(--muted);margin-top:8px;line-height:1.4}
 .foot{margin-top:14px;font-size:11.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:space-between}
 @media (max-width:900px){.hero{grid-template-columns:1fr}.c8,.c7,.c6,.c5,.c4{grid-column:span 12}.kpis{grid-template-columns:1fr 1fr}}
@@ -100,12 +100,12 @@ T = {}
 T["en"] = dict(
  brand="Fragrant Hill Studio", sub="Editorial house · Stockholm · Europe ↔ China", other="中文版", conf="Confidential · for partner and investor discussion",
  sources="Sources in framework/research/ · figures are reported unless marked estimate",
- P=["Editorial", "Advisory", "Community", "Live & Venues", "Acceleration"], Pshort=["Editorial", "Advisory", "Community", "Live", "Acceleration"],
+ P=["Editorial content", "Consultancy & advisory", "Community", "Venue & events", "Acceleration"], Pshort=["Editorial", "Advisory", "Community", "Events", "Acceleration"],
  Psub=["the voice", "paid answers", "the vetted room", "the stage · Encore", "the pipeline"],
  Pprod=[["Interview series", "Bilingual newsletter", "Video · LinkedIn · 公众号"], ["Market-entry advisory", "Co-branded reports", "Expert calls"],
         ["Base membership", "Executive club", "Courses · study trips"], ["Encore tour sponsorship", "Executive salons", "Sponsor dinners"],
         ["Soft-landing programme", "Investor scouting", "Corporate pilots"]],
- Pwhen=["pays later", "cash now", "recurring", "cash now", "equity"],
+ Pwhen=["long-term business", "mid-term profit", "mid-term profit", "short-term profit", "long-term business"],
  buyers=["Brands & sponsors", "Clients", "Members", "Brands & sponsors", "Founders & investors"],
  buyers_pay=["season sponsorship", "retainers · reports", "annual dues", "tour packages · tables", "fees · carry"],
  lbl_buyers="WHO PAYS", lbl_pillars="FIVE PRODUCT PILLARS", lbl_core="SHARED CORE · every pillar runs on it", lbl_inputs="INPUTS ALREADY HELD",
@@ -117,10 +117,10 @@ T["en"] = dict(
  p1_lede="Buyers at the top pay five pillars. One shared core runs all five on inputs we already hold.",
  fig_sys="The system · who pays, what we sell, what it runs on", fig_sys_cap="Read top to bottom: buyers pay the pillars, the pillars run on one core, the core is built from what already exists.",
  fig_cycle="How the pillars feed each other", cycle=["content", "audience", "clients", "deal flow", "sponsors, founders"], cycle_center="ONE NETWORK",
- fig_cycle_cap="Start at Live; the loop closes when sponsors and founders become the next stage.",
- fig_seq="Activation sequence · gated by conditions, not dates", seq=[("A · CASH", "Live + Advisory", "sells access and judgement"), ("B · RECURRING", "Editorial season + Community", "one theme, one rhythm, two tiers"), ("C · EQUITY", "Acceleration", "deal flow to investors")],
- gates=["rights and categories confirmed", "a sponsorship funds the season", "club and advisory clients exist"],
- fig_seq_cap="Each step starts only when the gate below it is true.",
+ fig_cycle_cap="Start at Events; the loop closes when sponsors and founders become the next stage.",
+ fig_seq="Short, mid and long term · which pillar pays when", seq=[("SHORT-TERM PROFIT", "4 Venue & events · Encore", "sponsorship · deposit first"), ("MID-TERM PROFIT", "2 Advisory + 3 Community", "retainers, reports, memberships"), ("LONG-TERM BUSINESS", "1 Editorial + 5 Acceleration", "brand, audience, deal flow, carry")],
+ gates=["rights and categories confirmed", "partner data and a first room", "a season published, a club vetted"],
+ fig_seq_cap="Each step rests on the condition under it, not on a date.",
  facts=[("€34.5bn", "European sponsorship market 2025; arts and culture 28%", "ESA / Nielsen Sports 2026"), ("50–60%", "of Semafor revenue is event sponsorship; profitable 2025", "Semafor, Nieman Lab"), ("<5%", "of SemiAnalysis revenue is subscriptions", "The Information, estimate")],
  # page 2
  p2_doc="Page 2 of 3 · Monetisation", p2_title="Four kinds of buyer, six revenue streams, five pillars.",
@@ -131,8 +131,8 @@ T["en"] = dict(
  fig_flow_cap="Band colour follows the pillar; widths are equal because this is structure, not a forecast.",
  fig_bench="Where proven media houses actually earn · share of revenue", bench=[("Semafor · sponsored events", 55, "reported 2025"), ("吴晓波年终秀 · sponsorship", 90, "reported"), ("SemiAnalysis · research & advisory", 95, "estimate"), ("得到 Dedao · online courses", 64, "reported 2021"), ("The Information · subscriptions", 90, "reported")],
  fig_bench_cap="Sponsored rooms, research and courses carry the benchmarks; subscriptions only at The Information's scale.",
- fig_when="When each pillar pays", when_lanes=[("CASH NOW", [3, 1]), ("RECURRING", [0, 2]), ("EQUITY", [4])],
- fig_when_cap="Live and Advisory pay before an audience exists; Acceleration pays last.",
+ fig_when="When each pillar pays", when_lanes=[("SHORT TERM", [3]), ("MID TERM", [1, 2]), ("LONG TERM", [0, 4])],
+ fig_when_cap="Events pay first through sponsorship; Editorial and Acceleration build the long-term business.",
  fig_unit="What one sale looks like", units=[("Season package", "one sponsor per season", "mic"), ("Retainer · report", "outcome-priced · per-seat licence", "doc"), ("Annual seat", "base tier · vetted club", "key"), ("Tour package · table", "naming · VIP tables · content", "ticket"), ("Programme fee · carry", "per company, per round", "rocket")],
  fig_work="Who does the work", work=[("Human", "theme · relationships · price", "people"), ("Digital agents", "research · production · publishing · finance", "net"), ("Partner", "data · cohorts · introductions · China invoicing", "handshake")],
  # page 3
@@ -157,12 +157,12 @@ T["en"] = dict(
 T["zh"] = dict(
  brand="香山工作室", sub="编辑内容机构 · 斯德哥尔摩 · 欧洲 ↔ 中国", other="English", conf="保密 · 供合作伙伴与投资人讨论",
  sources="资料来源见 framework/research/ · 除标注估算外均为公开报道",
- P=["内容", "咨询", "社群", "现场与场馆", "加速"], Pshort=["内容", "咨询", "社群", "现场", "加速"],
+ P=["编辑内容", "咨询顾问", "社群", "场馆与活动", "加速"], Pshort=["内容", "咨询", "社群", "活动", "加速"],
  Psub=["声音", "付费答案", "筛选过的圈子", "舞台 · 安可", "项目通道"],
  Pprod=[["访谈系列", "双语通讯", "视频 · LinkedIn · 公众号"], ["市场进入咨询", "联名报告", "专家访谈"],
         ["基础会员", "高管俱乐部", "课程 · 考察团"], ["安可巡演赞助", "高管沙龙", "赞助商晚宴"],
         ["软着陆计划", "为投资人寻源", "企业试点对接"]],
- Pwhen=["稍后变现", "即时现金", "持续收入", "即时现金", "股权"],
+ Pwhen=["长期业务", "中期利润", "中期利润", "短期利润", "长期业务"],
  buyers=["品牌与赞助商", "客户", "会员", "品牌与赞助商", "创始人与投资人"],
  buyers_pay=["内容季赞助", "顾问费 · 报告", "年费", "巡演套餐 · VIP 桌", "费用 · 收益分成"],
  lbl_buyers="谁付费", lbl_pillars="五大产品支柱", lbl_core="共享核心 · 每个支柱都运行在其上", lbl_inputs="已经持有的资源",
@@ -174,10 +174,10 @@ T["zh"] = dict(
  p1_lede="上方的买家付费给五大支柱；一个共享核心运行全部五个支柱，建立在已有资源之上。",
  fig_sys="系统全貌 · 谁付费、我们卖什么、靠什么运行", fig_sys_cap="自上而下：买家付费给支柱，支柱运行在一个核心上，核心由已有资源构成。",
  fig_cycle="支柱之间如何互相输送", cycle=["内容", "受众", "客户", "项目源", "赞助商与创始人"], cycle_center="同一张网",
- fig_cycle_cap="从「现场」开始；当赞助商与创始人成为下一个舞台，循环闭合。",
- fig_seq="启动顺序 · 按条件推进，不按日期", seq=[("A · 现金", "现场 + 咨询", "卖的是接触权与判断力"), ("B · 持续收入", "内容季 + 社群", "一个主题、一个节奏、两档会员"), ("C · 股权", "加速", "项目源对接企业与投资人")],
- gates=["舞台权益与赞助品类已确认", "一笔赞助支撑内容季", "已有俱乐部与咨询客户"],
- fig_seq_cap="只有下方的前提成立，才进入下一步。",
+ fig_cycle_cap="从「活动」开始；当赞助商与创始人成为下一个舞台，循环闭合。",
+ fig_seq="短期、中期、长期 · 哪个支柱何时赚钱", seq=[("短期利润", "4 场馆与活动 · 安可", "赞助，签约付定金"), ("中期利润", "2 咨询 + 3 社群", "顾问费、报告、会员费"), ("长期业务", "1 内容 + 5 加速", "品牌、受众、项目源、收益分成")],
+ gates=["舞台权益与赞助品类已确认", "伙伴数据与第一场活动", "已发布一季内容、筛选出俱乐部"],
+ fig_seq_cap="每一步建立在下方的前提上，而不是日期上。",
  facts=[("€345亿", "2025 年欧洲赞助市场；艺术文化占 28%", "ESA / Nielsen Sports 2026"), ("50–60%", "Semafor 收入来自活动赞助；2025 年盈利", "Semafor, Nieman Lab"), ("<5%", "SemiAnalysis 收入来自订阅", "The Information，估算")],
  p2_doc="第 2 页 / 共 3 页 · 变现方式", p2_title="四类买家，六类收入，五大支柱。",
  p2_lede="从左到右跟着钱走：谁付费、经过哪类收入、落到哪个支柱。",
@@ -187,8 +187,8 @@ T["zh"] = dict(
  fig_flow_cap="色带颜色跟随支柱。宽度相同，因为这是结构图，不是预测。",
  fig_bench="成熟媒体机构真正的收入来源 · 占总收入比例", bench=[("Semafor · 赞助活动", 55, "2025 年报道"), ("吴晓波年终秀 · 赞助", 90, "报道"), ("SemiAnalysis · 研究与咨询", 95, "估算"), ("得到 · 在线课程", 64, "2021 年报道"), ("The Information · 订阅", 90, "报道")],
  fig_bench_cap="赞助的现场、研究和课程支撑了对标企业；订阅只在 The Information 的规模下成立。",
- fig_when="每个支柱何时回款", when_lanes=[("即时现金", [3, 1]), ("持续收入", [0, 2]), ("股权", [4])],
- fig_when_cap="现场与咨询在受众形成前即可回款；加速最后。",
+ fig_when="每个支柱何时赚钱", when_lanes=[("短期", [3]), ("中期", [1, 2]), ("长期", [0, 4])],
+ fig_when_cap="活动通过赞助最先赚钱；内容与加速构成长期业务。",
  fig_unit="一笔交易长什么样", units=[("内容季套餐", "每季一家冠名赞助商", "mic"), ("顾问费 · 报告", "按成果定价，按席位授权", "doc"), ("年度席位", "基础档 · 筛选制俱乐部", "key"), ("巡演套餐 · VIP 桌", "冠名、VIP 桌、内容权益", "ticket"), ("计划费 · 收益分成", "按公司、按轮次", "rocket")],
  fig_work="谁来做", work=[("人", "主题 · 关系 · 定价", "people"), ("数字代理", "研究 · 制作 · 发布 · 财务", "net"), ("伙伴", "数据 · 创始人营 · 引荐 · 中国开票", "handshake")],
  p3_doc="第 3 页 / 共 3 页 · 项目 · 安可", p3_eyebrow="安可 ENCORE · 世界级钢琴家欧洲巡演赞助计划", p3_title="卖的是现场，不是流量。",
@@ -257,8 +257,8 @@ def sys_map(t):
             o.append(tx(x + 34, 242 + k * 26, pr, 12.5, 500, C["ink2"]))
         # when chip
         soft = C[PS[i]]; tcol = C["yellowD"] if PC[i] == "yellow" else c
-        o.append(f'<rect x="{x+14}" y="322" width="118" height="26" rx="13" fill="{soft}"/>')
-        o.append(tx(x + 73, 339, t["Pwhen"][i], 11.5, 700, tcol, "middle"))
+        o.append(f'<rect x="{x+14}" y="322" width="150" height="26" rx="13" fill="{soft}"/>')
+        o.append(tx(x + 89, 339, t["Pwhen"][i], 11.5, 700, tcol, "middle"))
         cx = x + colw / 2
         o.append(f'<path d="M{cx} 396 V366" stroke="{C["muted"]}" stroke-width="1.6" marker-end="url(#ar)"/>')
     # core
@@ -310,7 +310,7 @@ def cycle_fig(t):
 
 def seq_fig(t):
     o = ['<svg viewBox="0 0 620 300" role="img" aria-label="Three rising steps: cash, recurring, equity, each with a gate condition." xmlns="http://www.w3.org/2000/svg">', MK]
-    cols = ["yellow", "red", "purple"]; pil = [[3, 1], [0, 2], [4]]
+    cols = ["yellow", "blue", "red"]; pil = [[3], [1, 2], [0, 4]]
     for i, ((a, b, c), col, pi) in enumerate(zip(t["seq"], cols, pil)):
         x = 14 + i * 204; top = 150 - i * 60; h = 300 - top - 60
         tcol = C["yellowD"] if col == "yellow" else C[col]
@@ -399,18 +399,18 @@ def bench_fig(t):
 
 def when_fig(t):
     o = ['<svg viewBox="0 0 620 230" role="img" aria-label="Three lanes, cash now, recurring, equity, with pillar markers placed in sequence." xmlns="http://www.w3.org/2000/svg">', MK]
-    cols = ["yellow", "green", "purple"]
+    cols = ["yellow", "blue", "red"]
     for i, ((lbl, pil), col) in enumerate(zip(t["when_lanes"], cols)):
         y = 16 + i * 70
         tcol = C["yellowD"] if col == "yellow" else C[col]
         o.append(f'<rect x="0" y="{y}" width="620" height="58" rx="10" fill="{C[col+"S"]}"/>')
         o.append(tx(14, y + 34, lbl, 11, 700, tcol, extra='letter-spacing=".1em"'))
         for k, p in enumerate(pil):
-            x = 130 + i * 120 + k * 180
+            x = 120 + i * 100 + k * 200
             c = C[PC[p]]
-            o.append(f'<rect x="{x}" y="{y+11}" width="170" height="36" rx="18" fill="#fff" stroke="{c}" stroke-width="1.6"/>')
+            o.append(f'<rect x="{x}" y="{y+11}" width="190" height="36" rx="18" fill="#fff" stroke="{c}" stroke-width="1.6"/>')
             o.append(icon(PICON[p], x + 12, y + 17, 1.0, C["yellowD"] if PC[p] == "yellow" else c))
-            o.append(tx(x + 44, y + 34, f'{p+1} · {t["P"][p]}', 12.5, 700, C["ink"]))
+            o.append(tx(x + 44, y + 34, f'{p+1} · {t["Pshort"][p]}', 12.5, 700, C["ink"]))
     o.append(f'<path d="M30 212 H600" stroke="{C["muted"]}" stroke-width="1.6" marker-end="url(#ar)"/>')
     o.append('</svg>')
     return "\n".join(o)
