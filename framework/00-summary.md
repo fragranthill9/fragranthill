@@ -1,98 +1,71 @@
-# Fragrant Hill Studio — framework summary (reading version)
+# Fragrant Hill Studio — three-page investor framework (reading version)
 
-Date: 3 November 2026. Five documents, each separate so one can be edited without touching the others. This file is the plain-text summary of all five. Published pages:
+Date: 3 November 2026. Three visual one-pagers, each separate so one can be edited without touching the others.
 
-| # | Document | Page |
-|---|---|---|
-| 1 | Business model benchmark | https://claude.ai/artifact/NMiFXceztyHtZcjuXKa2ot |
-| 2 | System architecture | https://claude.ai/artifact/Hwi7q9nFes6FPQB6y2Vwi9 |
-| 3 | Operating system (five workflows) | https://claude.ai/artifact/LAqUVvr1cXb2WsNy3QDUAW |
-| 4 | Encore proposal (first monetisation project) | https://claude.ai/artifact/QPd9fQRUpgLywwJewN66zJ |
-| 5 | Partner pitch (narrative memo) | https://claude.ai/artifact/GcqcymapeYsDVJMaNgYLQu |
+| Page | Published |
+|---|---|
+| 1 System architecture | https://claude.ai/artifact/FTxUTVBxubKfH99ccgWFcK |
+| 2 Workflow | https://claude.ai/artifact/9fh3uFkLf7AwuwsxU9nebd |
+| 3 Encore programme | https://claude.ai/artifact/PRWJcG1tBi88QhmMzAW6de | This file is the plain-text reading version. An earlier five-document draft is kept in `framework/archive/`. Research notes with sources are in `framework/research/`; reusable skills in `skills/`.
 
-Research notes with sources sit in `framework/research/`. Reusable skills sit in `skills/`.
+All numbers on the pages are reported figures with a named source, or clearly marked estimates. No dates, timelines or revenue forecasts are stated; sequencing is by condition (gates), fees are set per market.
 
 ---
 
-## 1. Business model benchmark
+## Page 1 · System architecture — five pillars and how they make money
 
-Thesis: the money is never in the content; it is in the room the content opens.
+Thesis: one core, five pillars, one relationship graph.
 
-Twenty-four businesses benchmarked: Hello Sunshine, Service95, TeaTime Pictures, The Circuit, Silicon Valley Girl, Unwell / Call Her Daddy, Goop, a16z New Media, Y Combinator, Morning Brew, Axios, Semafor, Puck, The Information, SemiAnalysis, PitchBook, Bloomberg Media / FT Live, 36Kr, 得到 / 罗振宇, 吴晓波频道, Latent Space, Slush / Web Summit, Hampton / 正和岛, Chief / YPO / Pavilion.
+Five pillars (what · products · who pays · revenue type · role · when it pays):
+1. Editorial. The voice: interview series on the people building machines, EU ↔ CN. Newsletter, video series, LinkedIn and 公众号 editions, annual "Requests for Companies". Season sponsors, platforms, licensees. Sponsorship, licensing. Builds trust and the contact base. Pays later.
+2. Advisory. Paid answers: partner data plus a European operator's judgement. Market-entry advisory, co-branded reports, expert calls, dealer and supplier mapping. Robotics and sensor firms entering Europe; European OEMs reading China. Retainers, project fees, report licences. Cash now.
+3. Community. The vetted room, two tiers. Base membership, executive club, courses, study trips. Members, participants, salon sponsors. Membership, course and trip fees. Recurring.
+4. Live & Venues (product: Encore). The stage: celebrity concerts and executive salons sold to brands. Automotive, robotics, semiconductor, consumer-tech brands. Sponsorship, hospitality, production. First cash; sells on access, not followers.
+5. Acceleration. The pipeline: founders landing in the Nordics, investors finding them. Soft-landing programme, scouting, pilot matching, co-investment. Programme fees, scout fees, carry. Equity.
 
-Four numbers that carry the argument:
-- 50–60% of Semafor's revenue is event sponsorship; first profitable year 2025 on $40M revenue.
-- Under 5% of SemiAnalysis revenue is the newsletter; research and consulting carry a business heading past $100M.
-- 90% of the 吴晓波 year-end show revenue is sponsorship.
-- 0.62% is the median free-to-paid newsletter conversion. Subscriptions alone do not fund a small house.
+Shared core: editorial voice · relationship graph (one CRM, pillar tags) · production line (record once, six channels, two languages) · commercial desk and back office (SEK/EUR/RMB via Stockholm and China).
 
-Six rules taken into the design:
-1. One ritual, not random content.
-2. Sell the room before the reach.
-3. Build a SemiAnalysis, not a Stratechery: in a B2B niche the newsletter is marketing; profit is in data and advisory from €20k.
-4. Two tiers for everything (€400 base, €4–8k vetted club).
-5. Media as deal flow is real, but it comes last.
-6. Keep overhead near zero. Every.to runs $3M on 15–25 people.
+Inputs already held: founder domain depth · stage and talent access · partner assets (data, reports, founders, investors) · two-market base.
 
-Model map: Fragrant Hill today sits in the dead zone (small audience, low price). The target is top-left: few customers, high ticket (Encore, Advisory, Club). The move is vertical, not horizontal.
+How the pillars feed each other: Live → Editorial (content, guest lists) → Community (audience → members) → Advisory (members → clients) → Acceleration (clients, data → deal flow) → Live (founders, sponsors → next stage). The relationship graph sits in the centre.
 
-## 2. System architecture
+Monetisation matrix: six revenue types (sponsorship, service fees, membership, tickets and hospitality, licences and reports, equity and carry) across five pillars; no pillar depends on one buyer.
 
-One editorial core, five product lines, one flywheel.
+Activation sequence, gated by conditions: Phase A Cash (Live + Advisory; gate: rights and sponsor categories confirmed, partner introductions in hand). Phase B Audience and recurring (Editorial season + Community; gate: a closed sponsorship funds the season, one full season published before membership is sold). Phase C Equity (Acceleration; gate: vetted club and paying advisory clients exist).
 
-Inputs already held: founder domain depth (sensing, robotics, automotive, dealers); talent and stage access (celebrity concerts, completed pianist interview); partner assets (data, reports, 500+ founders, investors); two-market base (Swedish AB plus China operating partner).
+Reported facts used: European sponsorship €34.5bn 2025, arts and culture 28% (ESA/Nielsen Sports); Semafor 50–60% event sponsorship, profitable 2025 (Semafor, Nieman Lab); SemiAnalysis subscriptions under 5% of revenue (The Information, estimate).
 
-Core: editorial engine with one theme ("the people building machines, Europe ↔ China"); relationship graph (one CRM); production unit (AI pipeline); commercial desk (one rate card); back office (SEK / EUR / RMB).
+## Page 2 · Workflow — how each pillar runs and which blocks it needs
 
-Pillars and horizon:
-- 4 Live & Venues, product Encore: short (first cash).
-- 2 Advisory: short to mid.
-- 1 Editorial: long.
-- 3 Community: mid.
-- 5 Acceleration: long.
+Owners: HUMAN (founder and core team), AGENT (digital agent on the Claude Agent SDK with the house skills), PARTNER, CONTRACTOR (per deliverable).
 
-Flywheel: Live → Editorial → Community → Advisory → Acceleration → back to the next stage.
+Sequence band: Phase A → B → C with what passes between phases, and the return loop.
 
-Sequence rationale: Live first because sponsorship sells on access, not followers. Editorial second with one theme (six months of random content produced no audience). Community and Advisory third once trust exists. Acceleration last.
+Five six-step lines:
+- Editorial: plan the season (H) → brief and book (A, H) → record (H, C) → produce (A) → publish (A) → sell and report (H, A).
+- Advisory: intake and scope (H) → source (P) → digest and model (A) → thesis and workshop (H) → package (C, A) → convert (H).
+- Community: define promise and tiers (H) → segment and invite (A) → vet (H) → host (C) → run the programme (A, C) → renew (A, H).
+- Live & Encore: secure the property (H) → package (A, H) → introduce (P) → pitch and close (H, A) → deliver (C, A) → renew (H).
+- Acceleration: scout (P) → screen (A) → soft-land (H) → match (A, H) → economics (H, P) → feed back (A).
 
-## 3. Operating system
+Twelve functional blocks: editor-in-chief and host; commercial lead; research agent; production agent; publishing agent; sales-desk agent; concierge agent; finance agent; partner (data, cohorts, introductions, China invoicing); video editor and designer; event producer and hospitality; community coordinator and accountant.
 
-Five swimlane workflows, three lanes each: Lan (human), AI agents, partner or contractor. Humans own thesis, relationship and price. Agents own research, production, distribution, follow-up. Partners own what they already have.
+Tool stack by pillar and the operating rhythm (weekly, monthly, per season, per edition).
 
-- P1 Editorial: plan season → brief and book → record → produce → publish six channels → sell and report. Weekly rhythm: Monday plan, Tuesday record two guests, Thursday review cuts, Friday publish. Month 6 target: 2,000 email, 3,000 LinkedIn, 1,500 YouTube, first season sponsor.
-- P2 Advisory: intake → source (partner) → digest and model (agents) → thesis and workshop → package → convert. Max two advisory days a week. Day rate €1,500–3,000; two retainers at €4–6k a month by month 12.
-- P3 Community: define promise → segment and invite → vet → host platform (Circle; 知识星球) → run programme → renew. Base tier €400, club €4–8k. Starts only after Editorial has 2,000 real subscribers.
-- P4 Live & Encore: secure property → package → introduce (partner) → pitch and close → deliver → renew. One flagship tour, four salons, one sponsor dinner per city a year.
-- P5 Acceleration: scout (partner cohorts) → screen → soft-landing programme → match → economics. First cohort year two, €15–25k per company.
+## Page 3 · Encore — the piano tour sponsorship programme
 
-Stack: Riverside, Descript, OpusClip, HeyGen, Beehiiv, 公众号, 视频号, Attio CRM, Circle, Luma, Passionfroot, n8n, Claude Agent SDK. Lean stack ~$350–600 a month. Skills built: fh-content-pipeline, fh-sponsorship-proposal, fh-design-system, fh-english-coach. To build: fh-advisory-report, fh-member-digest, fh-founder-scorecard, fh-guest-brief, fh-salon-runbook, fh-sponsor-recap, fh-soft-landing-plan.
+Offer: a European tour leg by a pianist who sells out the largest halls, packaged as 1 presenting partner, 3 category-exclusive official partners, up to 6 hospitality partners. Deposit on signature, balance before the first show. Fragrant Hill earns agency commission (industry average 20%) plus production and hospitality fees. Repeats as an annual tour, executive salons and sponsor dinners.
 
-Team year one: Lan full time; ~1.5 FTE contractors paid per deliverable; six agent roles (Researcher, Producer, Publisher, Sales desk, Concierge, Finance clerk).
+Property facts (reported): 5,000 Royal Albert Hall tickets in 48 hours; 16–20M followers claimed; 13 European cities on the autumn 2026 run and 2027 dates listed; no whole-tour presenting partner ever announced; ~$3M 2008 personal sponsorship headline.
 
-## 4. Encore proposal (Pillar 4 product)
+Market facts (reported): €34.5bn European sponsorship 2025; €9.7bn non-sport; 62% of brands want to sponsor culture, 61% do not yet; one Chinese EV maker's football sponsorship lifted awareness 28% → 46%; zero Chinese EV, robotics or consumer-tech brands found sponsoring classical music in Europe.
 
-Offer: a presenting-partner programme for a world-class pianist's 2027 European tour, sold to automotive, robotics and technology brands with European plans. Sponsors pay 50% on signature; that is what puts first cash inside 60 days.
+Precedents: Audi–Salzburg (1995), Porsche–Gewandhaus (2011), BMW Opera for All (1997), Volvo–Gothenburg Symphony, VW Group artist ambassador (2012), Siemens–Bayreuth (~$1.4M/yr, to 2011), Rolex–Vienna Philharmonic, Deutsche Bank–Berliner Philharmoniker.
 
-Market: European sponsorship €34.45bn (2025), arts and culture €9.66bn (28%). 62% of brands want to sponsor culture; 61% do not yet. No Chinese EV, robotics or consumer-tech brand found sponsoring classical music in Europe.
+Money flow: sponsors pay rights and hospitality fees into the programme; deposits fund venue options, production, hospitality and content; money out to the tour producer, Fragrant Hill (commission, production fees) and the partner (share on introduced sponsors); value back to sponsors as hospitality, association, content rights, reach.
 
-Package ladder: presenting partner €450k (1); official partners €150k (3, category-exclusive); hospitality partners €35k (6). Gross target €1.11M.
+Workflow to close and deliver (ten steps, owners, no dates): confirm rights and categories → build tiers and deck → target list of 30 → warm introductions → pitch and term sheet → contract and deposit → activation planning → deliver shows → content delivery → renewal.
 
-Economics: base case (one official + two hospitality) €220k gross in 60 days, €110k cash on signature, €64k to the partnership (20% commission + production fees). Full ladder: €1.11M gross, €332k to the partnership.
+Roles: Fragrant Hill (property, packages, pitch, contracts, production, content, reporting); partner (introductions, champion, RMB invoicing); sponsor (fees, activation budget, guest lists, assets).
 
-Sixty-day plan: weeks 0–1 rights and dates; 1–2 packages and deck; 1–3 target list of 30 brands and introductions; 3–6 pitches (20 meetings); 5–8 term sheets and contracts; 6–8 deposits invoiced.
-
-Risks: category conflict (artist's automotive history, confirm open categories in writing first); sales cycle (market norm is 9–18 months, so warm intros only, extend the window if fewer than five term sheets by week six); artist, venue and payment (insurance, venue options, non-refundable deposits, written exclusivity).
-
-The ask: twenty warm introductions within three weeks, one sponsor-side champion, a revenue-share decision, go/no-go by 15 November 2026.
-
-## 5. Partner pitch (narrative memo)
-
-Nine chapters, answer first: (1) the answer, (2) what each side holds, (3) what the best media businesses teach, (4) the design, (5) how it runs, (6) the first product, (7) three-year outlook, (8) terms, (9) next ninety days.
-
-Three-year planning case (€ thousand): 2027 total 280 (Live 150, Advisory 80, Editorial 30, Community 20); 2028 total 900; 2029 total 1,800 (Live 700, Advisory 350, Community 300, Editorial 250, Acceleration 200). Assumptions, not forecasts; within the $150–450k revenue-per-head band of AI-native media houses.
-
-Terms proposed: Encore commission 50/50 on partner-introduced sponsors, production fees to Fragrant Hill; 30% of advisory revenue on projects using partner data; co-branded reports 50/50 net; community referrals 20% of first-year dues both ways; acceleration programme fee 70/30; twelve-month agreement; shared CRM; quarterly review; editorial IP stays with Fragrant Hill.
-
-What would change the plan: no official partner signed by week eight flips the sequence to advisory-first; fewer than 2,000 real subscribers after two seasons postpones Community.
-
-Ninety days: decide in November, sign in December, record in January.
+Risks and controls: category conflict (confirm open categories in writing before pitching; fall back to robotics and consumer tech); sales cycle (warm introductions only, base of three signatures); artist, venue, payment (insurance, venue options, non-refundable deposits, written exclusivity).

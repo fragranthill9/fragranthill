@@ -1,0 +1,237 @@
+<title>Fragrant Hill Five Pillars</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..800&display=swap">
+<style>
+/* Layout: investor one-pager built from blocks on a 12-column grid. Header strip, five pillar columns over a shared core, then three blocks: flywheel, monetisation matrix, activation phases. */
+:root{
+  --bg:#F4F4F1; --surface:#FFFFFF; --ink:#16191D; --ink-2:#4B5159; --muted:#7A808A; --line:#DADBD6; --line-2:#EBECE8;
+  --accent:#B42318; --accent-soft:#F7E4E1;
+  --p1:#B42318; --p2:#1D4ED8; --p3:#0E9F8A; --p4:#C2410C; --p5:#7C3AED;
+  --p1-soft:#F8E6E3; --p2-soft:#E3EAFB; --p3-soft:#DDF3EF; --p4-soft:#FAE7DE; --p5-soft:#EEE5FB;
+  --display:"Archivo",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#121416; --surface:#1B1E22; --ink:#ECEDE9; --ink-2:#B9BDC3; --muted:#858B94; --line:#2E3338; --line-2:#24282D;
+  --accent:#E0523F; --accent-soft:#3A1F1C;
+  --p1:#E0523F; --p2:#5B8CFF; --p3:#2BBFA7; --p4:#F0763B; --p5:#A77BFF;
+  --p1-soft:#33201E; --p2-soft:#1C2740; --p3-soft:#17302C; --p4-soft:#36251B; --p5-soft:#2A2238; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#121416; --surface:#1B1E22; --ink:#ECEDE9; --ink-2:#B9BDC3; --muted:#858B94; --line:#2E3338; --line-2:#24282D;
+  --accent:#E0523F; --accent-soft:#3A1F1C;
+  --p1:#E0523F; --p2:#5B8CFF; --p3:#2BBFA7; --p4:#F0763B; --p5:#A77BFF;
+  --p1-soft:#33201E; --p2-soft:#1C2740; --p3-soft:#17302C; --p4-soft:#36251B; --p5-soft:#2A2238; color-scheme:dark }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--display);font-size:13.5px;line-height:1.4;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
+.sheet{max-width:1280px;margin:0 auto}
+header{display:flex;flex-wrap:wrap;gap:12px 32px;align-items:center;justify-content:space-between;padding:20px 0 12px;border-bottom:2px solid var(--ink)}
+.brand{display:flex;align-items:center;gap:12px}
+.seal{width:40px;height:40px;border:2px solid var(--accent);color:var(--accent);display:grid;place-items:center;font-weight:700;font-size:14px;border-radius:4px}
+.brand b{font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;display:block}
+.brand span{color:var(--muted);font-size:12px}
+.doc{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:right}
+.doc b{color:var(--ink);display:block;font-size:12.5px}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px;margin-top:12px}
+.blk{background:var(--surface);border:1px solid var(--line);padding:12px 14px;min-width:0}
+.blk h2{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 0 8px;font-weight:700}
+.c12{grid-column:span 12}.c8{grid-column:span 8}.c7{grid-column:span 7}.c6{grid-column:span 6}.c5{grid-column:span 5}.c4{grid-column:span 4}.c3{grid-column:span 3}
+.title{grid-column:span 8;background:transparent;border:0;padding:4px 0}
+.title h1{font-size:clamp(26px,3.6vw,40px);font-weight:800;line-height:1.02;letter-spacing:-.02em;margin:0 0 8px;text-wrap:balance}
+.title p{margin:0;color:var(--ink-2);font-size:15px;max-width:62ch}
+.facts{grid-column:span 4;display:grid;gap:8px}
+.fact{background:var(--surface);border:1px solid var(--line);padding:8px 12px;display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center}
+.fact .n{font-size:22px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.fact .l{font-size:11.5px;color:var(--ink-2);line-height:1.3}
+.fact .l i{display:block;font-style:normal;color:var(--muted);font-size:10.5px}
+figure{margin:0;overflow-x:auto}
+figure svg{display:block;width:100%;height:auto;min-width:980px}
+figcaption{font-size:11px;color:var(--muted);margin-top:6px}
+.fig2 svg{min-width:420px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{text-align:center;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:6px 4px;border-bottom:2px solid var(--ink);line-height:1.2}
+th:first-child{text-align:left}
+td{padding:7px 4px;border-bottom:1px solid var(--line);text-align:center;color:var(--ink-2)}
+td:first-child{text-align:left;color:var(--ink);font-weight:700;white-space:nowrap}
+.d{display:inline-block;width:12px;height:12px;border-radius:50%}
+.d.h{opacity:.35}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:0}
+.phases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.ph{border:1px solid var(--line);padding:10px 12px;background:var(--bg)}
+.ph b{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.ph .who{font-size:12.5px;color:var(--ink);font-weight:600;margin-bottom:4px}
+.ph p{margin:0;font-size:12px;color:var(--ink-2)}
+.ph .gate{margin-top:6px;padding-top:6px;border-top:1px dashed var(--line);font-size:11.5px;color:var(--ink-2)}
+.ph .gate b{display:inline;font-size:10.5px;color:var(--muted);letter-spacing:.08em;margin-right:4px}
+.chip{display:inline-block;padding:1px 7px;border-radius:3px;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.foot{margin-top:12px;font-size:11px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:space-between}
+@media (max-width:900px){.c8,.c7,.c6,.c5,.c4,.c3,.title,.facts{grid-column:span 12}.phases{grid-template-columns:1fr}.doc{text-align:left}}
+</style>
+
+<div class="sheet">
+<header>
+  <div class="brand"><div class="seal">香山</div><div><b>Fragrant Hill Studio</b><span>Editorial house · Stockholm · Europe ↔ China</span></div></div>
+  <div class="doc"><b>Page 1 of 3 · System architecture</b>Five pillars and how they make money</div>
+</header>
+
+<div class="grid">
+  <div class="title">
+    <h1>One core, five pillars, one relationship graph.</h1>
+    <p>Fragrant Hill is one operating system. Five product pillars share the same editorial voice, the same contact base and the same production line. Each pillar sells a different thing to a different buyer, and each one feeds the next.</p>
+  </div>
+  <div class="facts">
+    <div class="fact"><div class="n">€34.5bn</div><div class="l">European sponsorship market 2025; arts and culture 28% of it<i>ESA / Nielsen Sports 2026, reported</i></div></div>
+    <div class="fact"><div class="n">50–60%</div><div class="l">of Semafor revenue is event sponsorship; profitable in 2025 with 1.2M free readers<i>Semafor, Nieman Lab, reported</i></div></div>
+    <div class="fact"><div class="n">&lt;5%</div><div class="l">of SemiAnalysis revenue is subscriptions; research and advisory carry the rest<i>The Information, estimate</i></div></div>
+  </div>
+
+  <div class="blk c12">
+    <h2>The system · five pillars on one core</h2>
+    <figure>
+    <svg viewBox="0 0 1240 560" role="img" aria-label="Five pillar columns: Editorial, Advisory, Community, Live and Venues, Acceleration; each lists products, buyer, revenue type and when it pays. Below them a shared core of four modules, and below that four inputs already held." xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--ink-2)"/></marker></defs>
+      <style>
+        .h{font-size:14px;font-weight:800;fill:#FFFFFF}
+        .k{font-size:10px;letter-spacing:.1em;fill:var(--muted);font-weight:700}
+        .v{font-size:11.5px;fill:var(--ink)}
+        .s{font-size:11px;fill:var(--ink-2)}
+        .card{fill:var(--surface);stroke:var(--line)}
+      </style>
+      <!-- pillar cards -->
+      <g>
+        <rect x="10" y="10" width="236" height="330" class="card"/><rect x="10" y="10" width="236" height="34" fill="var(--p1)"/><text x="22" y="33" class="h">1 · EDITORIAL</text>
+        <text x="22" y="64" class="k">WHAT</text><text x="22" y="80" class="v">The voice. Interview series on the</text><text x="22" y="94" class="v">people building machines, EU ↔ CN</text>
+        <text x="22" y="118" class="k">PRODUCTS</text><text x="22" y="134" class="s">· Weekly bilingual newsletter</text><text x="22" y="149" class="s">· Video interview series (YouTube, 视频号)</text><text x="22" y="164" class="s">· LinkedIn + 公众号 editions</text><text x="22" y="179" class="s">· Annual "Requests for Companies" list</text>
+        <text x="22" y="203" class="k">WHO PAYS</text><text x="22" y="219" class="v">Season sponsors; platforms; licensees</text>
+        <text x="22" y="243" class="k">REVENUE TYPE</text><text x="22" y="259" class="v">Sponsorship · Licensing</text>
+        <text x="22" y="283" class="k">ROLE IN THE SYSTEM</text><text x="22" y="299" class="s">Builds trust and the contact base</text><text x="22" y="313" class="s">that every other pillar sells into</text>
+        <rect x="22" y="322" width="74" height="14" rx="2" fill="var(--p5-soft)"/><text x="59" y="332.5" font-size="9.5" font-weight="700" text-anchor="middle" style="fill:var(--p5)">PAYS LATER</text>
+      </g>
+      <g>
+        <rect x="257" y="10" width="236" height="330" class="card"/><rect x="257" y="10" width="236" height="34" fill="var(--p2)"/><text x="269" y="33" class="h">2 · ADVISORY</text>
+        <text x="269" y="64" class="k">WHAT</text><text x="269" y="80" class="v">Paid answers. Partner data plus a</text><text x="269" y="94" class="v">European operator's judgement</text>
+        <text x="269" y="118" class="k">PRODUCTS</text><text x="269" y="134" class="s">· Market-entry advisory EU ↔ CN</text><text x="269" y="149" class="s">· Co-branded industry reports</text><text x="269" y="164" class="s">· Expert calls and workshops</text><text x="269" y="179" class="s">· Dealer and supplier mapping</text>
+        <text x="269" y="203" class="k">WHO PAYS</text><text x="269" y="219" class="v">Robotics and sensor firms entering</text><text x="269" y="233" class="v">Europe; European OEMs reading China</text>
+        <text x="269" y="257" class="k">REVENUE TYPE</text><text x="269" y="273" class="v">Retainers · Project fees · Report licences</text>
+        <text x="269" y="297" class="k">ROLE IN THE SYSTEM</text><text x="269" y="313" class="s">Monetises partner data; members → clients</text>
+        <rect x="269" y="322" width="74" height="14" rx="2" fill="var(--p4-soft)"/><text x="306" y="332.5" font-size="9.5" font-weight="700" text-anchor="middle" style="fill:var(--p4)">CASH NOW</text>
+      </g>
+      <g>
+        <rect x="504" y="10" width="236" height="330" class="card"/><rect x="504" y="10" width="236" height="34" fill="var(--p3)"/><text x="516" y="33" class="h">3 · COMMUNITY</text>
+        <text x="516" y="64" class="k">WHAT</text><text x="516" y="80" class="v">The vetted room. Executives and</text><text x="516" y="94" class="v">founders on both sides, two tiers</text>
+        <text x="516" y="118" class="k">PRODUCTS</text><text x="516" y="134" class="s">· Base membership (digital, salons)</text><text x="516" y="149" class="s">· Vetted executive club</text><text x="516" y="164" class="s">· Courses (EU market, CN supply chain)</text><text x="516" y="179" class="s">· Study trips Shenzhen ↔ Stockholm</text>
+        <text x="516" y="203" class="k">WHO PAYS</text><text x="516" y="219" class="v">Members; course and trip participants;</text><text x="516" y="233" class="v">salon sponsors</text>
+        <text x="516" y="257" class="k">REVENUE TYPE</text><text x="516" y="273" class="v">Membership · Course fees · Trip fees</text>
+        <text x="516" y="297" class="k">ROLE IN THE SYSTEM</text><text x="516" y="313" class="s">Turns audience into recurring revenue</text>
+        <rect x="516" y="322" width="74" height="14" rx="2" fill="var(--p3-soft)"/><text x="553" y="332.5" font-size="9.5" font-weight="700" text-anchor="middle" style="fill:var(--p3)">RECURRING</text>
+      </g>
+      <g>
+        <rect x="751" y="10" width="236" height="330" class="card"/><rect x="751" y="10" width="236" height="34" fill="var(--p4)"/><text x="763" y="33" class="h">4 · LIVE &amp; VENUES</text>
+        <text x="763" y="64" class="k">WHAT</text><text x="763" y="80" class="v">The stage. Celebrity concerts and</text><text x="763" y="94" class="v">executive salons sold to brands</text>
+        <text x="763" y="118" class="k">PRODUCTS</text><text x="763" y="134" class="s">· Encore: tour sponsorship programme</text><text x="763" y="149" class="s">· Executive salons on the same stages</text><text x="763" y="164" class="s">· Sponsor dinners and client evenings</text><text x="763" y="179" class="s">· Hospitality packages</text>
+        <text x="763" y="203" class="k">WHO PAYS</text><text x="763" y="219" class="v">Automotive, robotics, semiconductor</text><text x="763" y="233" class="v">and consumer-tech brands</text>
+        <text x="763" y="257" class="k">REVENUE TYPE</text><text x="763" y="273" class="v">Sponsorship · Hospitality · Production</text>
+        <text x="763" y="297" class="k">ROLE IN THE SYSTEM</text><text x="763" y="313" class="s">First cash; sells on access, not followers</text>
+        <rect x="763" y="322" width="74" height="14" rx="2" fill="var(--p4-soft)"/><text x="800" y="332.5" font-size="9.5" font-weight="700" text-anchor="middle" style="fill:var(--p4)">CASH NOW</text>
+      </g>
+      <g>
+        <rect x="998" y="10" width="232" height="330" class="card"/><rect x="998" y="10" width="232" height="34" fill="var(--p5)"/><text x="1010" y="33" class="h">5 · ACCELERATION</text>
+        <text x="1010" y="64" class="k">WHAT</text><text x="1010" y="80" class="v">The pipeline. Founders landing in</text><text x="1010" y="94" class="v">the Nordics, investors finding them</text>
+        <text x="1010" y="118" class="k">PRODUCTS</text><text x="1010" y="134" class="s">· Soft-landing programme (Nordics)</text><text x="1010" y="149" class="s">· Scouting for European investors</text><text x="1010" y="164" class="s">· Pilot matching with corporates</text><text x="1010" y="179" class="s">· Co-investment with the partner fund</text>
+        <text x="1010" y="203" class="k">WHO PAYS</text><text x="1010" y="219" class="v">Founders; accelerators; investors;</text><text x="1010" y="233" class="v">corporates seeking pilots</text>
+        <text x="1010" y="257" class="k">REVENUE TYPE</text><text x="1010" y="273" class="v">Programme fees · Scout fees · Carry</text>
+        <text x="1010" y="297" class="k">ROLE IN THE SYSTEM</text><text x="1010" y="313" class="s">Long-term value; by-product of pillars 1–4</text>
+        <rect x="1010" y="322" width="74" height="14" rx="2" fill="var(--p5-soft)"/><text x="1047" y="332.5" font-size="9.5" font-weight="700" text-anchor="middle" style="fill:var(--p5)">EQUITY</text>
+      </g>
+      <!-- arrows core -> pillars -->
+      <g stroke="var(--ink-2)" stroke-width="1.2" fill="none" marker-end="url(#a)">
+        <path d="M128 392 V344"/><path d="M375 392 V344"/><path d="M622 392 V344"/><path d="M869 392 V344"/><path d="M1114 392 V344"/>
+      </g>
+      <!-- core -->
+      <rect x="10" y="394" width="1220" height="78" rx="3" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.6"/>
+      <text x="22" y="412" class="k" style="fill:var(--accent)">SHARED CORE · WHAT EVERY PILLAR RUNS ON</text>
+      <g>
+        <text x="22" y="436" font-size="12.5" font-weight="700" fill="var(--ink)">Editorial voice</text><text x="22" y="452" class="s">One theme, one tone, one host.</text><text x="22" y="465" class="s">Sets what we are known for.</text>
+        <text x="330" y="436" font-size="12.5" font-weight="700" fill="var(--ink)">Relationship graph</text><text x="330" y="452" class="s">One CRM: guests, sponsors, members,</text><text x="330" y="465" class="s">founders, investors, with pillar tags.</text>
+        <text x="640" y="436" font-size="12.5" font-weight="700" fill="var(--ink)">Production line</text><text x="640" y="452" class="s">Record once, publish in six channels,</text><text x="640" y="465" class="s">two languages; AI-run.</text>
+        <text x="950" y="436" font-size="12.5" font-weight="700" fill="var(--ink)">Commercial desk + back office</text><text x="950" y="452" class="s">One rate card, contracts, invoicing in</text><text x="950" y="465" class="s">SEK / EUR / RMB via Stockholm + China.</text>
+      </g>
+      <!-- inputs -->
+      <g stroke="var(--ink-2)" stroke-width="1.2" fill="none" marker-end="url(#a)"><path d="M160 496 V476"/><path x="0" d="M465 496 V476"/><path d="M770 496 V476"/><path d="M1075 496 V476"/></g>
+      <g>
+        <rect x="10" y="498" width="300" height="52" rx="3" fill="var(--bg)" stroke="var(--line)"/><text x="22" y="517" font-size="12" font-weight="700" fill="var(--ink)">Founder domain depth</text><text x="22" y="533" class="s">3D sensing, robotics, automotive, dealer networks</text>
+        <rect x="316" y="498" width="300" height="52" rx="3" fill="var(--bg)" stroke="var(--line)"/><text x="328" y="517" font-size="12" font-weight="700" fill="var(--ink)">Stage and talent access</text><text x="328" y="533" class="s">Channel to host celebrity concerts; pianist interview done</text>
+        <rect x="622" y="498" width="300" height="52" rx="3" fill="var(--bg)" stroke="var(--line)"/><text x="634" y="517" font-size="12" font-weight="700" fill="var(--ink)">Partner assets</text><text x="634" y="533" class="s">Data, reports, analysis, founder community, investors</text>
+        <rect x="928" y="498" width="302" height="52" rx="3" fill="var(--bg)" stroke="var(--line)"/><text x="940" y="517" font-size="12" font-weight="700" fill="var(--ink)">Two-market base</text><text x="940" y="533" class="s">Swedish AB in Stockholm; operating partner in China</text>
+      </g>
+      <text x="1230" y="490" font-size="10" fill="var(--muted)" text-anchor="end" letter-spacing=".1">INPUTS ALREADY HELD ↑</text>
+    </svg>
+    </figure>
+  </div>
+
+  <div class="blk c5 fig2">
+    <h2>How the pillars feed each other</h2>
+    <figure>
+    <svg viewBox="0 0 620 420" role="img" aria-label="Pentagon cycle: Live feeds Editorial with content and guest lists; Editorial feeds Community with audience; Community feeds Advisory with clients; Advisory feeds Acceleration with deal flow; Acceleration feeds Live with founders and sponsors. The relationship graph sits in the centre." xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--ink-2)"/></marker></defs>
+      <g stroke="var(--ink-2)" stroke-width="1.3" fill="none" marker-end="url(#b)">
+        <path d="M385 60 L422 134"/><path d="M462 190 L422 300"/><path d="M330 344 L296 344"/><path d="M168 318 L146 194"/><path d="M178 138 L236 60"/>
+      </g>
+      <g font-size="10.5" fill="var(--ink-2)">
+        <text x="430" y="92" text-anchor="start">content, guest lists</text>
+        <text x="456" y="252" text-anchor="start">audience → members</text>
+        <text x="310" y="380" text-anchor="middle">members → clients</text>
+        <text x="150" y="262" text-anchor="end">clients, data → deal flow</text>
+        <text x="200" y="92" text-anchor="end">founders, sponsors → next stage</text>
+      </g>
+      <g font-size="12" font-weight="700">
+        <rect x="235" y="32" width="150" height="40" rx="20" fill="var(--p4-soft)" stroke="var(--p4)"/><text x="310" y="57" text-anchor="middle" style="fill:var(--p4)">4 · Live &amp; Encore</text>
+        <rect x="387" y="146" width="150" height="40" rx="20" fill="var(--p1-soft)" stroke="var(--p1)"/><text x="462" y="171" text-anchor="middle" style="fill:var(--p1)">1 · Editorial</text>
+        <rect x="329" y="324" width="150" height="40" rx="20" fill="var(--p3-soft)" stroke="var(--p3)"/><text x="404" y="349" text-anchor="middle" style="fill:var(--p3)">3 · Community</text>
+        <rect x="141" y="324" width="150" height="40" rx="20" fill="var(--p2-soft)" stroke="var(--p2)"/><text x="216" y="349" text-anchor="middle" style="fill:var(--p2)">2 · Advisory</text>
+        <rect x="83" y="146" width="150" height="40" rx="20" fill="var(--p5-soft)" stroke="var(--p5)"/><text x="158" y="171" text-anchor="middle" style="fill:var(--p5)">5 · Acceleration</text>
+      </g>
+      <circle cx="310" cy="205" r="46" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4"/>
+      <text x="310" y="201" text-anchor="middle" font-size="10.5" font-weight="700" style="fill:var(--accent)">RELATIONSHIP</text><text x="310" y="215" text-anchor="middle" font-size="10.5" font-weight="700" style="fill:var(--accent)">GRAPH</text>
+    </svg>
+    </figure>
+    <figcaption>Start at Live. Every concert produces content and a guest list; the loop closes when founders and sponsors become the next stage.</figcaption>
+  </div>
+
+  <div class="blk c7">
+    <h2>Monetisation matrix · what each pillar sells</h2>
+    <table>
+      <thead><tr><th>Pillar</th><th>Sponsor-<br>ship</th><th>Service<br>fees</th><th>Member-<br>ship</th><th>Tickets &amp;<br>hospitality</th><th>Licences<br>&amp; reports</th><th>Equity<br>&amp; carry</th></tr></thead>
+      <tbody>
+        <tr><td><span class="dot" style="background:var(--p1)"></span>1 Editorial</td><td><span class="d" style="background:var(--p1)"></span></td><td></td><td></td><td></td><td><span class="d" style="background:var(--p1)"></span></td><td></td></tr>
+        <tr><td><span class="dot" style="background:var(--p2)"></span>2 Advisory</td><td></td><td><span class="d" style="background:var(--p2)"></span></td><td></td><td></td><td><span class="d" style="background:var(--p2)"></span></td><td></td></tr>
+        <tr><td><span class="dot" style="background:var(--p3)"></span>3 Community</td><td><span class="d h" style="background:var(--p3)"></span></td><td><span class="d h" style="background:var(--p3)"></span></td><td><span class="d" style="background:var(--p3)"></span></td><td><span class="d" style="background:var(--p3)"></span></td><td></td><td></td></tr>
+        <tr><td><span class="dot" style="background:var(--p4)"></span>4 Live</td><td><span class="d" style="background:var(--p4)"></span></td><td><span class="d h" style="background:var(--p4)"></span></td><td></td><td><span class="d" style="background:var(--p4)"></span></td><td></td><td></td></tr>
+        <tr><td><span class="dot" style="background:var(--p5)"></span>5 Acceleration</td><td></td><td><span class="d" style="background:var(--p5)"></span></td><td></td><td></td><td></td><td><span class="d" style="background:var(--p5)"></span></td></tr>
+      </tbody>
+    </table>
+    <figcaption>Solid dot: primary revenue. Faded dot: secondary. Six revenue types across five pillars; no pillar depends on a single buyer.</figcaption>
+    <div style="margin-top:12px;border-top:1px solid var(--line);padding-top:10px">
+      <h2 style="margin-bottom:6px">What the partner's assets plug into</h2>
+      <table>
+        <tbody>
+          <tr><td>Data &amp; reports</td><td style="text-align:left">→ Advisory products, co-branded reports, editorial facts</td></tr>
+          <tr><td>Founder community</td><td style="text-align:left">→ Interview guests, members, acceleration cohort</td></tr>
+          <tr><td>Industry introductions</td><td style="text-align:left">→ Encore sponsors, advisory clients</td></tr>
+          <tr><td>Investor relationships</td><td style="text-align:left">→ Acceleration matching, co-investment</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="blk c12">
+    <h2>Activation sequence · gated by conditions, not dates</h2>
+    <div class="phases">
+      <div class="ph" style="border-left:4px solid var(--p4)"><b style="color:var(--p4)">Phase A · Cash</b><div class="who"><span class="dot" style="background:var(--p4)"></span>4 Live &amp; Encore &nbsp;+&nbsp; <span class="dot" style="background:var(--p2)"></span>2 Advisory</div><p>Sell what we already hold: the stage, the artist relationship, the founder's judgement, the partner's data. No audience required.</p><div class="gate"><b>GATE</b>Stage rights and open sponsor categories confirmed in writing; partner introductions in hand.</div></div>
+      <div class="ph" style="border-left:4px solid var(--p1)"><b style="color:var(--p1)">Phase B · Audience and recurring</b><div class="who"><span class="dot" style="background:var(--p1)"></span>1 Editorial season &nbsp;+&nbsp; <span class="dot" style="background:var(--p3)"></span>3 Community</div><p>One theme, one weekly rhythm, one season of twelve guests drawn from Live and the partner network. Community opens on top of that audience.</p><div class="gate"><b>GATE</b>One closed sponsorship funds the season; one full season published before membership is sold.</div></div>
+      <div class="ph" style="border-left:4px solid var(--p5)"><b style="color:var(--p5)">Phase C · Equity</b><div class="who"><span class="dot" style="background:var(--p5)"></span>5 Acceleration</div><p>Deal flow from members, clients and guests is matched to Nordic corporates and European investors, with economics in the partner's fund.</p><div class="gate"><b>GATE</b>A vetted club and paying advisory clients exist; the partner's cohort is ready to land.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="foot"><span>Fragrant Hill Studio · confidential · sources in framework/research/</span><span>Page 2: workflow and functional blocks · Page 3: Encore, the piano tour sponsorship programme</span></div>
+</div>

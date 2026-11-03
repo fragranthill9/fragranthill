@@ -1,0 +1,237 @@
+<title>Encore Programme</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..800&display=swap">
+<style>
+/* Layout: investor one-pager on a 12-column block grid. Header, offer, property and market facts, money-flow diagram, package tiers, close workflow, roles, risks, why it repeats. */
+:root{
+  --bg:#F4F4F1; --surface:#FFFFFF; --ink:#16191D; --ink-2:#4B5159; --muted:#7A808A; --line:#DADBD6; --line-2:#EBECE8;
+  --accent:#B42318; --accent-soft:#F7E4E1;
+  --p1:#B42318; --p2:#1D4ED8; --p3:#0E9F8A; --p4:#C2410C; --p5:#7C3AED;
+  --p1-soft:#F8E6E3; --p2-soft:#E3EAFB; --p3-soft:#DDF3EF; --p4-soft:#FAE7DE; --p5-soft:#EEE5FB;
+  --display:"Archivo",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#121416; --surface:#1B1E22; --ink:#ECEDE9; --ink-2:#B9BDC3; --muted:#858B94; --line:#2E3338; --line-2:#24282D;
+  --accent:#E0523F; --accent-soft:#3A1F1C;
+  --p1:#E0523F; --p2:#5B8CFF; --p3:#2BBFA7; --p4:#F0763B; --p5:#A77BFF;
+  --p1-soft:#33201E; --p2-soft:#1C2740; --p3-soft:#17302C; --p4-soft:#36251B; --p5-soft:#2A2238; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#121416; --surface:#1B1E22; --ink:#ECEDE9; --ink-2:#B9BDC3; --muted:#858B94; --line:#2E3338; --line-2:#24282D;
+  --accent:#E0523F; --accent-soft:#3A1F1C;
+  --p1:#E0523F; --p2:#5B8CFF; --p3:#2BBFA7; --p4:#F0763B; --p5:#A77BFF;
+  --p1-soft:#33201E; --p2-soft:#1C2740; --p3-soft:#17302C; --p4-soft:#36251B; --p5-soft:#2A2238; color-scheme:dark }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--display);font-size:13.5px;line-height:1.4;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
+.sheet{max-width:1280px;margin:0 auto}
+header{display:flex;flex-wrap:wrap;gap:12px 32px;align-items:center;justify-content:space-between;padding:20px 0 12px;border-bottom:2px solid var(--ink)}
+.brand{display:flex;align-items:center;gap:12px}
+.seal{width:40px;height:40px;border:2px solid var(--accent);color:var(--accent);display:grid;place-items:center;font-weight:700;font-size:14px;border-radius:4px}
+.brand b{font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;display:block}
+.brand span{color:var(--muted);font-size:12px}
+.doc{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:right}
+.doc b{color:var(--ink);display:block;font-size:12.5px}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px;margin-top:12px}
+.blk{background:var(--surface);border:1px solid var(--line);padding:12px 14px;min-width:0}
+.blk h2{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--p4);margin:0 0 8px;font-weight:700}
+.c12{grid-column:span 12}.c8{grid-column:span 8}.c7{grid-column:span 7}.c6{grid-column:span 6}.c5{grid-column:span 5}.c4{grid-column:span 4}.c3{grid-column:span 3}
+.title{grid-column:span 7;background:transparent;border:0;padding:4px 0}
+.title .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--p4);font-weight:700}
+.title h1{font-size:clamp(26px,3.6vw,40px);font-weight:800;line-height:1.02;letter-spacing:-.02em;margin:4px 0 8px;text-wrap:balance}
+.title p{margin:0;color:var(--ink-2);font-size:15px;max-width:60ch}
+.offer{grid-column:span 5;background:var(--p4-soft);border:1px solid var(--p4);padding:12px 14px}
+.offer h2{color:var(--p4)}
+.offer dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:12.5px}
+.offer dt{color:var(--muted);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding-top:2px}
+.offer dd{margin:0;color:var(--ink)}
+.facts{display:grid;gap:6px}
+.fact{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:4px 0}
+.fact:last-child{border-bottom:0}
+.fact .n{font-size:20px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap;min-width:72px}
+.fact .l{font-size:11.5px;color:var(--ink-2);line-height:1.3}
+.fact .l i{display:block;font-style:normal;color:var(--muted);font-size:10px}
+figure{margin:0;overflow-x:auto}
+figure svg{display:block;width:100%;height:auto;min-width:560px}
+figcaption{font-size:11px;color:var(--muted);margin-top:6px}
+.tiers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.tier{border:1px solid var(--line);background:var(--bg);padding:10px 12px;font-size:11.5px;color:var(--ink-2)}
+.tier b{display:block;font-size:12.5px;color:var(--ink)}
+.tier .cnt{font-size:10.5px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:6px}
+.tier ul{margin:0;padding-left:14px}
+.tier li{margin:2px 0}
+.tier .px{margin-top:6px;padding-top:6px;border-top:1px dashed var(--line);font-size:11px}
+.tier .px b{display:inline;font-size:11px}
+.t1{border-top:4px solid var(--p4)} .t2{border-top:4px solid var(--p4);opacity:.95} .t3{border-top:4px solid var(--line)}
+.roles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.roles div{border:1px solid var(--line);padding:9px 11px;background:var(--bg);font-size:11.5px;color:var(--ink-2)}
+.roles b{display:block;font-size:12px;color:var(--ink);margin-bottom:3px}
+.roles ul{margin:0;padding-left:14px}
+table{width:100%;border-collapse:collapse;font-size:11.5px}
+th{text-align:left;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:5px 6px;border-bottom:2px solid var(--ink)}
+td{padding:6px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+td:first-child{color:var(--ink);font-weight:700;white-space:nowrap}
+.risks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.risks div{border-left:3px solid var(--p4);padding:4px 10px;font-size:11.5px;color:var(--ink-2)}
+.risks b{color:var(--ink)}
+.chip{display:inline-block;padding:1px 6px;border-radius:2px;font-size:9px;font-weight:700;letter-spacing:.06em;margin-left:4px;vertical-align:1px}
+.chip.H{background:var(--ink);color:var(--surface)} .chip.A{background:var(--accent);color:#fff} .chip.P{background:var(--muted);color:#fff} .chip.C{background:var(--line);color:var(--ink)}
+.foot{margin-top:12px;font-size:11px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:space-between}
+@media (max-width:900px){.c8,.c7,.c6,.c5,.c4,.c3,.title,.offer{grid-column:span 12}.tiers,.roles,.risks{grid-template-columns:1fr}.doc{text-align:left}}
+</style>
+
+<div class="sheet">
+<header>
+  <div class="brand"><div class="seal">香山</div><div><b>Fragrant Hill Studio</b><span>Editorial house · Stockholm · Europe ↔ China</span></div></div>
+  <div class="doc"><b>Page 3 of 3 · The first project</b>Pillar 4 · Live &amp; Venues · product: Encore</div>
+</header>
+
+<div class="grid">
+  <div class="title">
+    <div class="eyebrow">Encore · sponsorship programme for a world-class pianist's European tour</div>
+    <h1>Sell the room, not the reach.</h1>
+    <p>Encore packages a celebrity concert tour as a sponsorship, hospitality and content property for automotive, robotics and technology brands moving between Europe and China. Fragrant Hill holds the stage and the artist relationship. The partner holds the doors. Sponsors pay a deposit on signature, so the programme funds itself before the first show.</p>
+  </div>
+  <div class="offer">
+    <h2>The offer in one block</h2>
+    <dl>
+      <dt>Property</dt><dd>A European tour leg by a pianist who sells out the largest halls; Nordic cities plus one of Hamburg, Paris, London</dd>
+      <dt>Buyers</dt><dd>Brands launching or scaling in Europe: EV and premium automotive, robotics, semiconductors, consumer tech</dd>
+      <dt>Structure</dt><dd>1 presenting partner · 3 category-exclusive official partners · up to 6 hospitality partners</dd>
+      <dt>Payment</dt><dd>Deposit on signature, balance before the first show; standard event-sponsorship terms</dd>
+      <dt>Our revenue</dt><dd>Agency commission on rights fees (industry average 20%) plus production and hospitality fees</dd>
+      <dt>Repeats as</dt><dd>Annual tour · executive salons on the same stages · sponsor dinners per city</dd>
+    </dl>
+  </div>
+
+  <div class="blk c4">
+    <h2>The property · reported facts</h2>
+    <div class="facts">
+      <div class="fact"><div class="n">5,000</div><div class="l">Royal Albert Hall tickets sold in 48 hours for one recital; a second night was added<i>Classic FM, 2013</i></div></div>
+      <div class="fact"><div class="n">16–20M</div><div class="l">social followers claimed across platforms<i>Slipped Disc 2025; artist bios. Claimed, not verified per platform</i></div></div>
+      <div class="fact"><div class="n">13</div><div class="l">European cities on the autumn 2026 run, Munich to Zagreb; 2027 dates listed for London, Hamburg, Bonn<i>Deutsche Grammophon tour page; listings</i></div></div>
+      <div class="fact"><div class="n">0</div><div class="l">whole-tour presenting partners ever announced for this artist; single concerts have carried bank and resort title sponsors<i>Research notes 3</i></div></div>
+      <div class="fact"><div class="n">~$3M</div><div class="l">headline value of the artist's 2008 personal sponsorship by a consumer-electronics brand<i>symphony.org, reported, dated</i></div></div>
+    </div>
+  </div>
+
+  <div class="blk c4">
+    <h2>The market · reported facts</h2>
+    <div class="facts">
+      <div class="fact"><div class="n">€34.5bn</div><div class="l">European sponsorship spend 2025, up 4.7%; Germany €6.3bn, UK €6.2bn, France €1.9bn<i>ESA / Nielsen Sports 2026</i></div></div>
+      <div class="fact"><div class="n">€9.7bn</div><div class="l">of that is non-sport: arts, culture, entertainment, festivals (28%)<i>ESA / Nielsen Sports 2026</i></div></div>
+      <div class="fact"><div class="n">62%</div><div class="l">of brands want to sponsor culture; 61% do not yet<i>ESA arts and culture survey</i></div></div>
+      <div class="fact"><div class="n">28→46%</div><div class="l">brand awareness lift for a Chinese EV maker from one European football sponsorship<i>Carwow via Fleet News, 2024</i></div></div>
+      <div class="fact"><div class="n">0</div><div class="l">Chinese EV, robotics or consumer-tech brands found sponsoring classical music in Europe<i>Finding of absence, research notes 3</i></div></div>
+    </div>
+  </div>
+
+  <div class="blk c4">
+    <h2>Precedents · automotive and tech in classical music</h2>
+    <table>
+      <thead><tr><th>Brand</th><th>Property</th><th>Since</th></tr></thead>
+      <tbody>
+        <tr><td>Audi</td><td>Salzburg Festival main sponsor, extended to 2027</td><td>1995</td></tr>
+        <tr><td>Porsche</td><td>Gewandhaus Leipzig incl. international tours; Elbphilharmonie</td><td>2011</td></tr>
+        <tr><td>BMW</td><td>Opera for All, Munich and Berlin, extended to 2030</td><td>1997</td></tr>
+        <tr><td>Volvo</td><td>Gothenburg Symphony principal sponsor</td><td>long-running</td></tr>
+        <tr><td>VW Group</td><td>Artist cultural ambassador; "presents" Dresden China tour</td><td>2012</td></tr>
+        <tr><td>Siemens</td><td>Bayreuth Festival, about $1.4M a year</td><td>to 2011</td></tr>
+        <tr><td>Rolex · Deutsche Bank</td><td>Vienna Philharmonic · Berliner Philharmoniker</td><td>2008 · 1989</td></tr>
+      </tbody>
+    </table>
+    <figcaption>Fees are undisclosed except Siemens. The playbook is thirty years old for European brands and unused by Chinese brands in Europe.</figcaption>
+  </div>
+
+  <div class="blk c7">
+    <h2>How the money flows</h2>
+    <figure>
+    <svg viewBox="0 0 760 300" role="img" aria-label="Money-flow diagram: sponsors pay rights fees and hospitality fees into the Encore programme; the tour producer receives the artist, venue and production budget; Fragrant Hill receives commission and production fees; the partner receives a share on introduced sponsors; sponsors receive hospitality, association, content and reach." xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="mf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--ink-2)"/></marker><marker id="mfa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--p4)"/></marker></defs>
+      <!-- sponsors -->
+      <rect x="10" y="90" width="170" height="120" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+      <text x="22" y="112" font-size="12.5" font-weight="800" fill="var(--ink)">SPONSORS</text>
+      <text x="22" y="130" font-size="11" fill="var(--ink-2)">1 presenting partner</text><text x="22" y="145" font-size="11" fill="var(--ink-2)">3 official partners</text><text x="22" y="160" font-size="11" fill="var(--ink-2)">up to 6 hospitality partners</text>
+      <text x="22" y="184" font-size="10.5" fill="var(--muted)">+ activation budget, typically</text><text x="22" y="197" font-size="10.5" fill="var(--muted)">0.8–2× the rights fee (WFA, IEG)</text>
+      <!-- programme -->
+      <rect x="280" y="70" width="200" height="160" rx="3" fill="var(--p4-soft)" stroke="var(--p4)" stroke-width="1.4"/>
+      <text x="292" y="92" font-size="12.5" font-weight="800" style="fill:var(--p4)">ENCORE PROGRAMME</text>
+      <text x="292" y="110" font-size="11" fill="var(--ink-2)">rights contracts · category</text><text x="292" y="124" font-size="11" fill="var(--ink-2)">exclusivity · deposit on signature</text>
+      <line x1="292" y1="134" x2="468" y2="134" stroke="var(--p4)" opacity=".4"/>
+      <text x="292" y="152" font-size="11" font-weight="700" fill="var(--ink)">Deposits fund:</text>
+      <text x="292" y="167" font-size="11" fill="var(--ink-2)">· venue options and production</text><text x="292" y="181" font-size="11" fill="var(--ink-2)">· hospitality and client evenings</text><text x="292" y="195" font-size="11" fill="var(--ink-2)">· tour film and content</text>
+      <text x="292" y="218" font-size="10.5" fill="var(--muted)">balance due before the first show</text>
+      <!-- flows in -->
+      <path d="M180 130 H276" stroke="var(--p4)" stroke-width="1.6" marker-end="url(#mfa)"/><text x="228" y="122" font-size="10.5" text-anchor="middle" fill="var(--ink)" font-weight="700">rights fees</text>
+      <path d="M180 170 H276" stroke="var(--p4)" stroke-width="1.6" marker-end="url(#mfa)"/><text x="228" y="184" font-size="10.5" text-anchor="middle" fill="var(--ink)" font-weight="700">hospitality fees</text>
+      <!-- flows out -->
+      <path d="M480 100 H576" stroke="var(--ink-2)" stroke-width="1.3" marker-end="url(#mf)"/>
+      <path d="M480 150 H576" stroke="var(--ink-2)" stroke-width="1.3" marker-end="url(#mf)"/>
+      <path d="M480 200 H576" stroke="var(--ink-2)" stroke-width="1.3" marker-end="url(#mf)"/>
+      <rect x="580" y="78" width="170" height="44" rx="3" fill="var(--surface)" stroke="var(--line)"/><text x="590" y="96" font-size="11.5" font-weight="700" fill="var(--ink)">Tour producer</text><text x="590" y="111" font-size="10.5" fill="var(--ink-2)">artist fee · venues · production</text>
+      <rect x="580" y="128" width="170" height="44" rx="3" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4"/><text x="590" y="146" font-size="11.5" font-weight="700" style="fill:var(--accent)">Fragrant Hill</text><text x="590" y="161" font-size="10.5" fill="var(--ink-2)">commission · production fees</text>
+      <rect x="580" y="178" width="170" height="44" rx="3" fill="var(--surface)" stroke="var(--line)"/><text x="590" y="196" font-size="11.5" font-weight="700" fill="var(--ink)">Partner</text><text x="590" y="211" font-size="10.5" fill="var(--ink-2)">share on introduced sponsors</text>
+      <!-- value back to sponsors -->
+      <path d="M380 230 V262 H95 V214" fill="none" stroke="var(--ink-2)" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#mf)"/>
+      <text x="238" y="276" font-size="10.5" text-anchor="middle" fill="var(--ink-2)">value back: hospitality · association · content rights · reach in two markets</text>
+      <text x="10" y="40" font-size="10" fill="var(--muted)" letter-spacing=".1">MONEY IN</text><text x="280" y="40" font-size="10" fill="var(--muted)" letter-spacing=".1">PROGRAMME</text><text x="580" y="40" font-size="10" fill="var(--muted)" letter-spacing=".1">MONEY OUT</text>
+    </svg>
+    </figure>
+    <figcaption>Hospitality is the line B2B sponsors measure: dealer and client evenings in a concert hall. Reach is the last argument, not the first.</figcaption>
+  </div>
+
+  <div class="blk c5">
+    <h2>Package tiers · what each buys</h2>
+    <div class="tiers" style="grid-template-columns:1fr">
+      <div class="tier t1"><b>Presenting partner</b><span class="cnt">one · "presented by"</span><ul><li>Naming on all tour materials, stage and screens in every city</li><li>Category exclusivity across the tour</li><li>Two VIP tables per city, artist meet-and-greet, one private recital or client evening</li><li>Twelve-month rights to tour film, interview cut-downs, behind-the-scenes series</li><li>Co-branded education activation with the artist's foundation; first refusal on the next edition</li></ul><div class="px"><b>Rights fee:</b> set per market against the precedents above and the tour budget; confirmed in the first three pitches</div></div>
+      <div class="tier t2"><b>Official partner</b><span class="cnt">three · one per category</span><ul><li>Category exclusivity: automotive · robotics and technology · finance or luxury</li><li>Programme and screen branding; one VIP table per city; backstage in two cities</li><li>Shared content pack and three bespoke clips</li></ul></div>
+      <div class="tier t3"><b>Hospitality partner</b><span class="cnt">up to six</span><ul><li>Premium seat blocks and lounge access in two cities; lounge branding; photo and social assets</li></ul></div>
+    </div>
+  </div>
+
+  <div class="blk c7">
+    <h2>Workflow to close and deliver · owners per step, no dates</h2>
+    <table>
+      <thead><tr><th>#</th><th>Step</th><th>Owner</th><th>Output</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Confirm rights, dates, venues and open sponsor categories in writing with the artist's management</td><td><span class="chip H">HUMAN</span></td><td>Rights letter; category list; venue options</td></tr>
+        <tr><td>2</td><td>Build the three tiers, rate card and deck from the sponsorship-proposal skill</td><td><span class="chip A">AGENT</span><span class="chip H">HUMAN</span></td><td>Deck; rate card; outreach email</td></tr>
+        <tr><td>3</td><td>Target list: ten brands in each of automotive, robotics and technology, finance and luxury; ranked by European plans and budget timing</td><td><span class="chip A">AGENT</span><span class="chip P">PARTNER</span></td><td>30-name list with a named decision-maker each</td></tr>
+        <tr><td>4</td><td>Warm introductions to decision-makers; sponsor-side champion named</td><td><span class="chip P">PARTNER</span></td><td>Meetings booked</td></tr>
+        <tr><td>5</td><td>Pitch; term sheet with category, tier, hospitality counts and activation plan</td><td><span class="chip H">HUMAN</span></td><td>Term sheets</td></tr>
+        <tr><td>6</td><td>Contract; deposit invoiced on signature; exclusivity and cancellation terms written in</td><td><span class="chip H">HUMAN</span><span class="chip A">AGENT</span></td><td>Signed contract; deposit received</td></tr>
+        <tr><td>7</td><td>Activation planning with each sponsor: guest lists, dealer evenings, content brief</td><td><span class="chip H">HUMAN</span><span class="chip C">CONTRACTOR</span></td><td>Activation plan per sponsor</td></tr>
+        <tr><td>8</td><td>Deliver the shows: production, hospitality, VIP logistics, filming</td><td><span class="chip C">CONTRACTOR</span></td><td>Concerts; client evenings; footage</td></tr>
+        <tr><td>9</td><td>Content delivery: tour film, cut-downs, sponsor recap within days of each show</td><td><span class="chip A">AGENT</span><span class="chip C">CONTRACTOR</span></td><td>Content pack; recap report</td></tr>
+        <tr><td>10</td><td>Renewal: first refusal on the next edition; salon series on the same stages</td><td><span class="chip H">HUMAN</span></td><td>Next edition pre-sold</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="blk c5">
+    <h2>Who does what</h2>
+    <div class="roles" style="grid-template-columns:1fr">
+      <div><b>Fragrant Hill</b><ul><li>Artist and venue relationship, rights</li><li>Packages, pitch, contracts, collections</li><li>Production, hospitality, content delivery</li><li>Pipeline reporting to the partner</li></ul></div>
+      <div><b>Partner</b><ul><li>Warm introductions in automotive, robotics, technology</li><li>Sponsor-side champion; category intelligence</li><li>China-side invoicing where a sponsor pays in RMB</li></ul></div>
+      <div><b>Sponsor</b><ul><li>Rights fee and hospitality fee; activation budget</li><li>Guest lists: dealers, clients, officials, press</li><li>Brand assets and approvals</li></ul></div>
+    </div>
+    <h2 style="margin-top:12px">Risks and controls</h2>
+    <div class="risks" style="grid-template-columns:1fr">
+      <div><b>Category conflict.</b> The artist has had automotive partners and appeared with a Chinese car group in 2026. Open categories are confirmed in writing before any brand is pitched. If automotive is closed, the presenting tier goes to robotics and consumer technology.</div>
+      <div><b>Sales cycle.</b> Six-figure sponsorships normally take 9–18 months. We pitch only through warm introductions and start with a base of three signatures, not ten.</div>
+      <div><b>Artist, venue, payment.</b> Cancellation insurance; venues held on option; deposits non-refundable except for cancellation by the tour; exclusivity written in so one exit does not unwind the others.</div>
+    </div>
+  </div>
+
+  <div class="blk c12">
+    <h2>Why Encore is a product line, not a one-off</h2>
+    <div class="roles" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+      <div><b>Annual tour edition</b>Same package ladder, same sponsors offered first refusal. The artist roster can widen to other celebrity performers we can host.</div>
+      <div><b>Executive salons</b>Four salons a year on the same stages, 60–100 guests, two to three sponsors each. Feeds the Community pillar.</div>
+      <div><b>Sponsor dinners</b>One client evening per city during the tour, produced for the sponsor; the hospitality line that B2B brands pay for.</div>
+      <div><b>Content and editorial</b>Every concert yields a tour film, artist interview material and a guest list; the Editorial pillar publishes it, the relationship graph keeps it.</div>
+    </div>
+  </div>
+</div>
+
+<div class="foot"><span>Fragrant Hill Studio · confidential · comparables and sources in framework/research/03-sponsorship-benchmarks.md · fees set per market, not stated here</span><span>Page 1: system architecture · Page 2: workflow</span></div>
+</div>

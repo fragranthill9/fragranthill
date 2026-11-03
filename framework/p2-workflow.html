@@ -1,0 +1,434 @@
+<title>Fragrant Hill Workflow</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..800&display=swap">
+<style>
+/* Layout: investor one-pager on a 12-column block grid. Header, reading key, sequence band, five workflow chains, functional-block grid, tool stack, rhythm. */
+:root{
+  --bg:#F4F4F1; --surface:#FFFFFF; --ink:#16191D; --ink-2:#4B5159; --muted:#7A808A; --line:#DADBD6; --line-2:#EBECE8;
+  --accent:#B42318; --accent-soft:#F7E4E1;
+  --p1:#B42318; --p2:#1D4ED8; --p3:#0E9F8A; --p4:#C2410C; --p5:#7C3AED;
+  --p1-soft:#F8E6E3; --p2-soft:#E3EAFB; --p3-soft:#DDF3EF; --p4-soft:#FAE7DE; --p5-soft:#EEE5FB;
+  --display:"Archivo",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#121416; --surface:#1B1E22; --ink:#ECEDE9; --ink-2:#B9BDC3; --muted:#858B94; --line:#2E3338; --line-2:#24282D;
+  --accent:#E0523F; --accent-soft:#3A1F1C;
+  --p1:#E0523F; --p2:#5B8CFF; --p3:#2BBFA7; --p4:#F0763B; --p5:#A77BFF;
+  --p1-soft:#33201E; --p2-soft:#1C2740; --p3-soft:#17302C; --p4-soft:#36251B; --p5-soft:#2A2238; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#121416; --surface:#1B1E22; --ink:#ECEDE9; --ink-2:#B9BDC3; --muted:#858B94; --line:#2E3338; --line-2:#24282D;
+  --accent:#E0523F; --accent-soft:#3A1F1C;
+  --p1:#E0523F; --p2:#5B8CFF; --p3:#2BBFA7; --p4:#F0763B; --p5:#A77BFF;
+  --p1-soft:#33201E; --p2-soft:#1C2740; --p3-soft:#17302C; --p4-soft:#36251B; --p5-soft:#2A2238; color-scheme:dark }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--display);font-size:13.5px;line-height:1.4;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
+.sheet{max-width:1280px;margin:0 auto}
+header{display:flex;flex-wrap:wrap;gap:12px 32px;align-items:center;justify-content:space-between;padding:20px 0 12px;border-bottom:2px solid var(--ink)}
+.brand{display:flex;align-items:center;gap:12px}
+.seal{width:40px;height:40px;border:2px solid var(--accent);color:var(--accent);display:grid;place-items:center;font-weight:700;font-size:14px;border-radius:4px}
+.brand b{font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;display:block}
+.brand span{color:var(--muted);font-size:12px}
+.doc{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:right}
+.doc b{color:var(--ink);display:block;font-size:12.5px}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px;margin-top:12px}
+.blk{background:var(--surface);border:1px solid var(--line);padding:12px 14px;min-width:0}
+.blk h2{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 0 8px;font-weight:700}
+.c12{grid-column:span 12}.c8{grid-column:span 8}.c6{grid-column:span 6}.c4{grid-column:span 4}.c3{grid-column:span 3}
+.title{grid-column:span 8;background:transparent;border:0;padding:4px 0}
+.title h1{font-size:clamp(26px,3.6vw,40px);font-weight:800;line-height:1.02;letter-spacing:-.02em;margin:0 0 8px;text-wrap:balance}
+.title p{margin:0;color:var(--ink-2);font-size:15px;max-width:62ch}
+.key{grid-column:span 4;display:grid;gap:6px;align-content:start}
+.key div{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center;font-size:12px;color:var(--ink-2)}
+.chip{display:inline-block;padding:2px 8px;border-radius:2px;font-size:9.5px;font-weight:700;letter-spacing:.06em;min-width:92px;text-align:center}
+.chip.H{background:var(--ink);color:var(--surface)} .chip.A{background:var(--accent);color:#fff} .chip.P{background:var(--muted);color:#fff} .chip.C{background:var(--line);color:var(--ink)}
+figure{margin:0;overflow-x:auto}
+figure svg{display:block;width:100%;height:auto;min-width:1000px}
+figcaption{font-size:11px;color:var(--muted);margin-top:4px}
+.wf{display:grid;gap:8px}
+.fb{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.fb div{border:1px solid var(--line);padding:9px 11px;background:var(--bg);font-size:11.5px;color:var(--ink-2)}
+.fb b{display:block;font-size:12px;color:var(--ink);margin-bottom:3px}
+.fb .tag{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px}
+.dots{margin-top:5px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:3px}
+table{width:100%;border-collapse:collapse;font-size:11.5px}
+th{text-align:left;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:5px 6px;border-bottom:2px solid var(--ink)}
+td{padding:6px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+td:first-child{color:var(--ink);font-weight:700;white-space:nowrap}
+.rh{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.rh div{border:1px solid var(--line);padding:9px 11px;background:var(--bg);font-size:11.5px;color:var(--ink-2)}
+.rh b{display:block;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:3px}
+.foot{margin-top:12px;font-size:11px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:space-between}
+@media (max-width:900px){.c8,.c6,.c4,.c3,.title,.key{grid-column:span 12}.fb,.rh{grid-template-columns:1fr 1fr}.doc{text-align:left}}
+</style>
+<div class="sheet">
+<header>
+  <div class="brand"><div class="seal">香山</div><div><b>Fragrant Hill Studio</b><span>Editorial house · Stockholm · Europe ↔ China</span></div></div>
+  <div class="doc"><b>Page 2 of 3 · Workflow</b>How each pillar runs and which blocks it needs</div>
+</header>
+<div class="grid">
+  <div class="title">
+    <h1>Each pillar is a six-step line. Every step has an owner.</h1>
+    <p>Owners are functional blocks, not job titles: a human on the team, a digital agent, the partner, or a contractor paid per deliverable. Humans keep the thesis, the relationship and the price. Agents run everything repeatable.</p>
+  </div>
+  <div class="key">
+    <div><span class="chip H">HUMAN</span><span>Founder and core team. Hosts, decides, prices, closes.</span></div>
+    <div><span class="chip A">AGENT</span><span>Digital agent on the Claude Agent SDK with the house skills. Research, production, publishing, follow-up, finance.</span></div>
+    <div><span class="chip P">PARTNER</span><span>Partner organisation: data, cohorts, introductions, China invoicing.</span></div>
+    <div><span class="chip C">CONTRACTOR</span><span>Editor, designer, event producer, community coordinator. Paid per deliverable.</span></div>
+  </div>
+  <div class="blk c12"><h2>Sequence · in which order the pillars switch on, and what passes between them</h2><figure>
+<svg viewBox="0 0 1240 150" role="img" aria-label="Sequence band: Phase A cash runs Live and Advisory; it hands content, guest lists and clients to Phase B which runs Editorial and Community; Phase B hands audience and members to Phase C which runs Acceleration; Phase C returns founders and sponsors to Phase A." xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="sq" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--ink-2)"/></marker><marker id="sqa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker></defs>
+<rect x="0" y="10" width="380" height="96" rx="3" fill="var(--p4-soft)" stroke="var(--p4)"/>
+<text x="14" y="32" font-size="11" font-weight="800" letter-spacing=".1" style="fill:var(--p4)">PHASE A · CASH</text>
+<text x="14" y="52" font-size="12.5" font-weight="700" fill="var(--ink)">4 Live &amp; Encore  +  2 Advisory</text>
+<text x="14" y="70" font-size="11" fill="var(--ink-2)">sells access and judgement; needs no audience</text>
+<text x="14" y="92" font-size="10.5" fill="var(--ink-2)">GATE: rights and sponsor categories confirmed · partner intros in hand</text>
+<path d="M380 58 H426" stroke="var(--ink-2)" stroke-width="1.3" marker-end="url(#sq)"/>
+<text x="403" y="46" font-size="9.5" fill="var(--muted)" text-anchor="middle">content</text><text x="403" y="78" font-size="9.5" fill="var(--muted)" text-anchor="middle">guests</text>
+<rect x="430" y="10" width="380" height="96" rx="3" fill="var(--p1-soft)" stroke="var(--p1)"/>
+<text x="444" y="32" font-size="11" font-weight="800" letter-spacing=".1" style="fill:var(--p1)">PHASE B · AUDIENCE AND RECURRING</text>
+<text x="444" y="52" font-size="12.5" font-weight="700" fill="var(--ink)">1 Editorial season  +  3 Community</text>
+<text x="444" y="70" font-size="11" fill="var(--ink-2)">one theme, weekly rhythm, then two membership tiers</text>
+<text x="444" y="92" font-size="10.5" fill="var(--ink-2)">GATE: a closed sponsorship funds the season · one season published</text>
+<path d="M810 58 H856" stroke="var(--ink-2)" stroke-width="1.3" marker-end="url(#sq)"/>
+<text x="833" y="46" font-size="9.5" fill="var(--muted)" text-anchor="middle">members</text><text x="833" y="78" font-size="9.5" fill="var(--muted)" text-anchor="middle">clients</text>
+<rect x="860" y="10" width="380" height="96" rx="3" fill="var(--p5-soft)" stroke="var(--p5)"/>
+<text x="874" y="32" font-size="11" font-weight="800" letter-spacing=".1" style="fill:var(--p5)">PHASE C · EQUITY</text>
+<text x="874" y="52" font-size="12.5" font-weight="700" fill="var(--ink)">5 Acceleration</text>
+<text x="874" y="70" font-size="11" fill="var(--ink-2)">deal flow matched to Nordic corporates and investors</text>
+<text x="874" y="92" font-size="10.5" fill="var(--ink-2)">GATE: vetted club and paying advisory clients exist</text>
+<path d="M1050 106 V130 H190 V110" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#sqa)"/>
+<text x="620" y="144" font-size="10.5" font-weight="600" text-anchor="middle" style="fill:var(--accent)">founders and sponsors return as the next stage, the next guests, the next members</text>
+</svg>
+</figure></div>
+  <div class="blk c12"><h2>Five workflows · one line per pillar, left to right</h2><div class="wf">
+<figure><svg viewBox="0 0 1240 100" role="img" aria-label="Workflow for pillar 1 Editorial: Plan the season → Brief and book → Record → Produce → Publish → Sell and report" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="w1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--ink-2)"/></marker></defs>
+<rect x="0" y="8" width="150" height="84" rx="3" fill="var(--p1)"/>
+<text x="12" y="34" font-size="13" font-weight="800" fill="#FFFFFF">1 · EDITORIAL</text>
+<text x="12" y="56" font-size="10" fill="#FFFFFF" opacity=".9">Record once, six channels</text>
+<rect x="164" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="164" y="8" width="168" height="3" fill="var(--p1)"/>
+<text x="173" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">1 · Plan the season</text>
+<rect x="173" y="39" width="39" height="14" rx="2" fill="var(--ink)"/>
+<text x="192" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="var(--surface)" letter-spacing=".06">HUMAN</text>
+<text x="173" y="70" font-size="10" fill="var(--ink-2)">theme · 12 guests · sponsor</text>
+<text x="173" y="83" font-size="10" fill="var(--ink-2)">slot</text>
+<path d="M332 50 H343" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w1)"/>
+<rect x="344" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="344" y="8" width="168" height="3" fill="var(--p1)"/>
+<text x="353" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">2 · Brief and book</text>
+<rect x="353" y="39" width="39" height="14" rx="2" fill="var(--accent)"/>
+<text x="372" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing=".06">AGENT</text>
+<rect x="397.0" y="39" width="39" height="14" rx="2" fill="var(--ink)"/>
+<text x="416" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="var(--surface)" letter-spacing=".06">HUMAN</text>
+<text x="353" y="70" font-size="10" fill="var(--ink-2)">research memo · outreach</text>
+<text x="353" y="83" font-size="10" fill="var(--ink-2)">Lan sends</text>
+<path d="M512 50 H523" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w1)"/>
+<rect x="524" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="524" y="8" width="168" height="3" fill="var(--p1)"/>
+<text x="533" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">3 · Record</text>
+<rect x="533" y="39" width="39" height="14" rx="2" fill="var(--ink)"/>
+<text x="552" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="var(--surface)" letter-spacing=".06">HUMAN</text>
+<rect x="577.0" y="39" width="70" height="14" rx="2" fill="var(--line)"/>
+<text x="612" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="var(--ink)" letter-spacing=".06">CONTRACTOR</text>
+<text x="533" y="70" font-size="10" fill="var(--ink-2)">Riverside remote · crew day</text>
+<text x="533" y="83" font-size="10" fill="var(--ink-2)">2 guests</text>
+<path d="M692 50 H703" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w1)"/>
+<rect x="704" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="704" y="8" width="168" height="3" fill="var(--p1)"/>
+<text x="713" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">4 · Produce</text>
+<rect x="713" y="39" width="39" height="14" rx="2" fill="var(--accent)"/>
+<text x="732" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing=".06">AGENT</text>
+<text x="713" y="70" font-size="10" fill="var(--ink-2)">Descript · OpusClip · HeyGen</text>
+<text x="713" y="83" font-size="10" fill="var(--ink-2)">ZH/EN</text>
+<path d="M872 50 H883" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w1)"/>
+<rect x="884" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="884" y="8" width="168" height="3" fill="var(--p1)"/>
+<text x="893" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">5 · Publish</text>
+<rect x="893" y="39" width="39" height="14" rx="2" fill="var(--accent)"/>
+<text x="912" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing=".06">AGENT</text>
+<text x="893" y="70" font-size="10" fill="var(--ink-2)">YouTube · LinkedIn</text>
+<text x="893" y="83" font-size="10" fill="var(--ink-2)">newsletter · 公众号 · 视频号</text>
+<path d="M1052 50 H1063" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w1)"/>
+<rect x="1064" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="1064" y="8" width="168" height="3" fill="var(--p1)"/>
+<text x="1073" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">6 · Sell and report</text>
+<rect x="1073" y="39" width="39" height="14" rx="2" fill="var(--ink)"/>
+<text x="1092" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="var(--surface)" letter-spacing=".06">HUMAN</text>
+<rect x="1117.0" y="39" width="39" height="14" rx="2" fill="var(--accent)"/>
+<text x="1136" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing=".06">AGENT</text>
+<text x="1073" y="70" font-size="10" fill="var(--ink-2)">season sponsor · recap · rate</text>
+<text x="1073" y="83" font-size="10" fill="var(--ink-2)">card</text>
+</svg></figure>
+<figure><svg viewBox="0 0 1240 100" role="img" aria-label="Workflow for pillar 2 Advisory: Intake and scope → Source → Digest and model → Thesis and workshop → Package → Convert" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="w2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--ink-2)"/></marker></defs>
+<rect x="0" y="8" width="150" height="84" rx="3" fill="var(--p2)"/>
+<text x="12" y="34" font-size="13" font-weight="800" fill="#FFFFFF">2 · ADVISORY</text>
+<text x="12" y="56" font-size="10" fill="#FFFFFF" opacity=".9">Data in, paid answers out</text>
+<rect x="164" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="164" y="8" width="168" height="3" fill="var(--p2)"/>
+<text x="173" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">1 · Intake and scope</text>
+<rect x="173" y="39" width="39" height="14" rx="2" fill="var(--ink)"/>
+<text x="192" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="var(--surface)" letter-spacing=".06">HUMAN</text>
+<text x="173" y="70" font-size="10" fill="var(--ink-2)">client question · price in 48</text>
+<text x="173" y="83" font-size="10" fill="var(--ink-2)">h</text>
+<path d="M332 50 H343" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w2)"/>
+<rect x="344" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="344" y="8" width="168" height="3" fill="var(--p2)"/>
+<text x="353" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">2 · Source</text>
+<rect x="353" y="39" width="51" height="14" rx="2" fill="var(--muted)"/>
+<text x="379" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing=".06">PARTNER</text>
+<text x="353" y="70" font-size="10" fill="var(--ink-2)">partner reports · data</text>
+<text x="353" y="83" font-size="10" fill="var(--ink-2)">expert calls</text>
+<path d="M512 50 H523" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w2)"/>
+<rect x="524" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="524" y="8" width="168" height="3" fill="var(--p2)"/>
+<text x="533" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">3 · Digest and model</text>
+<rect x="533" y="39" width="39" height="14" rx="2" fill="var(--accent)"/>
+<text x="552" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing=".06">AGENT</text>
+<text x="533" y="70" font-size="10" fill="var(--ink-2)">NotebookLM · Claude Project</text>
+<text x="533" y="83" font-size="10" fill="var(--ink-2)">Elicit</text>
+<path d="M692 50 H703" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w2)"/>
+<rect x="704" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="704" y="8" width="168" height="3" fill="var(--p2)"/>
+<text x="713" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">4 · Thesis and workshop</text>
+<rect x="713" y="39" width="39" height="14" rx="2" fill="var(--ink)"/>
+<text x="732" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="var(--surface)" letter-spacing=".06">HUMAN</text>
+<text x="713" y="70" font-size="10" fill="var(--ink-2)">Lan owns the answer</text>
+<text x="713" y="83" font-size="10" fill="var(--ink-2)">half-day</text>
+<path d="M872 50 H883" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w2)"/>
+<rect x="884" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="884" y="8" width="168" height="3" fill="var(--p2)"/>
+<text x="893" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">5 · Package</text>
+<rect x="893" y="39" width="70" height="14" rx="2" fill="var(--line)"/>
+<text x="928" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="var(--ink)" letter-spacing=".06">CONTRACTOR</text>
+<rect x="968.0" y="39" width="39" height="14" rx="2" fill="var(--accent)"/>
+<text x="988" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing=".06">AGENT</text>
+<text x="893" y="70" font-size="10" fill="var(--ink-2)">designer layout · translation</text>
+<text x="893" y="83" font-size="10" fill="var(--ink-2)">QA</text>
+<path d="M1052 50 H1063" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w2)"/>
+<rect x="1064" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="1064" y="8" width="168" height="3" fill="var(--p2)"/>
+<text x="1073" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">6 · Convert</text>
+<rect x="1073" y="39" width="39" height="14" rx="2" fill="var(--ink)"/>
+<text x="1092" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="var(--surface)" letter-spacing=".06">HUMAN</text>
+<text x="1073" y="70" font-size="10" fill="var(--ink-2)">retainer · report licence</text>
+<text x="1073" y="83" font-size="10" fill="var(--ink-2)">next project</text>
+</svg></figure>
+<figure><svg viewBox="0 0 1240 100" role="img" aria-label="Workflow for pillar 3 Community: Define promise and tiers → Segment and invite → Vet → Host → Run the programme → Renew" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="w3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--ink-2)"/></marker></defs>
+<rect x="0" y="8" width="150" height="84" rx="3" fill="var(--p3)"/>
+<text x="12" y="34" font-size="13" font-weight="800" fill="#FFFFFF">3 · COMMUNITY</text>
+<text x="12" y="56" font-size="10" fill="#FFFFFF" opacity=".9">Audience in, members out</text>
+<rect x="164" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="164" y="8" width="168" height="3" fill="var(--p3)"/>
+<text x="173" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">1 · Define promise and tiers</text>
+<rect x="173" y="39" width="39" height="14" rx="2" fill="var(--ink)"/>
+<text x="192" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="var(--surface)" letter-spacing=".06">HUMAN</text>
+<text x="173" y="70" font-size="10" fill="var(--ink-2)">who is in · base tier · club</text>
+<text x="173" y="83" font-size="10" fill="var(--ink-2)">tier</text>
+<path d="M332 50 H343" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w3)"/>
+<rect x="344" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="344" y="8" width="168" height="3" fill="var(--p3)"/>
+<text x="353" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">2 · Segment and invite</text>
+<rect x="353" y="39" width="39" height="14" rx="2" fill="var(--accent)"/>
+<text x="372" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing=".06">AGENT</text>
+<text x="353" y="70" font-size="10" fill="var(--ink-2)">CRM scoring · personal</text>
+<text x="353" y="83" font-size="10" fill="var(--ink-2)">invitations</text>
+<path d="M512 50 H523" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w3)"/>
+<rect x="524" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="524" y="8" width="168" height="3" fill="var(--p3)"/>
+<text x="533" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">3 · Vet</text>
+<rect x="533" y="39" width="39" height="14" rx="2" fill="var(--ink)"/>
+<text x="552" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="var(--surface)" letter-spacing=".06">HUMAN</text>
+<text x="533" y="70" font-size="10" fill="var(--ink-2)">15-minute call · role or</text>
+<text x="533" y="83" font-size="10" fill="var(--ink-2)">revenue bar</text>
+<path d="M692 50 H703" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w3)"/>
+<rect x="704" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="704" y="8" width="168" height="3" fill="var(--p3)"/>
+<text x="713" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">4 · Host</text>
+<rect x="713" y="39" width="70" height="14" rx="2" fill="var(--line)"/>
+<text x="748" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="var(--ink)" letter-spacing=".06">CONTRACTOR</text>
+<text x="713" y="70" font-size="10" fill="var(--ink-2)">Circle (EU) · 知识星球 (CN)</text>
+<text x="713" y="83" font-size="10" fill="var(--ink-2)">trip logistics</text>
+<path d="M872 50 H883" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w3)"/>
+<rect x="884" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="884" y="8" width="168" height="3" fill="var(--p3)"/>
+<text x="893" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">5 · Run the programme</text>
+<rect x="893" y="39" width="39" height="14" rx="2" fill="var(--accent)"/>
+<text x="912" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing=".06">AGENT</text>
+<rect x="937.0" y="39" width="70" height="14" rx="2" fill="var(--line)"/>
+<text x="972" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="var(--ink)" letter-spacing=".06">CONTRACTOR</text>
+<text x="893" y="70" font-size="10" fill="var(--ink-2)">monthly digest · salon prep</text>
+<text x="893" y="83" font-size="10" fill="var(--ink-2)">course</text>
+<path d="M1052 50 H1063" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w3)"/>
+<rect x="1064" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="1064" y="8" width="168" height="3" fill="var(--p3)"/>
+<text x="1073" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">6 · Renew</text>
+<rect x="1073" y="39" width="39" height="14" rx="2" fill="var(--accent)"/>
+<text x="1092" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing=".06">AGENT</text>
+<rect x="1117.0" y="39" width="39" height="14" rx="2" fill="var(--ink)"/>
+<text x="1136" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="var(--surface)" letter-spacing=".06">HUMAN</text>
+<text x="1073" y="70" font-size="10" fill="var(--ink-2)">engagement flags · Lan calls</text>
+<text x="1073" y="83" font-size="10" fill="var(--ink-2)">top 20</text>
+</svg></figure>
+<figure><svg viewBox="0 0 1240 100" role="img" aria-label="Workflow for pillar 4 Live &amp; Venues · Encore: Secure the property → Package → Introduce → Pitch and close → Deliver → Renew" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="w4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--ink-2)"/></marker></defs>
+<rect x="0" y="8" width="150" height="84" rx="3" fill="var(--p4)"/>
+<text x="12" y="34" font-size="13" font-weight="800" fill="#FFFFFF">4 · LIVE &AMP; VENUES</text>
+<text x="12" y="50" font-size="11" font-weight="700" fill="#FFFFFF">Encore</text>
+<text x="12" y="70" font-size="10" fill="#FFFFFF" opacity=".9">Stage in, sponsor cash out</text>
+<rect x="164" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="164" y="8" width="168" height="3" fill="var(--p4)"/>
+<text x="173" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">1 · Secure the property</text>
+<rect x="173" y="39" width="39" height="14" rx="2" fill="var(--ink)"/>
+<text x="192" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="var(--surface)" letter-spacing=".06">HUMAN</text>
+<text x="173" y="70" font-size="10" fill="var(--ink-2)">artist · venues · rights</text>
+<text x="173" y="83" font-size="10" fill="var(--ink-2)">categories</text>
+<path d="M332 50 H343" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w4)"/>
+<rect x="344" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="344" y="8" width="168" height="3" fill="var(--p4)"/>
+<text x="353" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">2 · Package</text>
+<rect x="353" y="39" width="39" height="14" rx="2" fill="var(--accent)"/>
+<text x="372" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing=".06">AGENT</text>
+<rect x="397.0" y="39" width="39" height="14" rx="2" fill="var(--ink)"/>
+<text x="416" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="var(--surface)" letter-spacing=".06">HUMAN</text>
+<text x="353" y="70" font-size="10" fill="var(--ink-2)">rate card · deck · Lan sets</text>
+<text x="353" y="83" font-size="10" fill="var(--ink-2)">price</text>
+<path d="M512 50 H523" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w4)"/>
+<rect x="524" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="524" y="8" width="168" height="3" fill="var(--p4)"/>
+<text x="533" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">3 · Introduce</text>
+<rect x="533" y="39" width="51" height="14" rx="2" fill="var(--muted)"/>
+<text x="559" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing=".06">PARTNER</text>
+<text x="533" y="70" font-size="10" fill="var(--ink-2)">warm doors: automotive</text>
+<text x="533" y="83" font-size="10" fill="var(--ink-2)">robotics · tech</text>
+<path d="M692 50 H703" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w4)"/>
+<rect x="704" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="704" y="8" width="168" height="3" fill="var(--p4)"/>
+<text x="713" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">4 · Pitch and close</text>
+<rect x="713" y="39" width="39" height="14" rx="2" fill="var(--ink)"/>
+<text x="732" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="var(--surface)" letter-spacing=".06">HUMAN</text>
+<rect x="757.0" y="39" width="39" height="14" rx="2" fill="var(--accent)"/>
+<text x="776" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing=".06">AGENT</text>
+<text x="713" y="70" font-size="10" fill="var(--ink-2)">three tiers · exclusivity</text>
+<text x="713" y="83" font-size="10" fill="var(--ink-2)">deposit</text>
+<path d="M872 50 H883" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w4)"/>
+<rect x="884" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="884" y="8" width="168" height="3" fill="var(--p4)"/>
+<text x="893" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">5 · Deliver</text>
+<rect x="893" y="39" width="70" height="14" rx="2" fill="var(--line)"/>
+<text x="928" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="var(--ink)" letter-spacing=".06">CONTRACTOR</text>
+<rect x="968.0" y="39" width="39" height="14" rx="2" fill="var(--accent)"/>
+<text x="988" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing=".06">AGENT</text>
+<text x="893" y="70" font-size="10" fill="var(--ink-2)">production · hospitality</text>
+<text x="893" y="83" font-size="10" fill="var(--ink-2)">cut-downs</text>
+<path d="M1052 50 H1063" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w4)"/>
+<rect x="1064" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="1064" y="8" width="168" height="3" fill="var(--p4)"/>
+<text x="1073" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">6 · Renew</text>
+<rect x="1073" y="39" width="39" height="14" rx="2" fill="var(--ink)"/>
+<text x="1092" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="var(--surface)" letter-spacing=".06">HUMAN</text>
+<text x="1073" y="70" font-size="10" fill="var(--ink-2)">first refusal · salon series</text>
+</svg></figure>
+<figure><svg viewBox="0 0 1240 100" role="img" aria-label="Workflow for pillar 5 Acceleration: Scout → Screen → Soft-land → Match → Economics → Feed back" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="w5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--ink-2)"/></marker></defs>
+<rect x="0" y="8" width="150" height="84" rx="3" fill="var(--p5)"/>
+<text x="12" y="34" font-size="13" font-weight="800" fill="#FFFFFF">5 · ACCELERATION</text>
+<text x="12" y="56" font-size="10" fill="#FFFFFF" opacity=".9">Deal flow in, carry out</text>
+<rect x="164" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="164" y="8" width="168" height="3" fill="var(--p5)"/>
+<text x="173" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">1 · Scout</text>
+<rect x="173" y="39" width="51" height="14" rx="2" fill="var(--muted)"/>
+<text x="199" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing=".06">PARTNER</text>
+<text x="173" y="70" font-size="10" fill="var(--ink-2)">partner cohorts · founder</text>
+<text x="173" y="83" font-size="10" fill="var(--ink-2)">community</text>
+<path d="M332 50 H343" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w5)"/>
+<rect x="344" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="344" y="8" width="168" height="3" fill="var(--p5)"/>
+<text x="353" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">2 · Screen</text>
+<rect x="353" y="39" width="39" height="14" rx="2" fill="var(--accent)"/>
+<text x="372" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing=".06">AGENT</text>
+<text x="353" y="70" font-size="10" fill="var(--ink-2)">scorecard: Nordic demand</text>
+<text x="353" y="83" font-size="10" fill="var(--ink-2)">pilot-ready</text>
+<path d="M512 50 H523" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w5)"/>
+<rect x="524" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="524" y="8" width="168" height="3" fill="var(--p5)"/>
+<text x="533" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">3 · Soft-land</text>
+<rect x="533" y="39" width="39" height="14" rx="2" fill="var(--ink)"/>
+<text x="552" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="var(--surface)" letter-spacing=".06">HUMAN</text>
+<text x="533" y="70" font-size="10" fill="var(--ink-2)">Nordic intros · dealers</text>
+<text x="533" y="83" font-size="10" fill="var(--ink-2)">pilots · press</text>
+<path d="M692 50 H703" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w5)"/>
+<rect x="704" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="704" y="8" width="168" height="3" fill="var(--p5)"/>
+<text x="713" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">4 · Match</text>
+<rect x="713" y="39" width="39" height="14" rx="2" fill="var(--accent)"/>
+<text x="732" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing=".06">AGENT</text>
+<rect x="757.0" y="39" width="39" height="14" rx="2" fill="var(--ink)"/>
+<text x="776" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="var(--surface)" letter-spacing=".06">HUMAN</text>
+<text x="713" y="70" font-size="10" fill="var(--ink-2)">investors and corporates from</text>
+<text x="713" y="83" font-size="10" fill="var(--ink-2)">CRM</text>
+<path d="M872 50 H883" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w5)"/>
+<rect x="884" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="884" y="8" width="168" height="3" fill="var(--p5)"/>
+<text x="893" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">5 · Economics</text>
+<rect x="893" y="39" width="39" height="14" rx="2" fill="var(--ink)"/>
+<text x="912" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="var(--surface)" letter-spacing=".06">HUMAN</text>
+<rect x="937.0" y="39" width="51" height="14" rx="2" fill="var(--muted)"/>
+<text x="963" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing=".06">PARTNER</text>
+<text x="893" y="70" font-size="10" fill="var(--ink-2)">programme fee · scout fee</text>
+<text x="893" y="83" font-size="10" fill="var(--ink-2)">carry</text>
+<path d="M1052 50 H1063" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#w5)"/>
+<rect x="1064" y="8" width="168" height="84" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="1064" y="8" width="168" height="3" fill="var(--p5)"/>
+<text x="1073" y="31" font-size="11.5" font-weight="700" fill="var(--ink)">6 · Feed back</text>
+<rect x="1073" y="39" width="39" height="14" rx="2" fill="var(--accent)"/>
+<text x="1092" y="49.5" font-size="8.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing=".06">AGENT</text>
+<text x="1073" y="70" font-size="10" fill="var(--ink-2)">founders → guests, members,</text>
+<text x="1073" y="83" font-size="10" fill="var(--ink-2)">speakers</text>
+</svg></figure>
+</div><figcaption>Each line loops: step 6 writes back to the relationship graph and sets up step 1 of the next cycle. Tools named are current choices, replaceable without changing the line.</figcaption></div>
+
+  <div class="blk c8"><h2>Functional blocks · the twelve units the system needs</h2>
+  <div class="fb">
+    <div><span class="tag">Human</span><b>Editor-in-chief and host</b>Owns the theme, interviews, final cut, sponsor and client relationships. Year one: the founder.<div class="dots"><span class="dot" style="background:var(--p1)"></span><span class="dot" style="background:var(--p2)"></span><span class="dot" style="background:var(--p3)"></span><span class="dot" style="background:var(--p4)"></span><span class="dot" style="background:var(--p5)"></span></div></div>
+    <div><span class="tag">Human</span><b>Commercial lead</b>Prices packages, pitches, closes, renews. Year one: same person as above; first hire when Live repeats.<div class="dots"><span class="dot" style="background:var(--p2)"></span><span class="dot" style="background:var(--p4)"></span></div></div>
+    <div><span class="tag">Agent</span><b>Research agent</b>Guest memos, client briefs, sourced digests of partner reports, scorecards for founders.<div class="dots"><span class="dot" style="background:var(--p1)"></span><span class="dot" style="background:var(--p2)"></span><span class="dot" style="background:var(--p5)"></span></div></div>
+    <div><span class="tag">Agent</span><b>Production agent</b>Transcripts, cuts, shorts, dubbing EN ↔ ZH, sponsor cut-downs within 72 hours of a show.<div class="dots"><span class="dot" style="background:var(--p1)"></span><span class="dot" style="background:var(--p4)"></span></div></div>
+    <div><span class="tag">Agent</span><b>Publishing agent</b>Schedules six channels in two languages, captions, weekly numbers.<div class="dots"><span class="dot" style="background:var(--p1)"></span></div></div>
+    <div><span class="tag">Agent</span><b>Sales-desk agent</b>Rate cards, decks, follow-up sequences, pipeline hygiene in the CRM.<div class="dots"><span class="dot" style="background:var(--p2)"></span><span class="dot" style="background:var(--p4)"></span></div></div>
+    <div><span class="tag">Agent</span><b>Concierge agent</b>Member onboarding, monthly digest, salon reminders, renewal flags.<div class="dots"><span class="dot" style="background:var(--p3)"></span></div></div>
+    <div><span class="tag">Agent</span><b>Finance agent</b>Invoices, collections, monthly P&amp;L by pillar; hands exceptions to the accountant.<div class="dots"><span class="dot" style="background:var(--p1)"></span><span class="dot" style="background:var(--p2)"></span><span class="dot" style="background:var(--p3)"></span><span class="dot" style="background:var(--p4)"></span><span class="dot" style="background:var(--p5)"></span></div></div>
+    <div><span class="tag">Partner</span><b>Data, cohorts, introductions</b>Reports and datasets, founder community, sponsor and investor doors, fapiao invoicing in China.<div class="dots"><span class="dot" style="background:var(--p2)"></span><span class="dot" style="background:var(--p4)"></span><span class="dot" style="background:var(--p5)"></span></div></div>
+    <div><span class="tag">Contractor</span><b>Video editor and designer</b>Flagship episode cuts, report layout, tour film. Per deliverable.<div class="dots"><span class="dot" style="background:var(--p1)"></span><span class="dot" style="background:var(--p2)"></span><span class="dot" style="background:var(--p4)"></span></div></div>
+    <div><span class="tag">Contractor</span><b>Event producer and hospitality</b>Venue, production, catering, VIP logistics for concerts and salons.<div class="dots"><span class="dot" style="background:var(--p3)"></span><span class="dot" style="background:var(--p4)"></span></div></div>
+    <div><span class="tag">Contractor</span><b>Community coordinator and accountant</b>Member care and trip logistics; Swedish bookkeeping and tax.<div class="dots"><span class="dot" style="background:var(--p3)"></span><span class="dot" style="background:var(--p5)"></span></div></div>
+  </div></div>
+
+  <div class="blk c4"><h2>Tool stack · current choices by pillar</h2>
+  <table>
+    <tbody>
+      <tr><td><span class="dot" style="background:var(--p1)"></span>Editorial</td><td>Riverside · Descript · OpusClip · CapCut · HeyGen · Beehiiv · 公众号 · 视频号 · Bilibili · Metricool</td></tr>
+      <tr><td><span class="dot" style="background:var(--p2)"></span>Advisory</td><td>Claude Projects · NotebookLM · Perplexity · Elicit · Google Drive · expert-network calls</td></tr>
+      <tr><td><span class="dot" style="background:var(--p3)"></span>Community</td><td>Circle (EU) · 知识星球 and 小鹅通 (CN) · Luma · 企业微信 · Stripe</td></tr>
+      <tr><td><span class="dot" style="background:var(--p4)"></span>Live</td><td>Attio pipeline · Passionfroot inbound · Luma · e-signature · Descript</td></tr>
+      <tr><td><span class="dot" style="background:var(--p5)"></span>Acceleration</td><td>Attio · partner cohort data · Nordic investor lists · Luma</td></tr>
+      <tr><td>Shared</td><td>Attio CRM · n8n glue · Claude Agent SDK with house skills · Google Drive archive</td></tr>
+    </tbody>
+  </table>
+  <figcaption>Published list prices put the core stack at roughly $350–600 a month; agents and API usage add to that. Research notes 4.</figcaption>
+  <h2 style="margin-top:12px">Operating rhythm · the implementable version</h2>
+  <div class="rh" style="grid-template-columns:1fr 1fr">
+    <div><b>Weekly</b>Plan · record two guests · review cuts · publish · sponsor follow-ups</div>
+    <div><b>Monthly</b>One salon on a Live stage · sponsor recap · member digest · P&amp;L by pillar</div>
+    <div><b>Per season</b>Twelve guests · one season sponsor · one co-branded report</div>
+    <div><b>Per edition</b>One Encore tour · one study trip each way · one founder cohort</div>
+  </div></div>
+</div>
+<div class="foot"><span>Fragrant Hill Studio · confidential · built from the skills in skills/ and research in framework/research/</span><span>Page 1: system architecture · Page 3: Encore, the piano tour sponsorship programme</span></div>
+</div>
