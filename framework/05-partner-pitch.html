@@ -1,0 +1,293 @@
+<title>Fragrant Hill Partner Pitch</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400&display=swap">
+<style>
+/* Layout: a narrative memo. Numbered chapters, each headed by its claim; figures sit inside the chapter they support; companion documents linked at the end. */
+:root{
+  --bg:#F4F4F1; --surface:#FFFFFF; --ink:#16191D; --ink-2:#4B5159; --muted:#7A808A; --line:#DADBD6; --line-2:#EBECE8;
+  --accent:#B42318; --accent-soft:#F7E4E1;
+  --p1:#B42318; --p2:#1D4ED8; --p3:#0E9F8A; --p4:#C2410C; --p5:#7C3AED;
+  --p1-soft:#F8E6E3; --p2-soft:#E3EAFB; --p3-soft:#DDF3EF; --p4-soft:#FAE7DE; --p5-soft:#EEE5FB;
+  --display:"Archivo",system-ui,sans-serif; --body:"Source Serif 4",Georgia,serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#121416; --surface:#1B1E22; --ink:#ECEDE9; --ink-2:#B9BDC3; --muted:#858B94; --line:#2E3338; --line-2:#24282D;
+  --accent:#E0523F; --accent-soft:#3A1F1C;
+  --p1:#E0523F; --p2:#5B8CFF; --p3:#2BBFA7; --p4:#F0763B; --p5:#A77BFF;
+  --p1-soft:#33201E; --p2-soft:#1C2740; --p3-soft:#17302C; --p4-soft:#36251B; --p5-soft:#2A2238; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#121416; --surface:#1B1E22; --ink:#ECEDE9; --ink-2:#B9BDC3; --muted:#858B94; --line:#2E3338; --line-2:#24282D;
+  --accent:#E0523F; --accent-soft:#3A1F1C;
+  --p1:#E0523F; --p2:#5B8CFF; --p3:#2BBFA7; --p4:#F0763B; --p5:#A77BFF;
+  --p1-soft:#33201E; --p2-soft:#1C2740; --p3-soft:#17302C; --p4-soft:#36251B; --p5-soft:#2A2238; color-scheme:dark }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 56px}
+.sheet{max-width:1100px;margin:0 auto}
+header{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:flex-end;justify-content:space-between;padding:28px 0 18px;border-bottom:2px solid var(--ink)}
+.brand{display:flex;align-items:center;gap:14px}
+.seal{width:44px;height:44px;border:2px solid var(--accent);color:var(--accent);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:15px;border-radius:4px}
+.brand b{font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.08em;text-transform:uppercase;display:block}
+.brand span{color:var(--muted);font-size:13px;font-family:var(--display)}
+.doc{font-family:var(--display);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:right}
+.doc b{color:var(--ink);display:block;font-size:13px}
+.cover{padding:40px 0 28px;border-bottom:1px solid var(--line)}
+.cover .kicker{font-family:var(--display);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(32px,5vw,58px);line-height:1;letter-spacing:-.025em;margin:10px 0 16px;text-wrap:balance;max-width:18ch}
+.cover .lede{font-size:19px;max-width:60ch;color:var(--ink-2);margin:0}
+.toc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px 28px;margin-top:26px;font-family:var(--display);font-size:13px;color:var(--ink-2)}
+.toc span b{color:var(--accent);margin-right:8px;font-variant-numeric:tabular-nums}
+section{padding:34px 0 8px;border-bottom:1px solid var(--line)}
+section .num{font-family:var(--display);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+section h2{font-family:var(--display);font-weight:800;font-size:clamp(22px,3vw,32px);line-height:1.1;letter-spacing:-.02em;margin:6px 0 14px;text-wrap:balance;max-width:30ch}
+section p{max-width:70ch;margin:0 0 14px;color:var(--ink-2)}
+section p b{color:var(--ink)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px 36px}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);padding:16px 18px}
+.card b{font-family:var(--display);font-size:13px;display:block;margin-bottom:6px}
+.card p{font-size:14.5px;margin:0 0 6px}
+.card .n{font-family:var(--display);font-weight:800;font-size:30px;letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums;color:var(--ink)}
+figure{margin:16px 0;background:var(--surface);border:1px solid var(--line);padding:16px;overflow-x:auto}
+figure h3{font-family:var(--display);font-size:14px;margin:0 0 2px}
+figure .sub{font-family:var(--display);font-size:12px;color:var(--muted);margin:0 0 10px}
+figure svg{display:block;width:100%;height:auto;min-width:640px}
+figcaption{font-family:var(--display);font-size:12px;color:var(--muted);margin-top:10px;line-height:1.4}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--display);font-size:12px;color:var(--ink-2);margin:0 0 10px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.twrap{overflow-x:auto;margin:10px 0 16px}
+table{width:100%;border-collapse:collapse;font-family:var(--display);font-size:12.5px;min-width:720px}
+th{text-align:left;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:8px;border-bottom:2px solid var(--ink)}
+td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+td:first-child{color:var(--ink);font-weight:700;white-space:nowrap}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:700;color:var(--ink);border-top:2px solid var(--ink)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;vertical-align:-1px}
+.pull{border-left:4px solid var(--accent);padding:6px 18px;margin:18px 0;font-size:19px;line-height:1.4;color:var(--ink);max-width:60ch;font-style:italic}
+ol.plan{padding-left:0;list-style:none;margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+ol.plan li{background:var(--surface);border:1px solid var(--line);padding:14px 16px;font-size:14.5px;color:var(--ink-2)}
+ol.plan li b{font-family:var(--display);display:block;color:var(--ink);margin-bottom:6px;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.links a{display:block;background:var(--surface);border:1px solid var(--line);padding:12px 14px;text-decoration:none;color:var(--ink);font-family:var(--display);font-size:13.5px}
+.links a:hover,.links a:focus-visible{border-color:var(--accent);outline:none}
+.links a span{display:block;color:var(--muted);font-size:12px;margin-top:3px;font-family:var(--display)}
+.links a em{color:var(--accent);font-style:normal;font-weight:700;margin-right:6px}
+.foot{margin-top:28px;padding-top:12px;font-family:var(--display);font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+@media (max-width:860px){.two,.three,ol.plan,.links,.toc{grid-template-columns:1fr}.doc{text-align:left}}
+</style>
+
+<div class="sheet">
+<header>
+  <div class="brand"><div class="seal">香山</div><div><b>Fragrant Hill Studio</b><span>Editorial house · Stockholm · Europe ↔ China</span></div></div>
+  <div class="doc"><b>Document 5 of 5 · Partner pitch</b>Narrative memo · v1.0 · November 2026 · Confidential</div>
+</header>
+
+<div class="cover">
+  <div class="kicker">A proposal for collaboration</div>
+  <h1>The house that tells the story of the people building machines.</h1>
+  <p class="lede">Fragrant Hill Studio proposes a partnership that turns assets both sides already hold, a stage, a network, data and a voice, into cash within one quarter and into a recurring business within two years. This memo gives the answer first, then the evidence, then the ask. It is written to be read in twelve minutes, in the order of the chapters below.</p>
+  <div class="toc">
+    <span><b>1</b>The answer</span><span><b>2</b>What each side holds</span><span><b>3</b>What the best media businesses teach</span>
+    <span><b>4</b>The design: one core, five pillars</span><span><b>5</b>How it runs</span><span><b>6</b>The first product: Encore</span>
+    <span><b>7</b>Three-year outlook</span><span><b>8</b>Terms we propose</span><span><b>9</b>The next ninety days</span>
+  </div>
+</div>
+
+<section>
+  <div class="num">1 · The answer</div>
+  <h2>Start with the one product that pays before an audience exists, then build the house around it.</h2>
+  <p><b>We propose a two-step partnership.</b> Step one is Encore: a presenting-partner programme for a world-class pianist's 2027 European tour, sold to automotive, robotics and technology brands with 2027 plans in Europe. Fragrant Hill holds the stage and the artist relationship; the partner holds the introductions. Sponsors pay 50% on signature. The base case closes €220k of sponsorship within 60 days of launch and earns the partnership €64k; the full ladder is €1.1M gross and €332k to the partnership over 2027.</p>
+  <p><b>Step two is the operating system behind it.</b> Five pillars, one editorial core, one relationship graph, run by one founder, part-time contractors and six AI agents. Encore provides the cash and the content; a focused interview series builds the audience; advisory monetises the partner's data in Europe; a vetted club and an acceleration programme follow once trust exists. The three-year planning case reaches €1.8M revenue with three to four people, in line with the best AI-native media houses today.</p>
+  <p><b>What we ask</b> is twenty warm introductions within three weeks, one named champion, and a go decision by 15 November 2026. What the partner gets is a share of every sponsorship it introduces, a European distribution and advisory channel for its data and founders, and first call on the next three Encore editions.</p>
+</section>
+
+<section>
+  <div class="num">2 · What each side holds</div>
+  <h2>Neither side can do this alone, and neither needs to fund the other.</h2>
+  <div class="two">
+    <div>
+      <p><b>Fragrant Hill brings</b> a Swedish editorial house with a bilingual production base, a founder with a VP seat in a 3D-sensing company and fifteen years in automotive and dealer networks, a completed long-form interview with the artist, and a channel to host celebrity concerts in Europe. Six months of early publishing on WeChat taught us two things: production costs money when every piece is a one-off, and content with no theme builds no audience. Both lessons are designed into the system in chapter 4.</p>
+    </div>
+    <div>
+      <p><b>The partner brings</b> proprietary data, industry reports and analysis on a fast-growing hardware sector, a community of several hundred founders, relationships with investors and industrial groups, and the introductions into automotive and robotics brands that Encore needs. Those assets earn little in Europe today because there is no European voice, channel or operator attached to them. Fragrant Hill is that operator.</p>
+    </div>
+  </div>
+  <div class="pull">The stage is ours. The doors are the partner's. The revenue is shared on what closes, so neither side carries the other.</div>
+</section>
+
+<section>
+  <div class="num">3 · What the best media businesses teach</div>
+  <h2>The money is never in the content. It is in the room the content opens.</h2>
+  <p>We benchmarked twenty-four media businesses that turned a voice into profit, from celebrity houses and creator channels to venture-capital media, premium journalism, data platforms, event companies and paid clubs, in the United States, Europe and China. Four numbers carry the argument.</p>
+  <div class="three">
+    <div class="card"><div class="n">50–60%</div><p>of Semafor's revenue is event sponsorship. First profitable year in 2025 on $40M revenue, built on a free invite-only CEO newsletter.</p></div>
+    <div class="card"><div class="n">&lt;5%</div><p>of SemiAnalysis revenue comes from its newsletter. Research models and consulting carry a business heading past $100M.</p></div>
+    <div class="card"><div class="n">90%</div><p>of a Chinese business pundit's year-end show revenue is sponsorship. The same tentpole logic funds the New Year speech watched by 45 million people.</p></div>
+  </div>
+  <p style="margin-top:14px"><b>Six rules follow.</b> One ritual, not random content. Sell the room before the reach. Build a SemiAnalysis, not a Stratechery: in a B2B niche the newsletter is marketing and the profit is in data and advisory priced from €20k. Two tiers for everything. Media as deal flow is real but comes last. Keep overhead near zero: the houses that cut staff in 2024–2026 were the ones that hired for production. The full benchmark, with a revenue-mix chart and a map of where each model lives, is Document 1.</p>
+</section>
+
+<section>
+  <div class="num">4 · The design</div>
+  <h2>One editorial core, five product lines, one flywheel.</h2>
+  <p>Fragrant Hill is built as a single operating system rather than five businesses. Four inputs we already hold feed one core: an editorial engine with a single theme, a relationship graph, a production pipeline, a commercial desk and a back office. The core runs five product pillars. The sequence is deliberate: Live first because it sells on access rather than followers, Editorial second with one theme, Community and Advisory third once trust exists, Acceleration last as the by-product of being the house everyone talks to.</p>
+  <figure>
+    <h3>The system in one frame</h3>
+    <p class="sub">Inputs → core → pillars, with the horizon on which each pillar pays</p>
+    <svg viewBox="0 0 1000 300" role="img" aria-label="Simplified block diagram: four inputs feed the Fragrant Hill core which runs five pillars; Live pays short term, Advisory short to mid, Community mid, Editorial and Acceleration long." xmlns="http://www.w3.org/2000/svg" font-family="Archivo, system-ui, sans-serif">
+      <defs><marker id="pa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--ink-2)"/></marker></defs>
+      <g font-size="11" fill="var(--muted)" font-weight="600" letter-spacing=".08"><text x="20" y="24">INPUTS</text><text x="360" y="24">CORE</text><text x="700" y="24">PILLARS · HORIZON</text></g>
+      <g fill="var(--bg)" stroke="var(--line)">
+        <rect x="20" y="40" width="260" height="46" rx="3"/><rect x="20" y="100" width="260" height="46" rx="3"/><rect x="20" y="160" width="260" height="46" rx="3"/><rect x="20" y="220" width="260" height="46" rx="3"/>
+      </g>
+      <g font-size="12.5" font-weight="700" fill="var(--ink)">
+        <text x="32" y="59">Founder domain depth</text><text x="32" y="119">Talent and stage access</text><text x="32" y="179">Partner data, reports, founders</text><text x="32" y="239">Swedish AB + China partner entity</text>
+      </g>
+      <g font-size="11" fill="var(--ink-2)">
+        <text x="32" y="76">sensing, robotics, automotive, dealers</text><text x="32" y="136">celebrity concerts; artist interview done</text><text x="32" y="196">500+ founders, investor network</text><text x="32" y="256">bilingual production, invoicing both ways</text>
+      </g>
+      <g stroke="var(--ink-2)" stroke-width="1.2" fill="none" marker-end="url(#pa)"><path d="M280 63 H338"/><path d="M280 123 H338"/><path d="M280 183 H338"/><path d="M280 243 H338"/></g>
+      <rect x="340" y="40" width="300" height="226" rx="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.6"/>
+      <g font-size="12.5" font-weight="700" fill="var(--ink)">
+        <text x="356" y="66" style="fill:var(--accent)">Editorial engine · one theme</text>
+        <text x="356" y="108">Relationship graph · one CRM</text>
+        <text x="356" y="150">Production pipeline · AI-first</text>
+        <text x="356" y="192">Commercial desk · one rate card</text>
+        <text x="356" y="234">Back office · SEK, EUR, RMB</text>
+      </g>
+      <g stroke="var(--line)"><line x1="356" y1="80" x2="624" y2="80"/><line x1="356" y1="122" x2="624" y2="122"/><line x1="356" y1="164" x2="624" y2="164"/><line x1="356" y1="206" x2="624" y2="206"/></g>
+      <g stroke="var(--ink-2)" stroke-width="1.2" fill="none" marker-end="url(#pa)"><path d="M640 64 H696"/><path d="M640 110 H696"/><path d="M640 156 H696"/><path d="M640 202 H696"/><path d="M640 248 H696"/></g>
+      <g fill="var(--surface)" stroke="var(--line)">
+        <rect x="698" y="46" width="282" height="36" rx="3"/><rect x="698" y="92" width="282" height="36" rx="3"/><rect x="698" y="138" width="282" height="36" rx="3"/><rect x="698" y="184" width="282" height="36" rx="3"/><rect x="698" y="230" width="282" height="36" rx="3"/>
+      </g>
+      <rect x="698" y="46" width="6" height="36" fill="var(--p4)"/><rect x="698" y="92" width="6" height="36" fill="var(--p2)"/><rect x="698" y="138" width="6" height="36" fill="var(--p1)"/><rect x="698" y="184" width="6" height="36" fill="var(--p3)"/><rect x="698" y="230" width="6" height="36" fill="var(--p5)"/>
+      <g font-size="12.5" font-weight="700" fill="var(--ink)">
+        <text x="714" y="69">4 · Live &amp; Venues · Encore</text><text x="714" y="115">2 · Advisory</text><text x="714" y="161">1 · Editorial</text><text x="714" y="207">3 · Community</text><text x="714" y="253">5 · Acceleration</text>
+      </g>
+      <g font-size="10.5" fill="var(--muted)" text-anchor="end">
+        <text x="970" y="69">0–6 MONTHS</text><text x="970" y="115">0–12 MONTHS</text><text x="970" y="161">6–24 MONTHS</text><text x="970" y="207">6–24 MONTHS</text><text x="970" y="253">24+ MONTHS</text>
+      </g>
+      <text x="500" y="292" font-size="11" fill="var(--accent)" text-anchor="middle" font-weight="600">flywheel: every concert → content → audience → members → clients → deal flow → the next stage</text>
+    </svg>
+    <figcaption>Figure 1. The full architecture, with the flywheel drawn out and a table of who pays for what in each pillar, is Document 2.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="num">5 · How it runs</div>
+  <h2>Humans own the thesis, the relationship and the price. Agents own everything repeatable.</h2>
+  <p>Each pillar runs as a swimlane with three lanes: the founder, AI agents, and partners or contractors. One studio day feeds six channels in two languages through a transcription, cutting, dubbing and scheduling pipeline that costs roughly $350–600 a month. Advisory work caps at two days a week so the editorial rhythm holds. Sponsorship sales are drafted by an agent and closed by a human. Finance, invoicing and the China entity sit with partners. Year-one headcount is one founder, about 1.5 contractor FTE, and six agent roles built on the skills already written for this house: content pipeline, sponsorship proposal, design system, English coaching.</p>
+  <div class="three">
+    <div class="card"><b>Weekly</b><p>Monday plan. Tuesday record two guests. Thursday review AI cuts. Friday publish in six channels and send sponsor follow-ups.</p></div>
+    <div class="card"><b>Monthly and quarterly</b><p>One salon on a Live stage with 2–3 sponsors. One sponsor recap, one member digest, one P&amp;L by pillar. Each quarter a season closes and a co-branded report ships.</p></div>
+    <div class="card"><b>Yearly</b><p>One flagship tour. One study trip in each direction. One founder cohort. One published "Requests for Companies" list, the YC device adapted to Nordic robotics.</p></div>
+  </div>
+  <p style="margin-top:14px">The five workflow diagrams, the stack map of skills, connectors and agents, and the operating calendar are Document 3.</p>
+</section>
+
+<section>
+  <div class="num">6 · The first product</div>
+  <h2>Encore: a presenting-partner programme for a 2027 European tour, first cash in sixty days.</h2>
+  <div class="two">
+    <div>
+      <p><b>The property.</b> A pianist with sold-out halls across Europe and a claimed 16–20 million social following, a current major-label album, an autumn 2026 European run and listed 2027 dates in London, Hamburg and Bonn. No whole-tour presenting partner has ever been announced for this artist. A Nordic leg is open, and November is when 2027 marketing budgets are set.</p>
+      <p><b>The buyers.</b> European premium car makers have sponsored classical music for decades. Chinese automotive, robotics and consumer-tech brands entering Europe have not used the playbook; their European marketing went to football. A brand launching in the Nordics needs a room where dealers, fleet buyers, journalists and officials want to be. A concert hall is that room.</p>
+    </div>
+    <div>
+      <div class="twrap">
+      <table>
+        <thead><tr><th>Line</th><th class="n">Base · 60 days</th><th class="n">Full ladder · 2027</th></tr></thead>
+        <tbody>
+          <tr><td>Gross sponsorship</td><td class="n">€220k</td><td class="n">€1,110k</td></tr>
+          <tr><td>Cash on signature (50%)</td><td class="n">€110k</td><td class="n">€555k</td></tr>
+          <tr><td>Commission (20%)</td><td class="n">€44k</td><td class="n">€222k</td></tr>
+          <tr><td>Production and content fees</td><td class="n">€20k</td><td class="n">€110k</td></tr>
+          <tr class="total"><td>To the partnership</td><td class="n">€64k</td><td class="n">€332k</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>Ladder: one presenting partner at €450k, three category-exclusive official partners at €150k, six hospitality partners at €35k. Prices anchor on the only disclosed classical-music fee at this scale, on six-figure festival and radio deals, and on the artist's own earlier personal sponsorship.</p>
+    </div>
+  </div>
+  <p><b>The honest caveat.</b> Six-figure sponsorships normally take 9–18 months to close. Sixty days works only with warm introductions, the Q4 budget window and deposit terms. The base case needs three signatures, not ten, and if fewer than five term sheets are live by week six we extend the window and say so. The artist's automotive history means category availability is confirmed in writing before any car brand is pitched; if automotive is closed, the presenting tier goes to robotics and consumer technology. Packages, the 60-day plan, risks and the detailed ask are Document 4.</p>
+</section>
+
+<section>
+  <div class="num">7 · Three-year outlook</div>
+  <h2>A planning case of €1.8M by year three, with three to four people.</h2>
+  <figure>
+    <h3>Revenue by pillar, planning case</h3>
+    <p class="sub">€ thousand, calendar years 2027–2029; Encore base case in year one, full ladder from year two</p>
+    <div class="legend"><span><i style="background:var(--p1)"></i>1 Editorial</span><span><i style="background:var(--p2)"></i>2 Advisory</span><span><i style="background:var(--p3)"></i>3 Community</span><span><i style="background:var(--p4)"></i>4 Live &amp; Encore</span><span><i style="background:var(--p5)"></i>5 Acceleration</span></div>
+    <svg viewBox="0 0 700 440" role="img" aria-label="Stacked bars: 2027 total 280 thousand euros led by Live; 2028 total 900 thousand; 2029 total 1.8 million with Live 700, Advisory 350, Community 300, Editorial 250, Acceleration 200." xmlns="http://www.w3.org/2000/svg" font-family="Archivo, system-ui, sans-serif">
+      <g stroke="var(--line-2)"><line x1="100" y1="300" x2="660" y2="300"/><line x1="100" y1="200" x2="660" y2="200"/><line x1="100" y1="100" x2="660" y2="100"/></g>
+      <g font-size="11" fill="var(--muted)" text-anchor="end" font-variant-numeric="tabular-nums"><text x="92" y="404">0</text><text x="92" y="304">500</text><text x="92" y="204">1,000</text><text x="92" y="104">1,500</text></g>
+      <line x1="100" y1="400" x2="660" y2="400" stroke="var(--ink-2)"/>
+      <!-- 2027 -->
+      <rect x="180" y="395" width="32" height="4" fill="var(--p1)"/><rect x="180" y="379" width="32" height="14" fill="var(--p2)"/><rect x="180" y="375" width="32" height="2" fill="var(--p3)"/><rect x="180" y="345" width="32" height="28" fill="var(--p4)"/>
+      <!-- 2028 -->
+      <rect x="360" y="377" width="32" height="22" fill="var(--p1)"/><rect x="360" y="337" width="32" height="38" fill="var(--p2)"/><rect x="360" y="313" width="32" height="22" fill="var(--p3)"/><rect x="360" y="233" width="32" height="78" fill="var(--p4)"/><rect x="360" y="221" width="32" height="10" fill="var(--p5)"/>
+      <!-- 2029 -->
+      <rect x="540" y="351" width="32" height="48" fill="var(--p1)"/><rect x="540" y="281" width="32" height="68" fill="var(--p2)"/><rect x="540" y="221" width="32" height="58" fill="var(--p3)"/><rect x="540" y="81" width="32" height="138" fill="var(--p4)"/><rect x="540" y="41" width="32" height="38" fill="var(--p5)"/>
+      <g font-size="13" font-weight="700" fill="var(--ink)" text-anchor="middle" font-variant-numeric="tabular-nums"><text x="196" y="336">€280k</text><text x="376" y="212">€900k</text><text x="556" y="32">€1.8M</text></g>
+      <g font-size="12" fill="var(--ink-2)" text-anchor="middle"><text x="196" y="422">2027 · year 1</text><text x="376" y="422">2028 · year 2</text><text x="556" y="422">2029 · year 3</text></g>
+    </svg>
+    <figcaption>Figure 2. Planning assumptions, not forecasts. Year one is the Encore base case plus two advisory retainers and a first season sponsor. Year two adds the full Encore ladder, membership and a first cohort. Benchmarks for AI-native houses run $150–450k revenue per head; €1.8M with four people sits inside that band.</figcaption>
+  </figure>
+  <div class="twrap">
+  <table>
+    <thead><tr><th>Pillar</th><th class="n">2027</th><th class="n">2028</th><th class="n">2029</th><th>Driver</th></tr></thead>
+    <tbody>
+      <tr><td><span class="dot" style="background:var(--p4)"></span>4 Live &amp; Encore</td><td class="n">150</td><td class="n">400</td><td class="n">700</td><td>Base-case commission and fees in year one; full ladder, four salons and sponsor-activation production from year two</td></tr>
+      <tr><td><span class="dot" style="background:var(--p2)"></span>2 Advisory</td><td class="n">80</td><td class="n">200</td><td class="n">350</td><td>Two retainers at €4–6k a month, one report licence a quarter, day rate €1,500–3,000</td></tr>
+      <tr><td><span class="dot" style="background:var(--p1)"></span>1 Editorial</td><td class="n">30</td><td class="n">120</td><td class="n">250</td><td>One season sponsor in year one; newsletter slots at €500–1,000 and bundled packages from year two</td></tr>
+      <tr><td><span class="dot" style="background:var(--p3)"></span>3 Community</td><td class="n">20</td><td class="n">120</td><td class="n">300</td><td>Base tier €400, club €4–8k; 80 and 15 members by end of year one, 300 and 50 by year three</td></tr>
+      <tr><td><span class="dot" style="background:var(--p5)"></span>5 Acceleration</td><td class="n">0</td><td class="n">60</td><td class="n">200</td><td>First cohort in year two at €15–25k per company plus scout fees; carry excluded</td></tr>
+      <tr class="total"><td>Total, € thousand</td><td class="n">280</td><td class="n">900</td><td class="n">1,800</td><td></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>What would change our mind.</b> If Encore fails to sign one official partner by week eight, the sequence flips: advisory retainers fund year one and Live moves to salons before tours. If the interview series has fewer than 2,000 real subscribers after two seasons, Community is postponed, not launched thin. We will report both signals to the partner monthly.</p>
+</section>
+
+<section>
+  <div class="num">8 · Terms we propose</div>
+  <h2>Share revenue on what closes. Keep each side's assets with its owner.</h2>
+  <div class="twrap">
+  <table>
+    <thead><tr><th>Area</th><th>Fragrant Hill</th><th>Partner</th><th>Split proposed</th></tr></thead>
+    <tbody>
+      <tr><td>Encore sponsorship</td><td>Property, packages, pitch, contracts, production, hospitality, content</td><td>Introductions, sponsor-side champion, category intelligence</td><td>Commission 50/50 on sponsors the partner introduced; Fragrant Hill keeps commission on its own leads; production fees to Fragrant Hill</td></tr>
+      <tr><td>Advisory and reports</td><td>European operator, thesis, client delivery, layout</td><td>Data, reports, analysts, expert access</td><td>30% of advisory revenue on projects using partner data; co-branded reports 50/50 net of production</td></tr>
+      <tr><td>Editorial</td><td>Series, channels, production</td><td>Guest access to founders and investors; distribution in China channels</td><td>No revenue share; mutual credit and cross-posting; editorial independence stays with Fragrant Hill</td></tr>
+      <tr><td>Community</td><td>European club, salons, trips westbound</td><td>Member referrals, trips eastbound, venues in China</td><td>Referral fee 20% of first-year dues both ways</td></tr>
+      <tr><td>Acceleration</td><td>Nordic soft-landing programme, corporate and dealer introductions</td><td>Cohort selection, fund economics</td><td>Programme fee 70/30 Fragrant Hill/partner; scout fees on the partner's fund terms</td></tr>
+      <tr><td>Governance</td><td colspan="2">One shared CRM with pillar tags; monthly pipeline report; quarterly review; no exclusivity beyond Encore category rights in year one; editorial IP stays with Fragrant Hill, co-branded research is joint</td><td>Twelve-month agreement, renewable</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <div class="num">9 · The next ninety days</div>
+  <h2>Decide in November, sign in December, record in January.</h2>
+  <ol class="plan">
+    <li><b>November 2026</b>Go decision by 15 November. Artist dates, categories and venues confirmed in writing. Packages and deck finished. Twenty introductions received. First pitches booked.</li>
+    <li><b>December 2026</b>Fifteen to twenty pitch meetings. Term sheets by mid-month. First contracts and 50% deposits before year end. Season one of the interview series planned: twelve guests, half from the partner's network.</li>
+    <li><b>January 2027</b>Activation planning with signed sponsors. Season one recording begins on the weekly rhythm. First Stockholm salon scheduled for March with two sponsors. Advisory pipeline opened with three target clients.</li>
+  </ol>
+  <p style="margin-top:16px"><b>Decision requested:</b> go or no-go on Encore and the twelve-month partnership frame, by 15 November 2026.</p>
+</section>
+
+<section style="border-bottom:0">
+  <div class="num">Companion documents</div>
+  <h2>Each piece stands alone and can be edited without touching the others.</h2>
+  <div class="links">
+    <a href="https://claude.ai/artifact/NMiFXceztyHtZcjuXKa2ot"><em>1</em>Business model benchmark<span>Twenty-four models, revenue-mix chart, model map, six rules</span></a>
+    <a href="https://claude.ai/artifact/Hwi7q9nFes6FPQB6y2Vwi9"><em>2</em>System architecture<span>Inputs, core, five pillars, flywheel, horizon</span></a>
+    <a href="https://claude.ai/artifact/LAqUVvr1cXb2WsNy3QDUAW"><em>3</em>Operating system<span>Five swimlane workflows, stack map, calendar, team shape</span></a>
+    <a href="https://claude.ai/artifact/QPd9fQRUpgLywwJewN66zJ"><em>4</em>Encore proposal<span>Package ladder, sixty-day plan, economics, risks, the ask</span></a>
+  </div>
+  <div class="foot"><span>Sources and research notes are kept in the project repository under framework/research. All figures marked as planning cases are assumptions, not forecasts.</span><span>Fragrant Hill Studio · Stockholm · November 2026</span></div>
+</section>
+</div>

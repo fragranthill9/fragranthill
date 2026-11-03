@@ -1,0 +1,370 @@
+<title>Fragrant Hill Operating System</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400&display=swap">
+<style>
+/* Layout: one column of five workflow sheets, each with a swimlane diagram, then the stack map and the operating calendar. */
+:root{
+  --bg:#F4F4F1; --surface:#FFFFFF; --ink:#16191D; --ink-2:#4B5159; --muted:#7A808A; --line:#DADBD6; --line-2:#EBECE8;
+  --accent:#B42318; --accent-soft:#F7E4E1;
+  --p1:#B42318; --p2:#1D4ED8; --p3:#0E9F8A; --p4:#C2410C; --p5:#7C3AED;
+  --p1-soft:#F8E6E3; --p2-soft:#E3EAFB; --p3-soft:#DDF3EF; --p4-soft:#FAE7DE; --p5-soft:#EEE5FB;
+  --display:"Archivo",system-ui,sans-serif; --body:"Source Serif 4",Georgia,serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#121416; --surface:#1B1E22; --ink:#ECEDE9; --ink-2:#B9BDC3; --muted:#858B94; --line:#2E3338; --line-2:#24282D;
+  --accent:#E0523F; --accent-soft:#3A1F1C;
+  --p1:#E0523F; --p2:#5B8CFF; --p3:#2BBFA7; --p4:#F0763B; --p5:#A77BFF;
+  --p1-soft:#33201E; --p2-soft:#1C2740; --p3-soft:#17302C; --p4-soft:#36251B; --p5-soft:#2A2238; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#121416; --surface:#1B1E22; --ink:#ECEDE9; --ink-2:#B9BDC3; --muted:#858B94; --line:#2E3338; --line-2:#24282D;
+  --accent:#E0523F; --accent-soft:#3A1F1C;
+  --p1:#E0523F; --p2:#5B8CFF; --p3:#2BBFA7; --p4:#F0763B; --p5:#A77BFF;
+  --p1-soft:#33201E; --p2-soft:#1C2740; --p3-soft:#17302C; --p4-soft:#36251B; --p5-soft:#2A2238; color-scheme:dark }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+.sheet{max-width:1240px;margin:0 auto}
+header{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:flex-end;justify-content:space-between;padding:28px 0 18px;border-bottom:2px solid var(--ink)}
+.brand{display:flex;align-items:center;gap:14px}
+.seal{width:44px;height:44px;border:2px solid var(--accent);color:var(--accent);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:15px;border-radius:4px}
+.brand b{font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.08em;text-transform:uppercase;display:block}
+.brand span{color:var(--muted);font-size:13px;font-family:var(--display)}
+.doc{font-family:var(--display);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:right}
+.doc b{color:var(--ink);display:block;font-size:13px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(28px,4vw,46px);line-height:1.02;letter-spacing:-.02em;margin:28px 0 8px;text-wrap:balance;max-width:22ch}
+.lede{font-size:17px;max-width:66ch;color:var(--ink-2);margin:0 0 22px}
+.core{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:8px}
+.core div{background:var(--surface);border:1px solid var(--line);padding:14px 16px}
+.core b{font-family:var(--display);font-size:13px;display:block;margin-bottom:4px}
+.core p{margin:0;font-size:14px;color:var(--ink-2)}
+section.wf{margin-top:34px;border-top:2px solid var(--pc);padding-top:12px}
+section.wf .eyebrow{font-family:var(--display);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--pc);font-weight:700}
+section.wf h2{font-family:var(--display);font-size:24px;letter-spacing:-.01em;margin:4px 0 6px;text-wrap:balance}
+section.wf .problem{margin:0 0 12px;color:var(--ink-2);max-width:78ch}
+figure{margin:0;background:var(--surface);border:1px solid var(--line);padding:0 0 4px;overflow-x:auto}
+figure svg{display:block;min-width:1000px;width:100%;height:auto}
+figcaption{font-family:var(--display);font-size:12px;color:var(--muted);padding:8px 14px 6px}
+.meta{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px 28px;margin-top:12px;font-size:14px;color:var(--ink-2)}
+.meta b{font-family:var(--display);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px}
+.meta p{margin:0}
+h2.sec{font-family:var(--display);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:36px 0 10px;padding-top:10px;border-top:2px solid var(--accent)}
+.twrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-family:var(--display);font-size:12.5px;min-width:900px}
+th{text-align:left;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:8px;border-bottom:2px solid var(--ink)}
+td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+td:first-child{color:var(--ink);font-weight:700;white-space:nowrap}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;vertical-align:-1px}
+.cal{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.cal div{background:var(--surface);border:1px solid var(--line);padding:12px 14px;font-size:14px;color:var(--ink-2)}
+.cal b{font-family:var(--display);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);display:block;margin-bottom:6px}
+.team{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.team div{background:var(--surface);border:1px solid var(--line);padding:12px 14px;font-size:14px;color:var(--ink-2)}
+.team b{font-family:var(--display);font-size:13px;color:var(--ink);display:block;margin-bottom:4px}
+.num{font-family:var(--display);font-variant-numeric:tabular-nums}
+.foot{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--display);font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+@media (max-width:900px){.core,.cal,.team{grid-template-columns:1fr}.meta{grid-template-columns:1fr}.doc{text-align:left}}
+</style>
+<div class="sheet">
+<header>
+  <div class="brand"><div class="seal">香山</div><div><b>Fragrant Hill Studio</b><span>Editorial house · Stockholm · Europe ↔ China</span></div></div>
+  <div class="doc"><b>Document 3 of 5 · Operating system</b>Five workflows · v1.0 · November 2026</div>
+</header>
+<h1>Five workflows, three lanes, one calendar.</h1>
+<p class="lede">Each pillar runs as a swimlane: what Lan does, what AI agents do, what a partner or contractor does. The rule is simple. Humans own the thesis, the relationship and the price. Agents own research, production, distribution and follow-up. Partners own what they already have: data, cohorts, venues, invoicing in China. Nothing here needs a full-time hire in year one.</p>
+<div class="core">
+  <div><b>Shared core · Relationship graph</b><p>One CRM (Attio or HubSpot) holds every guest, sponsor, member, founder and investor with a pillar tag. Agents read and write it; Lan sees one pipeline.</p></div>
+  <div><b>Shared core · Production pipeline</b><p>Riverside → Descript → OpusClip → HeyGen → scheduled posts via n8n. Lean stack runs at roughly $350–600 a month, rising to $900–1,400 with agents and API usage.</p></div>
+  <div><b>Shared core · Back office</b><p>Swedish AB invoices Europe. A Chinese partner entity issues fapiao and remits net of its fee, which avoids the 6% withholding on services paid to a foreign company.</p></div>
+</div>
+<section class="wf" style="--pc:var(--p1)">
+<div class="eyebrow">P1 · Editorial</div>
+<h2>One studio day, six channels, two languages.</h2>
+<p class="problem">Six months of recording produced no audience because every piece was a one-off: a new guest, a hired crew, one channel, no theme. The fix is a repeatable line, not more effort.</p>
+<figure>
+<svg viewBox="0 0 1232 284" role="img" aria-label="Swimlane workflow for Editorial: Plan the season, Brief and book, Record, Produce, Publish, Sell and report" xmlns="http://www.w3.org/2000/svg" font-family="Archivo, system-ui, sans-serif">
+<defs><marker id="mp1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--ink-2)"/></marker></defs>
+<rect x="0" y="30" width="1232" height="72" fill="var(--surface)"/>
+<line x1="0" y1="30" x2="1232" y2="30" stroke="var(--line)"/>
+<text x="12" y="70" font-size="11" font-weight="700" fill="var(--muted)" letter-spacing=".08">LAN · HUMAN</text>
+<rect x="0" y="102" width="1232" height="72" fill="var(--bg)"/>
+<line x1="0" y1="102" x2="1232" y2="102" stroke="var(--line)"/>
+<text x="12" y="142" font-size="11" font-weight="700" fill="var(--muted)" letter-spacing=".08">AI AGENTS</text>
+<rect x="0" y="174" width="1232" height="72" fill="var(--surface)"/>
+<line x1="0" y1="174" x2="1232" y2="174" stroke="var(--line)"/>
+<text x="12" y="214" font-size="11" font-weight="700" fill="var(--muted)" letter-spacing=".08">PARTNER · CONTRACTOR</text>
+<line x1="0" y1="246" x2="1232" y2="246" stroke="var(--line)"/>
+<path d="M322 66 H326 V138 H329" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp1)"/>
+<path d="M502 138 H506 V210 H509" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp1)"/>
+<path d="M682 210 H686 V138 H689" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp1)"/>
+<path d="M862 138 H869" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp1)"/>
+<path d="M1042 138 H1046 V66 H1049" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp1)"/>
+<rect x="150" y="37" width="172" height="58" rx="3" fill="var(--p1-soft)" stroke="var(--p1)" stroke-width="1.2"/>
+<text x="160" y="54" font-size="12" font-weight="700" fill="var(--ink)">1 · Plan the season</text>
+<text x="160" y="70" font-size="10.5" fill="var(--ink-2)">12 guests, 1 theme, 1 sponsor</text>
+<text x="160" y="84" font-size="10.5" fill="var(--ink-2)">slot</text>
+<rect x="330" y="109" width="172" height="58" rx="3" fill="var(--p1-soft)" stroke="var(--p1)" stroke-width="1.2"/>
+<text x="340" y="126" font-size="12" font-weight="700" fill="var(--ink)">2 · Brief and book</text>
+<text x="340" y="142" font-size="10.5" fill="var(--ink-2)">research memo, outreach draft</text>
+<text x="340" y="156" font-size="10.5" fill="var(--ink-2)">Lan sends</text>
+<rect x="510" y="181" width="172" height="58" rx="3" fill="var(--p1-soft)" stroke="var(--p1)" stroke-width="1.2"/>
+<text x="520" y="198" font-size="12" font-weight="700" fill="var(--ink)">3 · Record</text>
+<text x="520" y="214" font-size="10.5" fill="var(--ink-2)">Riverside remote or crew day</text>
+<text x="520" y="228" font-size="10.5" fill="var(--ink-2)">2 guests per day</text>
+<rect x="690" y="109" width="172" height="58" rx="3" fill="var(--p1-soft)" stroke="var(--p1)" stroke-width="1.2"/>
+<text x="700" y="126" font-size="12" font-weight="700" fill="var(--ink)">4 · Produce</text>
+<text x="700" y="142" font-size="10.5" fill="var(--ink-2)">Descript cut, OpusClip shorts</text>
+<text x="700" y="156" font-size="10.5" fill="var(--ink-2)">HeyGen ZH/EN dub</text>
+<rect x="870" y="109" width="172" height="58" rx="3" fill="var(--p1-soft)" stroke="var(--p1)" stroke-width="1.2"/>
+<text x="880" y="126" font-size="12" font-weight="700" fill="var(--ink)">5 · Publish</text>
+<text x="880" y="142" font-size="10.5" fill="var(--ink-2)">YouTube, LinkedIn, newsletter</text>
+<text x="880" y="156" font-size="10.5" fill="var(--ink-2)">公众号, 视频号, Bilibili</text>
+<rect x="1050" y="37" width="172" height="58" rx="3" fill="var(--p1-soft)" stroke="var(--p1)" stroke-width="1.2"/>
+<text x="1060" y="54" font-size="12" font-weight="700" fill="var(--ink)">6 · Sell and report</text>
+<text x="1060" y="70" font-size="10.5" fill="var(--ink-2)">season sponsor, recap, rate</text>
+<text x="1060" y="84" font-size="10.5" fill="var(--ink-2)">card</text>
+<path d="M1136 95 V264 H236 V96" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#mp1)"/>
+<text x="686" y="278" font-size="10.5" text-anchor="middle" fill="var(--accent)" font-weight="600">analytics and sponsor feedback shape the next season</text>
+</svg>
+<figcaption>Workflow P1. Boxes sit in the lane of whoever does the work; the dashed red return is the loop that feeds the next pillar.</figcaption>
+</figure>
+<div class="meta"><div><b>Cadence</b><p>Weekly: Monday plan, Tuesday record two guests, Thursday the AI pipeline delivers cuts for review, Friday publish everywhere. Monthly: one sponsor recap. Quarterly: one season.</p></div><div><b>Targets and unit economics</b><p>Month 6: 2,000 email subscribers, 3,000 LinkedIn, 1,500 YouTube, first season sponsor. Month 12: 6,000 / 10,000 / 5,000 and €500–1,000 per newsletter slot.</p></div></div>
+</section>
+<section class="wf" style="--pc:var(--p2)">
+<div class="eyebrow">P2 · Advisory</div>
+<h2>Turn partner data and the founder&#x27;s seat into paid answers.</h2>
+<p class="problem">The partner holds data, reports, analysis and a founder network that currently earn nothing in Europe. A Swedish operator with an automotive and sensing background is the missing translator.</p>
+<figure>
+<svg viewBox="0 0 1232 284" role="img" aria-label="Swimlane workflow for Advisory: Intake, Source, Digest and model, Thesis and workshop, Package, Convert" xmlns="http://www.w3.org/2000/svg" font-family="Archivo, system-ui, sans-serif">
+<defs><marker id="mp2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--ink-2)"/></marker></defs>
+<rect x="0" y="30" width="1232" height="72" fill="var(--surface)"/>
+<line x1="0" y1="30" x2="1232" y2="30" stroke="var(--line)"/>
+<text x="12" y="70" font-size="11" font-weight="700" fill="var(--muted)" letter-spacing=".08">LAN · HUMAN</text>
+<rect x="0" y="102" width="1232" height="72" fill="var(--bg)"/>
+<line x1="0" y1="102" x2="1232" y2="102" stroke="var(--line)"/>
+<text x="12" y="142" font-size="11" font-weight="700" fill="var(--muted)" letter-spacing=".08">AI AGENTS</text>
+<rect x="0" y="174" width="1232" height="72" fill="var(--surface)"/>
+<line x1="0" y1="174" x2="1232" y2="174" stroke="var(--line)"/>
+<text x="12" y="214" font-size="11" font-weight="700" fill="var(--muted)" letter-spacing=".08">PARTNER · CONTRACTOR</text>
+<line x1="0" y1="246" x2="1232" y2="246" stroke="var(--line)"/>
+<path d="M322 66 H326 V210 H329" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp2)"/>
+<path d="M502 210 H506 V138 H509" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp2)"/>
+<path d="M682 138 H686 V66 H689" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp2)"/>
+<path d="M862 66 H866 V210 H869" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp2)"/>
+<path d="M1042 210 H1046 V66 H1049" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp2)"/>
+<rect x="150" y="37" width="172" height="58" rx="3" fill="var(--p2-soft)" stroke="var(--p2)" stroke-width="1.2"/>
+<text x="160" y="54" font-size="12" font-weight="700" fill="var(--ink)">1 · Intake</text>
+<text x="160" y="70" font-size="10.5" fill="var(--ink-2)">client question; scope and</text>
+<text x="160" y="84" font-size="10.5" fill="var(--ink-2)">price in 48 hours</text>
+<rect x="330" y="181" width="172" height="58" rx="3" fill="var(--p2-soft)" stroke="var(--p2)" stroke-width="1.2"/>
+<text x="340" y="198" font-size="12" font-weight="700" fill="var(--ink)">2 · Source</text>
+<text x="340" y="214" font-size="10.5" fill="var(--ink-2)">partner reports, datasets</text>
+<text x="340" y="228" font-size="10.5" fill="var(--ink-2)">expert calls</text>
+<rect x="510" y="109" width="172" height="58" rx="3" fill="var(--p2-soft)" stroke="var(--p2)" stroke-width="1.2"/>
+<text x="520" y="126" font-size="12" font-weight="700" fill="var(--ink)">3 · Digest and model</text>
+<text x="520" y="142" font-size="10.5" fill="var(--ink-2)">NotebookLM, Claude Project</text>
+<text x="520" y="156" font-size="10.5" fill="var(--ink-2)">Elicit; sourced draft</text>
+<rect x="690" y="37" width="172" height="58" rx="3" fill="var(--p2-soft)" stroke="var(--p2)" stroke-width="1.2"/>
+<text x="700" y="54" font-size="12" font-weight="700" fill="var(--ink)">4 · Thesis and workshop</text>
+<text x="700" y="70" font-size="10.5" fill="var(--ink-2)">Lan owns the answer; half-day</text>
+<text x="700" y="84" font-size="10.5" fill="var(--ink-2)">with client</text>
+<rect x="870" y="181" width="172" height="58" rx="3" fill="var(--p2-soft)" stroke="var(--p2)" stroke-width="1.2"/>
+<text x="880" y="198" font-size="12" font-weight="700" fill="var(--ink)">5 · Package</text>
+<text x="880" y="214" font-size="10.5" fill="var(--ink-2)">designer lays out report</text>
+<text x="880" y="228" font-size="10.5" fill="var(--ink-2)">translation QA</text>
+<rect x="1050" y="37" width="172" height="58" rx="3" fill="var(--p2-soft)" stroke="var(--p2)" stroke-width="1.2"/>
+<text x="1060" y="54" font-size="12" font-weight="700" fill="var(--ink)">6 · Convert</text>
+<text x="1060" y="70" font-size="10.5" fill="var(--ink-2)">retainer, co-branded report</text>
+<text x="1060" y="84" font-size="10.5" fill="var(--ink-2)">next project</text>
+<path d="M1136 95 V264 H236 V96" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#mp2)"/>
+<text x="686" y="278" font-size="10.5" text-anchor="middle" fill="var(--accent)" font-weight="600">every project becomes an anonymised insight for Editorial and a member for Community</text>
+</svg>
+<figcaption>Workflow P2. Boxes sit in the lane of whoever does the work; the dashed red return is the loop that feeds the next pillar.</figcaption>
+</figure>
+<div class="meta"><div><b>Cadence</b><p>Two advisory days a week maximum, so Editorial keeps its rhythm. Quarterly: one co-branded report sold under licence.</p></div><div><b>Targets and unit economics</b><p>Day rate €1,500–3,000. Target by month 12: two retainers at €4–6k a month plus one report licence a quarter.</p></div></div>
+</section>
+<section class="wf" style="--pc:var(--p3)">
+<div class="eyebrow">P3 · Community</div>
+<h2>From audience to a vetted room, in two tiers.</h2>
+<p class="problem">Memberships only work with trust already built. This pillar starts after Editorial has 2,000 real subscribers and Live has filled one room.</p>
+<figure>
+<svg viewBox="0 0 1232 284" role="img" aria-label="Swimlane workflow for Community: Define the promise, Segment and invite, Vet, Host the platform, Run the programme, Renew" xmlns="http://www.w3.org/2000/svg" font-family="Archivo, system-ui, sans-serif">
+<defs><marker id="mp3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--ink-2)"/></marker></defs>
+<rect x="0" y="30" width="1232" height="72" fill="var(--surface)"/>
+<line x1="0" y1="30" x2="1232" y2="30" stroke="var(--line)"/>
+<text x="12" y="70" font-size="11" font-weight="700" fill="var(--muted)" letter-spacing=".08">LAN · HUMAN</text>
+<rect x="0" y="102" width="1232" height="72" fill="var(--bg)"/>
+<line x1="0" y1="102" x2="1232" y2="102" stroke="var(--line)"/>
+<text x="12" y="142" font-size="11" font-weight="700" fill="var(--muted)" letter-spacing=".08">AI AGENTS</text>
+<rect x="0" y="174" width="1232" height="72" fill="var(--surface)"/>
+<line x1="0" y1="174" x2="1232" y2="174" stroke="var(--line)"/>
+<text x="12" y="214" font-size="11" font-weight="700" fill="var(--muted)" letter-spacing=".08">PARTNER · CONTRACTOR</text>
+<line x1="0" y1="246" x2="1232" y2="246" stroke="var(--line)"/>
+<path d="M322 66 H326 V138 H329" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp3)"/>
+<path d="M502 138 H506 V66 H509" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp3)"/>
+<path d="M682 66 H686 V210 H689" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp3)"/>
+<path d="M862 210 H866 V138 H869" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp3)"/>
+<path d="M1042 138 H1046 V66 H1049" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp3)"/>
+<rect x="150" y="37" width="172" height="58" rx="3" fill="var(--p3-soft)" stroke="var(--p3)" stroke-width="1.2"/>
+<text x="160" y="54" font-size="12" font-weight="700" fill="var(--ink)">1 · Define the promise</text>
+<text x="160" y="70" font-size="10.5" fill="var(--ink-2)">who is in, who is not, what</text>
+<text x="160" y="84" font-size="10.5" fill="var(--ink-2)">they get</text>
+<rect x="330" y="109" width="172" height="58" rx="3" fill="var(--p3-soft)" stroke="var(--p3)" stroke-width="1.2"/>
+<text x="340" y="126" font-size="12" font-weight="700" fill="var(--ink)">2 · Segment and invite</text>
+<text x="340" y="142" font-size="10.5" fill="var(--ink-2)">CRM scoring, personal</text>
+<text x="340" y="156" font-size="10.5" fill="var(--ink-2)">invitations drafted</text>
+<rect x="510" y="37" width="172" height="58" rx="3" fill="var(--p3-soft)" stroke="var(--p3)" stroke-width="1.2"/>
+<text x="520" y="54" font-size="12" font-weight="700" fill="var(--ink)">3 · Vet</text>
+<text x="520" y="70" font-size="10.5" fill="var(--ink-2)">15-minute call; revenue or</text>
+<text x="520" y="84" font-size="10.5" fill="var(--ink-2)">role bar</text>
+<rect x="690" y="181" width="172" height="58" rx="3" fill="var(--p3-soft)" stroke="var(--p3)" stroke-width="1.2"/>
+<text x="700" y="198" font-size="12" font-weight="700" fill="var(--ink)">4 · Host the platform</text>
+<text x="700" y="214" font-size="10.5" fill="var(--ink-2)">Circle in Europe, 知识星球 in</text>
+<text x="700" y="228" font-size="10.5" fill="var(--ink-2)">China; logistics for trips</text>
+<rect x="870" y="109" width="172" height="58" rx="3" fill="var(--p3-soft)" stroke="var(--p3)" stroke-width="1.2"/>
+<text x="880" y="126" font-size="12" font-weight="700" fill="var(--ink)">5 · Run the programme</text>
+<text x="880" y="142" font-size="10.5" fill="var(--ink-2)">monthly digest, salon prep</text>
+<text x="880" y="156" font-size="10.5" fill="var(--ink-2)">course material</text>
+<rect x="1050" y="37" width="172" height="58" rx="3" fill="var(--p3-soft)" stroke="var(--p3)" stroke-width="1.2"/>
+<text x="1060" y="54" font-size="12" font-weight="700" fill="var(--ink)">6 · Renew</text>
+<text x="1060" y="70" font-size="10.5" fill="var(--ink-2)">engagement score flags, Lan</text>
+<text x="1060" y="84" font-size="10.5" fill="var(--ink-2)">calls the top 20</text>
+<path d="M1136 95 V264 H236 V96" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#mp3)"/>
+<text x="686" y="278" font-size="10.5" text-anchor="middle" fill="var(--accent)" font-weight="600">members become guests, sponsors and advisory clients</text>
+</svg>
+<figcaption>Workflow P3. Boxes sit in the lane of whoever does the work; the dashed red return is the loop that feeds the next pillar.</figcaption>
+</figure>
+<div class="meta"><div><b>Cadence</b><p>Monthly salon (hosted on a Live stage), quarterly course, one study trip a year in each direction.</p></div><div><b>Targets and unit economics</b><p>Base tier €400 a year, vetted club €4,000–8,000 a year. Month 12: 80 base members, 15 club members. Month 24: 300 and 50.</p></div></div>
+</section>
+<section class="wf" style="--pc:var(--p4)">
+<div class="eyebrow">P4 · Live &amp; Venues · Encore</div>
+<h2>From stage access to sponsor cash, in one quarter.</h2>
+<p class="problem">This is the entry pillar. It is the only line that sells on access and association rather than follower counts, so it can close before the audience exists.</p>
+<figure>
+<svg viewBox="0 0 1232 284" role="img" aria-label="Swimlane workflow for Live &amp; Venues · Encore: Secure the property, Package, Introduce, Pitch and close, Deliver, Renew" xmlns="http://www.w3.org/2000/svg" font-family="Archivo, system-ui, sans-serif">
+<defs><marker id="mp4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--ink-2)"/></marker></defs>
+<rect x="0" y="30" width="1232" height="72" fill="var(--surface)"/>
+<line x1="0" y1="30" x2="1232" y2="30" stroke="var(--line)"/>
+<text x="12" y="70" font-size="11" font-weight="700" fill="var(--muted)" letter-spacing=".08">LAN · HUMAN</text>
+<rect x="0" y="102" width="1232" height="72" fill="var(--bg)"/>
+<line x1="0" y1="102" x2="1232" y2="102" stroke="var(--line)"/>
+<text x="12" y="142" font-size="11" font-weight="700" fill="var(--muted)" letter-spacing=".08">AI AGENTS</text>
+<rect x="0" y="174" width="1232" height="72" fill="var(--surface)"/>
+<line x1="0" y1="174" x2="1232" y2="174" stroke="var(--line)"/>
+<text x="12" y="214" font-size="11" font-weight="700" fill="var(--muted)" letter-spacing=".08">PARTNER · CONTRACTOR</text>
+<line x1="0" y1="246" x2="1232" y2="246" stroke="var(--line)"/>
+<path d="M322 66 H326 V138 H329" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp4)"/>
+<path d="M502 138 H506 V210 H509" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp4)"/>
+<path d="M682 210 H686 V66 H689" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp4)"/>
+<path d="M862 66 H866 V210 H869" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp4)"/>
+<path d="M1042 210 H1046 V66 H1049" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp4)"/>
+<rect x="150" y="37" width="172" height="58" rx="3" fill="var(--p4-soft)" stroke="var(--p4)" stroke-width="1.2"/>
+<text x="160" y="54" font-size="12" font-weight="700" fill="var(--ink)">1 · Secure the property</text>
+<text x="160" y="70" font-size="10.5" fill="var(--ink-2)">artist dates, venues, rights</text>
+<text x="160" y="84" font-size="10.5" fill="var(--ink-2)">in writing</text>
+<rect x="330" y="109" width="172" height="58" rx="3" fill="var(--p4-soft)" stroke="var(--p4)" stroke-width="1.2"/>
+<text x="340" y="126" font-size="12" font-weight="700" fill="var(--ink)">2 · Package</text>
+<text x="340" y="142" font-size="10.5" fill="var(--ink-2)">rate card and deck from the</text>
+<text x="340" y="156" font-size="10.5" fill="var(--ink-2)">proposal skill; Lan prices</text>
+<rect x="510" y="181" width="172" height="58" rx="3" fill="var(--p4-soft)" stroke="var(--p4)" stroke-width="1.2"/>
+<text x="520" y="198" font-size="12" font-weight="700" fill="var(--ink)">3 · Introduce</text>
+<text x="520" y="214" font-size="10.5" fill="var(--ink-2)">partner opens doors to</text>
+<text x="520" y="228" font-size="10.5" fill="var(--ink-2)">automotive and robotics brands</text>
+<rect x="690" y="37" width="172" height="58" rx="3" fill="var(--p4-soft)" stroke="var(--p4)" stroke-width="1.2"/>
+<text x="700" y="54" font-size="12" font-weight="700" fill="var(--ink)">4 · Pitch and close</text>
+<text x="700" y="70" font-size="10.5" fill="var(--ink-2)">three tiers, category</text>
+<text x="700" y="84" font-size="10.5" fill="var(--ink-2)">exclusivity, 50% on signature</text>
+<rect x="870" y="181" width="172" height="58" rx="3" fill="var(--p4-soft)" stroke="var(--p4)" stroke-width="1.2"/>
+<text x="880" y="198" font-size="12" font-weight="700" fill="var(--ink)">5 · Deliver</text>
+<text x="880" y="214" font-size="10.5" fill="var(--ink-2)">production, hospitality</text>
+<text x="880" y="228" font-size="10.5" fill="var(--ink-2)">sponsor content cut-downs</text>
+<rect x="1050" y="37" width="172" height="58" rx="3" fill="var(--p4-soft)" stroke="var(--p4)" stroke-width="1.2"/>
+<text x="1060" y="54" font-size="12" font-weight="700" fill="var(--ink)">6 · Renew</text>
+<text x="1060" y="70" font-size="10.5" fill="var(--ink-2)">first refusal on the next</text>
+<text x="1060" y="84" font-size="10.5" fill="var(--ink-2)">tour; salon series</text>
+<path d="M1136 95 V264 H236 V96" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#mp4)"/>
+<text x="686" y="278" font-size="10.5" text-anchor="middle" fill="var(--accent)" font-weight="600">every concert yields content for Editorial and a guest list for Community</text>
+</svg>
+<figcaption>Workflow P4. Boxes sit in the lane of whoever does the work; the dashed red return is the loop that feeds the next pillar.</figcaption>
+</figure>
+<div class="meta"><div><b>Cadence</b><p>One flagship tour a year, four executive salons a year on the same stages, one sponsor dinner per city.</p></div><div><b>Targets and unit economics</b><p>Year 1: one presenting partner and two official partners. Fragrant Hill margin 20–30% of gross sponsorship plus production fees.</p></div></div>
+</section>
+<section class="wf" style="--pc:var(--p5)">
+<div class="eyebrow">P5 · Acceleration</div>
+<h2>From deal flow to carry, without running a fund.</h2>
+<p class="problem">Deal flow is a by-product of the other four pillars. Economics sit in the partner&#x27;s fund and in programme fees, so this pillar carries no fixed cost.</p>
+<figure>
+<svg viewBox="0 0 1232 284" role="img" aria-label="Swimlane workflow for Acceleration: Scout, Screen, Soft-landing programme, Match, Economics" xmlns="http://www.w3.org/2000/svg" font-family="Archivo, system-ui, sans-serif">
+<defs><marker id="mp5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--ink-2)"/></marker></defs>
+<rect x="0" y="30" width="1232" height="72" fill="var(--surface)"/>
+<line x1="0" y1="30" x2="1232" y2="30" stroke="var(--line)"/>
+<text x="12" y="70" font-size="11" font-weight="700" fill="var(--muted)" letter-spacing=".08">LAN · HUMAN</text>
+<rect x="0" y="102" width="1232" height="72" fill="var(--bg)"/>
+<line x1="0" y1="102" x2="1232" y2="102" stroke="var(--line)"/>
+<text x="12" y="142" font-size="11" font-weight="700" fill="var(--muted)" letter-spacing=".08">AI AGENTS</text>
+<rect x="0" y="174" width="1232" height="72" fill="var(--surface)"/>
+<line x1="0" y1="174" x2="1232" y2="174" stroke="var(--line)"/>
+<text x="12" y="214" font-size="11" font-weight="700" fill="var(--muted)" letter-spacing=".08">PARTNER · CONTRACTOR</text>
+<line x1="0" y1="246" x2="1232" y2="246" stroke="var(--line)"/>
+<path d="M322 210 H326 V138 H329" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp5)"/>
+<path d="M502 138 H506 V66 H509" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp5)"/>
+<path d="M682 66 H686 V210 H689" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp5)"/>
+<path d="M862 210 H866 V66 H869" fill="none" stroke="var(--ink-2)" stroke-width="1.2" marker-end="url(#mp5)"/>
+<rect x="150" y="181" width="172" height="58" rx="3" fill="var(--p5-soft)" stroke="var(--p5)" stroke-width="1.2"/>
+<text x="160" y="198" font-size="12" font-weight="700" fill="var(--ink)">1 · Scout</text>
+<text x="160" y="214" font-size="10.5" fill="var(--ink-2)">partner cohorts; 500+ founders</text>
+<rect x="330" y="109" width="172" height="58" rx="3" fill="var(--p5-soft)" stroke="var(--p5)" stroke-width="1.2"/>
+<text x="340" y="126" font-size="12" font-weight="700" fill="var(--ink)">2 · Screen</text>
+<text x="340" y="142" font-size="10.5" fill="var(--ink-2)">scorecard against Nordic</text>
+<text x="340" y="156" font-size="10.5" fill="var(--ink-2)">demand, pilot readiness</text>
+<rect x="510" y="37" width="172" height="58" rx="3" fill="var(--p5-soft)" stroke="var(--p5)" stroke-width="1.2"/>
+<text x="520" y="54" font-size="12" font-weight="700" fill="var(--ink)">3 · Soft-landing programme</text>
+<text x="520" y="70" font-size="10.5" fill="var(--ink-2)">Nordic intros, dealers</text>
+<text x="520" y="84" font-size="10.5" fill="var(--ink-2)">pilots, press</text>
+<rect x="690" y="181" width="172" height="58" rx="3" fill="var(--p5-soft)" stroke="var(--p5)" stroke-width="1.2"/>
+<text x="700" y="198" font-size="12" font-weight="700" fill="var(--ink)">4 · Match</text>
+<text x="700" y="214" font-size="10.5" fill="var(--ink-2)">investors and corporates from</text>
+<text x="700" y="228" font-size="10.5" fill="var(--ink-2)">the shared CRM</text>
+<rect x="870" y="37" width="172" height="58" rx="3" fill="var(--p5-soft)" stroke="var(--p5)" stroke-width="1.2"/>
+<text x="880" y="54" font-size="12" font-weight="700" fill="var(--ink)">5 · Economics</text>
+<text x="880" y="70" font-size="10.5" fill="var(--ink-2)">programme fee, scout fee</text>
+<text x="880" y="84" font-size="10.5" fill="var(--ink-2)">carry via partner</text>
+<path d="M956 95 V264 H236 V240" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#mp5)"/>
+<text x="596" y="278" font-size="10.5" text-anchor="middle" fill="var(--accent)" font-weight="600">portfolio founders become the next interviews and the next salon speakers</text>
+</svg>
+<figcaption>Workflow P5. Boxes sit in the lane of whoever does the work; the dashed red return is the loop that feeds the next pillar.</figcaption>
+</figure>
+<div class="meta"><div><b>Cadence</b><p>One cohort a year of 6–8 companies, timed with the Stockholm salon and a Live stage.</p></div><div><b>Targets and unit economics</b><p>Programme fee €15–25k per company, scout fee 2–5% of round, carry negotiated with the partner. First cohort in year 2.</p></div></div>
+</section>
+
+<h2 class="sec">Stack map · skills, connectors and agents by pillar</h2>
+<div class="twrap">
+<table>
+<thead><tr><th>Pillar</th><th>Claude skills (built / to build)</th><th>Connectors and tools</th><th>Agents (what runs unattended)</th><th>Human</th><th>Partner / contractor</th></tr></thead>
+<tbody>
+<tr><td><span class="dot" style="background:var(--p1)"></span>1 Editorial</td><td>fh-content-pipeline (built) · fh-design-system (built) · fh-guest-brief (to build)</td><td>Riverside, Descript, OpusClip, CapCut, HeyGen, ElevenLabs, Beehiiv, YouTube, LinkedIn, 微信公众号, 视频号, Bilibili, Metricool</td><td>Researcher: guest memo and questions · Producer: transcript, cuts, dubs · Publisher: six-channel scheduling and captions · Analyst: weekly numbers</td><td>Host, editor-in-chief, final cut approval, sponsor relationship</td><td>Part-time video editor for flagship episodes; Chinese-language QA</td></tr>
+<tr><td><span class="dot" style="background:var(--p2)"></span>2 Advisory</td><td>fh-advisory-report (to build) · fh-meeting-prep (to build, extends the interview-prep work already in this repo)</td><td>Claude Projects, NotebookLM, Perplexity, Elicit, Google Drive, Attio CRM, expert-network calls</td><td>Digester: reads partner reports and client docs into a sourced brief · Modeller: first-draft market sizing and supplier maps · Scheduler: follow-ups</td><td>Thesis, client workshop, pricing, sign-off</td><td>Partner data and analysts; freelance designer for report layout</td></tr>
+<tr><td><span class="dot" style="background:var(--p3)"></span>3 Community</td><td>fh-member-digest (to build) · fh-salon-runbook (to build)</td><td>Circle (EU), 知识星球 and 小鹅通 (China), Luma, Stripe, 企业微信, Attio</td><td>Concierge: onboarding, monthly digest, event reminders · Scorer: engagement and renewal flags</td><td>Vetting calls, salon host, renewals with the top 20</td><td>Community coordinator (part-time), trip logistics agency</td></tr>
+<tr><td><span class="dot" style="background:var(--p4)"></span>4 Live &amp; Encore</td><td>fh-sponsorship-proposal (built) · fh-sponsor-recap (to build)</td><td>Attio pipeline, Passionfroot inbound, Luma, DocuSign, venue and artist management contacts, Descript for sponsor cut-downs</td><td>Sales desk: rate card, deck, follow-up sequence, pipeline hygiene · Producer: sponsor content cut-downs within 72 hours of the show</td><td>Artist and venue relationship, pricing, pitch, close</td><td>Partner introductions to sponsors; production company; hospitality caterer</td></tr>
+<tr><td><span class="dot" style="background:var(--p5)"></span>5 Acceleration</td><td>fh-founder-scorecard (to build) · fh-soft-landing-plan (to build)</td><td>Attio, partner cohort data, Business Sweden and Nordic investor lists, Luma</td><td>Screener: scorecard per company · Matcher: investor and corporate shortlist from the CRM</td><td>Programme design, Nordic introductions, negotiation of economics</td><td>Partner's cohorts and fund; Nordic law firm and accountant for landing</td></tr>
+<tr><td>All pillars</td><td>fh-english-coach (built, for every document and speech)</td><td>n8n or Zapier as glue; Google Drive as archive; one shared Attio</td><td>Finance clerk: invoices, collections, monthly P&amp;L by pillar</td><td>Lan: 60% Editorial and Live, 30% Advisory, 10% the rest in year one</td><td>Swedish accountant; Chinese partner entity for fapiao</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 class="sec">Operating calendar</h2>
+<div class="cal">
+  <div><b>Weekly</b>Monday: plan and pipeline review (30 min). Tuesday: record two guests. Thursday: review AI cuts, approve. Friday: publish in six channels, send sponsor follow-ups.</div>
+  <div><b>Monthly</b>One salon on a Live stage (60–100 guests, 2–3 sponsors). One sponsor recap. One member digest. One P&amp;L by pillar.</div>
+  <div><b>Quarterly</b>One editorial season closes and the next opens. One co-branded report. One executive dinner per market. Board-style review with the partner.</div>
+  <div><b>Yearly</b>One flagship tour (Encore). One study trip in each direction. One cohort of founders. One "Requests for Companies" list published.</div>
+</div>
+
+<h2 class="sec">Team shape · year one</h2>
+<div class="team">
+  <div><b>Lan Wu · founder</b>Editor-in-chief, host, commercial lead. The only full-time human. Benchmarks for AI-native houses run <span class="num">$150–450k</span> revenue per head (Every, Not Boring, The Rundown).</div>
+  <div><b>Contractors · 1.5 FTE equivalent</b>Part-time producer-editor, part-time community coordinator, designer on call, Chinese-language QA. Paid per deliverable, not per month.</div>
+  <div><b>Agents · six roles</b>Researcher, Producer, Publisher, Sales desk, Concierge, Finance clerk. Built on the skills in this repo and the Claude Agent SDK; monthly cost below one junior salary.</div>
+</div>
+
+<div class="foot"><span>Tool prices and benchmarks: framework/research/04-ai-operating-stack-and-benchmarks.md</span><span>Reads with: 1 Benchmark · 2 Architecture · 4 Encore proposal · 5 Partner pitch</span></div>
+</div>

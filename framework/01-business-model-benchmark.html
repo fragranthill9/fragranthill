@@ -1,0 +1,232 @@
+<title>Fragrant Hill Benchmark</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400&display=swap">
+<style>
+/* Layout: header band, thesis, four stat tiles, two figures side by side on desktop, a dense benchmark table, six rules. */
+:root{
+  --bg:#F4F4F1; --surface:#FFFFFF; --ink:#16191D; --ink-2:#4B5159; --muted:#7A808A; --line:#DADBD6; --line-2:#EBECE8;
+  --accent:#B42318; --accent-soft:#F7E4E1;
+  --p1:#B42318; --p2:#1D4ED8; --p3:#0E9F8A; --p4:#C2410C; --p5:#7C3AED; --amber:#D97706;
+  --p1-soft:#F8E6E3; --p2-soft:#E3EAFB; --p3-soft:#DDF3EF; --p4-soft:#FAE7DE; --p5-soft:#EEE5FB;
+  --display:"Archivo",system-ui,sans-serif; --body:"Source Serif 4",Georgia,serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#121416; --surface:#1B1E22; --ink:#ECEDE9; --ink-2:#B9BDC3; --muted:#858B94; --line:#2E3338; --line-2:#24282D;
+  --accent:#E0523F; --accent-soft:#3A1F1C;
+  --p1:#E0523F; --p2:#5B8CFF; --p3:#2BBFA7; --p4:#F0763B; --p5:#A77BFF; --amber:#F0A030;
+  --p1-soft:#33201E; --p2-soft:#1C2740; --p3-soft:#17302C; --p4-soft:#36251B; --p5-soft:#2A2238; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#121416; --surface:#1B1E22; --ink:#ECEDE9; --ink-2:#B9BDC3; --muted:#858B94; --line:#2E3338; --line-2:#24282D;
+  --accent:#E0523F; --accent-soft:#3A1F1C;
+  --p1:#E0523F; --p2:#5B8CFF; --p3:#2BBFA7; --p4:#F0763B; --p5:#A77BFF; --amber:#F0A030;
+  --p1-soft:#33201E; --p2-soft:#1C2740; --p3-soft:#17302C; --p4-soft:#36251B; --p5-soft:#2A2238; color-scheme:dark }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+.sheet{max-width:1240px;margin:0 auto}
+header{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:flex-end;justify-content:space-between;padding:28px 0 18px;border-bottom:2px solid var(--ink)}
+.brand{display:flex;align-items:center;gap:14px}
+.seal{width:44px;height:44px;border:2px solid var(--accent);color:var(--accent);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:15px;border-radius:4px}
+.brand b{font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.08em;text-transform:uppercase;display:block}
+.brand span{color:var(--muted);font-size:13px;font-family:var(--display)}
+.doc{font-family:var(--display);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:right}
+.doc b{color:var(--ink);display:block;font-size:13px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(28px,4vw,46px);line-height:1.02;letter-spacing:-.02em;margin:28px 0 8px;text-wrap:balance;max-width:22ch}
+.lede{font-size:17px;max-width:66ch;color:var(--ink-2);margin:0 0 22px}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 24px}
+.tile{background:var(--surface);border:1px solid var(--line);padding:14px 16px 12px}
+.tile .n{font-family:var(--display);font-weight:800;font-size:34px;letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums}
+.tile .l{font-family:var(--display);font-size:12.5px;color:var(--ink-2);margin-top:8px;line-height:1.35}
+.tile .s{font-family:var(--display);font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:.02em}
+.figs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+figure{margin:0;background:var(--surface);border:1px solid var(--line);padding:16px;overflow-x:auto;min-width:0}
+figure h2{font-family:var(--display);font-size:14px;margin:0 0 2px;font-weight:700}
+figure .sub{font-family:var(--display);font-size:12px;color:var(--muted);margin:0 0 10px}
+figure svg{display:block;width:100%;height:auto;min-width:520px}
+figcaption{font-family:var(--display);font-size:12px;color:var(--muted);margin-top:10px;line-height:1.4}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--display);font-size:12px;color:var(--ink-2);margin:0 0 10px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+h2.sec{font-family:var(--display);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:30px 0 10px;padding-top:10px;border-top:2px solid var(--accent)}
+.twrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-family:var(--display);font-size:12.5px;min-width:900px}
+th{text-align:left;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:8px 8px;border-bottom:2px solid var(--ink)}
+td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+td:first-child{color:var(--ink);font-weight:700;white-space:nowrap}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tag{display:inline-block;padding:1px 6px;border-radius:3px;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-right:4px}
+.tag.r{background:var(--p1-soft);color:var(--p1)} .tag.e{background:var(--line-2);color:var(--ink-2)}
+.rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 28px}
+.rules p{margin:0;color:var(--ink-2);font-size:14.5px}
+.rules b{display:block;color:var(--ink);font-family:var(--display);font-size:14px;margin-bottom:4px}
+.foot{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--display);font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+@media (max-width:900px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.figs{grid-template-columns:1fr}.rules{grid-template-columns:1fr}.doc{text-align:left}}
+</style>
+
+<div class="sheet">
+<header>
+  <div class="brand"><div class="seal">香山</div><div><b>Fragrant Hill Studio</b><span>Editorial house · Stockholm · Europe ↔ China</span></div></div>
+  <div class="doc"><b>Document 1 of 5 · Business model benchmark</b>One-pager · v1.0 · November 2026</div>
+</header>
+
+<h1>The money is never in the content. It is in the room the content opens.</h1>
+<p class="lede">We benchmarked twenty-four media businesses that turned a voice into profit: celebrity houses, creator channels, venture-capital media, premium journalism, data platforms, event companies and paid clubs, in the United States, Europe and China. The pattern is consistent. Free editorial earns trust; the profit sits in a high-ticket product next to it: a sponsored tentpole, a data product, a vetted room.</p>
+
+<div class="tiles">
+  <div class="tile"><div class="n">50–60%</div><div class="l">of Semafor's revenue is event sponsorship. First profitable year in 2025 on $40M revenue with 1.2M free subscribers.</div><div class="s">Reported · Semafor, Nieman Lab</div></div>
+  <div class="tile"><div class="n">&lt;5%</div><div class="l">of SemiAnalysis revenue comes from its $500 newsletter. Research models and consulting carry a business heading past $100M.</div><div class="s">Estimated · The Information</div></div>
+  <div class="tile"><div class="n">90%</div><div class="l">of a Chinese business pundit's year-end show revenue is sponsorship. Tickets are the other 10%.</div><div class="s">Reported · 36Kr on 吴晓波年终秀</div></div>
+  <div class="tile"><div class="n">0.62%</div><div class="l">median free-to-paid conversion for newsletters. Subscriptions alone do not fund a small house.</div><div class="s">Reported · Beehiiv State of Paid Newsletters 2026</div></div>
+</div>
+
+<div class="figs">
+<figure>
+  <h2>Where the revenue actually comes from</h2>
+  <p class="sub">Approximate revenue mix, latest year available, share of total</p>
+  <div class="legend"><span><i style="background:var(--p1)"></i>Sponsorship &amp; advertising</span><span><i style="background:var(--p3)"></i>Subscriptions &amp; memberships</span><span><i style="background:var(--p2)"></i>Data, advisory &amp; products</span><span><i style="background:var(--amber)"></i>Events &amp; hospitality</span></div>
+  <svg viewBox="0 0 960 360" role="img" aria-label="Stacked bars of revenue mix for eight media businesses: Semafor is majority events, Puck majority ads, The Information majority subscriptions, SemiAnalysis majority data and consulting, 36Kr majority ads, Dedao majority subscriptions, the Wu Xiaobo year-end show majority sponsorship, Silicon Valley Girl majority products." xmlns="http://www.w3.org/2000/svg" font-family="Archivo, system-ui, sans-serif">
+    <g font-size="12.5" fill="var(--ink)" font-weight="600" text-anchor="end">
+      <text x="200" y="56">Semafor · 2025</text>
+      <text x="200" y="96">Puck · 2025</text>
+      <text x="200" y="136">The Information</text>
+      <text x="200" y="176">SemiAnalysis · 2025</text>
+      <text x="200" y="216">36Kr · 2024</text>
+      <text x="200" y="256">得到 Dedao · 2021</text>
+      <text x="200" y="296">吴晓波年终秀 · show</text>
+      <text x="200" y="336">Silicon Valley Girl</text>
+    </g>
+    <!-- baseline -->
+    <line x1="210" y1="30" x2="210" y2="348" stroke="var(--line)"/>
+    <g>
+      <rect x="210" y="40" width="268" height="24" fill="var(--p1)"/><rect x="480" y="40" width="330" height="24" fill="var(--amber)"/>
+      <rect x="210" y="80" width="376" height="24" fill="var(--p1)"/><rect x="588" y="80" width="222" height="24" fill="var(--p3)"/>
+      <rect x="210" y="120" width="58" height="24" fill="var(--p1)"/><rect x="270" y="120" width="540" height="24" fill="var(--p3)"/>
+      <rect x="210" y="160" width="28" height="24" fill="var(--p3)"/><rect x="240" y="160" width="570" height="24" fill="var(--p2)"/>
+      <rect x="210" y="200" width="466" height="24" fill="var(--p1)"/><rect x="678" y="200" width="46" height="24" fill="var(--p3)"/><rect x="726" y="200" width="84" height="24" fill="var(--p2)"/>
+      <rect x="210" y="240" width="382" height="24" fill="var(--p3)"/><rect x="594" y="240" width="94" height="24" fill="var(--p2)"/><rect x="690" y="240" width="120" height="24" fill="var(--amber)"/>
+      <rect x="210" y="280" width="538" height="24" fill="var(--p1)"/><rect x="750" y="280" width="60" height="24" fill="var(--amber)"/>
+      <rect x="210" y="320" width="118" height="24" fill="var(--p1)"/><rect x="330" y="320" width="480" height="24" fill="var(--p2)"/>
+    </g>
+    <g font-size="12" fill="var(--ink-2)" font-variant-numeric="tabular-nums">
+      <text x="822" y="56">events 55%</text>
+      <text x="822" y="96">ads 63%</text>
+      <text x="822" y="136">subs 90%</text>
+      <text x="822" y="176">data 95%</text>
+      <text x="822" y="216">ads 78%</text>
+      <text x="822" y="256">subs 64%</text>
+      <text x="822" y="296">sponsors 90%</text>
+      <text x="822" y="336">products 80%</text>
+    </g>
+  </svg>
+  <figcaption>Figure 1. Shares are rounded from reported figures (Semafor, The Information, 36Kr filings, Dedao prospectus, 36Kr on the year-end show) and estimates (Puck via A Media Operator; SemiAnalysis via The Information; Silicon Valley Girl self-reported). Table below carries the sources.</figcaption>
+</figure>
+
+<figure>
+  <h2>Where each model lives, and where we are going</h2>
+  <p class="sub">Audience needed (log scale) against revenue per paying customer per year (log scale)</p>
+  <svg viewBox="0 0 900 460" role="img" aria-label="Scatter map: access businesses such as Hampton, SemiAnalysis and Semafor convenings sit top-left with small audiences and high ticket; tentpole sponsorship models sit top-right; mass media and funnels sit bottom-right; Fragrant Hill today sits bottom-left and the target position is top-left." xmlns="http://www.w3.org/2000/svg" font-family="Archivo, system-ui, sans-serif">
+    <defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker></defs>
+    <!-- quadrants -->
+    <line x1="450" y1="30" x2="450" y2="410" stroke="var(--line)"/>
+    <line x1="40" y1="220" x2="860" y2="220" stroke="var(--line)"/>
+    <line x1="40" y1="410" x2="860" y2="410" stroke="var(--ink-2)"/>
+    <line x1="40" y1="30" x2="40" y2="410" stroke="var(--ink-2)"/>
+    <g font-size="11" fill="var(--muted)" font-weight="600" letter-spacing=".08">
+      <text x="48" y="44">ACCESS BUSINESSES · few customers, high ticket</text>
+      <text x="852" y="44" text-anchor="end">TENTPOLE SPONSORSHIP · mass audience, one big cheque</text>
+      <text x="48" y="404">DEAD ZONE · small audience, low price</text>
+      <text x="852" y="404" text-anchor="end">MASS MEDIA AND FUNNELS · scale or die</text>
+    </g>
+    <g font-size="11" fill="var(--muted)">
+      <text x="450" y="432" text-anchor="middle">Audience needed →   1k · 10k · 100k · 1M · 10M</text>
+      <text x="22" y="220" text-anchor="middle" transform="rotate(-90 22 220)">Revenue per customer / year →   €10 · €100 · €1k · €10k · €100k</text>
+    </g>
+    <!-- dots: r=6 with 2px surface ring -->
+    <g stroke="var(--surface)" stroke-width="2">
+      <circle cx="849" cy="362" r="6" fill="var(--p3)"/>
+      <circle cx="696" cy="386" r="6" fill="var(--p1)"/>
+      <circle cx="404" cy="320" r="6" fill="var(--p1)"/>
+      <circle cx="341" cy="264" r="6" fill="var(--p3)"/>
+      <circle cx="332" cy="306" r="6" fill="var(--p3)"/>
+      <circle cx="587" cy="296" r="6" fill="var(--p3)"/>
+      <circle cx="492" cy="80" r="6" fill="var(--p2)"/>
+      <circle cx="423" cy="136" r="6" fill="var(--p2)"/>
+      <circle cx="168" cy="146" r="6" fill="var(--p3)"/>
+      <circle cx="204" cy="192" r="6" fill="var(--p3)"/>
+      <circle cx="601" cy="90" r="6" fill="var(--amber)"/>
+      <circle cx="685" cy="44" r="6" fill="var(--p1)"/>
+      <circle cx="769" cy="52" r="6" fill="var(--p1)"/>
+      <circle cx="641" cy="395" r="6" fill="var(--muted)"/>
+      <circle cx="459" cy="216" r="6" fill="var(--amber)"/>
+      <circle cx="52" cy="392" r="6" fill="var(--accent)"/>
+      <circle cx="222" cy="104" r="8" fill="var(--accent)"/>
+    </g>
+    <g font-size="11" fill="var(--ink-2)">
+      <text x="840" y="366" text-anchor="end">得到 Dedao</text>
+      <text x="704" y="378">Morning Brew</text>
+      <text x="412" y="324">Puck</text>
+      <text x="349" y="260">The Information</text>
+      <text x="340" y="318">Stratechery</text>
+      <text x="595" y="300">Lenny's</text>
+      <text x="500" y="84">SemiAnalysis</text>
+      <text x="431" y="140">PitchBook</text>
+      <text x="176" y="150">Hampton</text>
+      <text x="212" y="196">正和岛 Zhenghedao</text>
+      <text x="609" y="94">Semafor convenings</text>
+      <text x="677" y="64" text-anchor="end">吴晓波年终秀 · 时间的朋友</text>
+      <text x="777" y="68">The Circuit (one season sponsor)</text>
+      <text x="649" y="384">a16z · YC: €0 direct, a funnel</text>
+      <text x="467" y="212">Latent Space → AI Engineer</text>
+      <text x="62" y="380" fill="var(--accent)" font-weight="700">Fragrant Hill today</text>
+    </g>
+    <text x="236" y="100" font-size="12" fill="var(--accent)" font-weight="700">Fragrant Hill target: Encore + Advisory + Club</text>
+    <path d="M60 384 C 120 300, 150 200, 212 112" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-dasharray="4 4" marker-end="url(#ar2)"/>
+  </svg>
+  <figcaption>Figure 2. Positions are indicative, placed from reported audience and price points in the table below. The move for Fragrant Hill is vertical, not horizontal: raise the ticket before chasing the audience.</figcaption>
+</figure>
+</div>
+
+<h2 class="sec">Twenty-four models, one table</h2>
+<div class="twrap">
+<table>
+  <thead><tr><th>Business</th><th>Type</th><th>The ritual people pay to stand beside</th><th>Revenue engine</th><th>Headline number</th><th>What Fragrant Hill takes</th></tr></thead>
+  <tbody>
+    <tr><td>Hello Sunshine</td><td>Celebrity house (US)</td><td>Monthly book pick</td><td>IP options, production fees, brand deals</td><td class="n"><span class="tag r">R</span>$900M valuation 2021 → bought back for low eight figures 2026</td><td>The cheap curatorial ritual outlived the studio. Do not build overhead.</td></tr>
+    <tr><td>Service95</td><td>Celebrity newsletter (UK)</td><td>Weekly letter, monthly book</td><td>Platform partnerships (BBC, Spotify)</td><td class="n"><span class="tag e">E</span>No figures public</td><td>Free, voice-led, one ritual, then distribution deals.</td></tr>
+    <tr><td>TeaTime Pictures</td><td>Celebrity production (US)</td><td>Curated book club</td><td>Studio first-look fees</td><td class="n"><span class="tag r">R</span>Sony TV first-look 2025</td><td>Sell a first-look to a bigger house to cover fixed costs.</td></tr>
+    <tr><td>The Circuit (Emily Chang)</td><td>Access interview show</td><td>Founder sit-down per episode</td><td>One presenting sponsor per season</td><td class="n"><span class="tag r">R</span>AT&amp;T Business, seasons 3–5</td><td>One title sponsor, every free window. Access is the product.</td></tr>
+    <tr><td>Silicon Valley Girl</td><td>Creator (US)</td><td>Weekly video</td><td>Courses, marketplace; ads under 20%</td><td class="n"><span class="tag r">R</span>$1.7M for 5% of 30-year earnings; ~$5.4M 2025 guide</td><td>Own the transaction, not the ad slot.</td></tr>
+    <tr><td>Unwell / Call Her Daddy</td><td>Podcast network</td><td>Weekly show</td><td>Platform guarantees, ads, agency</td><td class="n"><span class="tag r">R</span>$125M SiriusXM 2024; $500M pre-money 2026</td><td>Platforms pay 2–3× annual ad revenue for exclusivity.</td></tr>
+    <tr><td>Goop</td><td>Media to commerce</td><td>Weekly newsletter</td><td>Beauty, product margin</td><td class="n"><span class="tag e">E</span>~$51–53M revenue 2025; not profitable</td><td>Newsletter is the funnel; only owned product margin survived.</td></tr>
+    <tr><td>a16z New Media</td><td>VC-owned</td><td>Daily newsletter, podcasts</td><td>None direct: deal flow</td><td class="n"><span class="tag r">R</span>250k subs, ~1M downloads/month</td><td>Owner-voiced beats neutral. Content pays in deals, not ads.</td></tr>
+    <tr><td>Y Combinator</td><td>Accelerator media</td><td>Requests for Startups</td><td>None direct: application funnel</td><td class="n"><span class="tag e">E</span>~2.2M YouTube subs</td><td>Publish our own "requests for companies" as a lead magnet.</td></tr>
+    <tr><td>Morning Brew</td><td>Newsletter group</td><td>Daily email</td><td>Ads, B2B verticals, events</td><td class="n"><span class="tag r">R</span>B2B brands $25M (2024); 2025 &gt;$70M</td><td>Vertical B2B outgrew the consumer flagship.</td></tr>
+    <tr><td>Axios</td><td>Newsletter + Pro</td><td>Smart-brevity daily</td><td>Ads, Pro subs $599–2,499, events</td><td class="n"><span class="tag r">R</span>Cox paid $525M (2022), ~5× revenue</td><td>Niche deal-flow newsletters at €600–2,500 work.</td></tr>
+    <tr><td>Semafor</td><td>Newsletter to events</td><td>Invite-only CEO Signal, convenings</td><td>Event sponsorship 50–60%, ads</td><td class="n"><span class="tag r">R</span>$40M revenue, $2M EBITDA 2025</td><td>Fastest path to profit for a small team: free C-suite list, sponsored rooms.</td></tr>
+    <tr><td>Puck</td><td>Writer-owned subs</td><td>Named-byline franchises</td><td>Ads majority, subs $100–250</td><td class="n"><span class="tag e">E</span>$11.5M ads vs $6.8M subs</td><td>Even subscription brands end up ad-majority.</td></tr>
+    <tr><td>The Information</td><td>Premium journalism</td><td>Daily scoops</td><td>Subs over 90%; Pro data tier</td><td class="n"><span class="tag r">R</span>$399 → $499; Pro $749–999; ~45k payers</td><td>Two-tier ladder: individual, then a 2× Pro tier with databases.</td></tr>
+    <tr><td>SemiAnalysis</td><td>Analyst house</td><td>Deep-dive newsletter</td><td>Research models, consulting; subs &lt;5%</td><td class="n"><span class="tag e">E</span>~$20M 2025, &gt;$100M projected 2026</td><td>Closest comp. The newsletter is the marketing budget.</td></tr>
+    <tr><td>PitchBook</td><td>Data platform</td><td>Free daily newsletters</td><td>Enterprise seats</td><td class="n"><span class="tag r">R</span>$618M revenue, 107% net renewal (2024)</td><td>Free news on top, seat-based data underneath.</td></tr>
+    <tr><td>Bloomberg Media / FT Live</td><td>Legacy premium</td><td>Flagship forums</td><td>Subs, ads, events</td><td class="n"><span class="tag r">R</span>Live sponsorship +30% (Bloomberg FY25); FT Live ~£60M, +61% (2025)</td><td>Events are the fastest-growing line even at scale.</td></tr>
+    <tr><td>36Kr</td><td>Chinese tech media</td><td>Daily news, conferences</td><td>Ads 78%, enterprise services 14%, subs 8%</td><td class="n"><span class="tag r">R</span>RMB 231M revenue, loss RMB 141M (2024)</td><td>An ads-heavy mix is fragile. Do not copy.</td></tr>
+    <tr><td>得到 Dedao / 罗振宇</td><td>Knowledge platform</td><td>New Year speech 时间的朋友</td><td>Online courses 64%, offline 20%, products 16%</td><td class="n"><span class="tag r">R</span>RMB 843M revenue, 125M profit (2021); 45M speech viewers 2026</td><td>A sponsored annual tentpole plus a membership ladder.</td></tr>
+    <tr><td>吴晓波频道</td><td>Pundit channel</td><td>Year-end show</td><td>Training, membership ¥2,980, sponsorship</td><td class="n"><span class="tag r">R</span>~RMB 300M/yr; show 90% sponsors</td><td>The live event is sponsor money. Fatigue sets in when the founder's forecasts miss.</td></tr>
+    <tr><td>Latent Space</td><td>Engineer newsletter</td><td>AI Engineer conference</td><td>Conference tickets and sponsors</td><td class="n"><span class="tag r">R</span>200k+ subs; 1 event 2023 → 7 planned 2026</td><td>Free content, paid room.</td></tr>
+    <tr><td>Slush / Web Summit</td><td>Event companies</td><td>Annual conference</td><td>Tickets, partners, pavilions</td><td class="n"><span class="tag r">R</span>Web Summit €79M turnover, €3.7M profit (2024)</td><td>Scale events are 5% margin. Copy the price ladder, not the scale.</td></tr>
+    <tr><td>Hampton / 正和岛</td><td>Vetted founder clubs</td><td>Peer group, retreats</td><td>Dues</td><td class="n"><span class="tag e">E</span>$15k/yr + $2.5k (2026); RMB 30k/yr with revenue bar</td><td>Vetting is the product. Price can double in three years.</td></tr>
+    <tr><td>Chief / YPO / Pavilion</td><td>Executive networks</td><td>Chapter forums</td><td>Dues $1.4k–9k</td><td class="n"><span class="tag r">R</span>Chief $5–8.9k; YPO global + chapter</td><td>€1.4–2.7k is the company-expensable sweet spot.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 class="sec">Six rules we take into the Fragrant Hill design</h2>
+<div class="rules">
+  <p><b>1. One ritual, not random content.</b> Every durable model has a single repeatable thing a sponsor or platform pays to stand beside. Ours is the interview series and the annual stage.</p>
+  <p><b>2. Sell the room before the reach.</b> Semafor, FT Live, Bloomberg Live and the Chinese year-end shows all monetise access. Sponsorship of a live property needs introductions, not followers.</p>
+  <p><b>3. Build a SemiAnalysis, not a Stratechery.</b> In a B2B niche the newsletter is marketing. The profit is in data, reports and advisory priced at €20k and up.</p>
+  <p><b>4. Two-tier everything.</b> The Information, Dedao and YPO all run a base tier and a 2–5× premium tier. Membership at €400 and a vetted club at €4–8k.</p>
+  <p><b>5. Media as deal flow is real, but it is last.</b> a16z and YC absorb media costs in fund economics. We earn that right after the first four pillars pay for themselves.</p>
+  <p><b>6. Keep overhead near zero.</b> Hello Sunshine, Goop and Chief all cut staff. Every.to runs $3M on 15–25 people with AI doing production. That is our operating model.</p>
+</div>
+
+<div class="foot"><span>Sources: company filings, press releases, Axios, Nieman Lab, Press Gazette, A Media Operator, 36Kr, Beehiiv. Full notes in framework/research/.</span><span>Reads with: 2 Architecture · 3 Operating system · 4 Encore proposal · 5 Partner pitch</span></div>
+</div>
